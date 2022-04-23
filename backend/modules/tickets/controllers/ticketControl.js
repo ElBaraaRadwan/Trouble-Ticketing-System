@@ -30,7 +30,6 @@ const createTicket = async(req, res, next) => {
         const oneDay = 1000 * 60 * 60 * 24 * 1; // millisec * min * huor * day * how many days
         const priortyUpdation = new Date(Date.now() + oneDay);
 
-<<<<<<< HEAD
     const ticket = await Ticket.create({
       title: req.body.title,
       description: req.body.description,
@@ -44,21 +43,6 @@ const createTicket = async(req, res, next) => {
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json(error.message);
   }
-=======
-        const ticket = new Ticket({
-            title: req.body.title,
-            description: req.body.description,
-            department: req.body.department,
-            attachment: filesArray,
-            ticketUpdatedTime: priortyUpdation,
-        });
-        await ticket.save();
-        res.status(StatusCodes.CREATED).json(ticket);
-        //sendTicketConfirmation(User.name, User.email, req.body._id);
-    } catch (error) {
-        res.status(StatusCodes.BAD_REQUEST).json(error.message);
-    }
->>>>>>> 0d3c11f67022b2a5925179de52c801bf6fd6dcdd
 };
 
 const updateTicket = async(req, res) => {
@@ -160,7 +144,6 @@ const deleteTicket = asyncWrapper(async(req, res) => {
     res.status(StatusCodes.OK).json({ ticket });
 });
 
-<<<<<<< HEAD
 const getTicket = asyncWrapper(async (req, res) => {
   const {
     user: { userId },
@@ -174,17 +157,6 @@ const getTicket = asyncWrapper(async (req, res) => {
     throw new NotFoundError(`No Ticket with id ${ticketID}`)
   }
   res.status(StatusCodes.OK).json({ ticket })
-=======
-const getTicket = asyncWrapper(async(req, res) => {
-    const { id: ticketID } = req.params;
-    const ticket = await Ticket.findOne({ _id: ticketID });
-    if (!ticket) {
-        return res
-            .status(StatusCodes.NOT_FOUND)
-            .json(`No ticket with id : ${ticketID}`);
-    }
-    res.status(StatusCodes.OK).json({ ticket });
->>>>>>> 0d3c11f67022b2a5925179de52c801bf6fd6dcdd
 });
 
 const getAllTickets = asyncWrapper(async(req, res) => {
