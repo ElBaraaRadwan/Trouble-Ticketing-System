@@ -1,0 +1,61 @@
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.dzu-dropzone{
+  border: none !important;
+  min-height: auto !important;
+  position: static !important;
+  display: block !important;
+  overflow: auto !important;
+}
+.fa-solid{
+  font-family: "Font Awesome 6 Free" !important;
+}
+.dzu-previewContainer{
+  color: white !important;
+}
+.audioRecordeButton{
+  color: red;
+  border: 1px solid #0dcaf0;
+  background-color: transparent;
+  padding: 5px 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.audioRecordeButton:hover{
+  color: #0dcaf0;
+  background-color: red;
+  border-color:#0dcaf0 ;
+}
+.audioRecordeButtonStop{
+
+}
+
+button:disabled{
+  background-color: gray;
+  color: black;
+  cursor: none;
+  border: none;
+}
+
+button:disabled:hover{
+  background-color: gray;
+  color: black;
+  cursor: none;
+  border: none;
+
+}

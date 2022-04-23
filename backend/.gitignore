@@ -1,0 +1,6 @@
+/node_modules
+ico
+.env
+package-lock.json
+/uploads/Tickets/
+/uploads/FAQs/

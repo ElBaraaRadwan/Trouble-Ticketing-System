@@ -1,0 +1,31 @@
+.head{
+    position: relative;
+}
+
+.head::after{
+    content: " ";
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    bottom: 0;
+    left: 46.5%;
+    width: 90px;;
+    height: 4px;
+}
+
+.ul-style{
+    list-style: none;
+    margin: 0;
+}
+.ul-style li{
+    padding: 0 5px;
+}
+ .fa-brands_style{
+    font-size: 25px;
+}
+.ul-style .fa-brands_style:hover{
+    color: rgb(120, 122, 231);
+    font-size: 30px;
+    cursor: pointer;
+    border-radius:10%;
+}
+

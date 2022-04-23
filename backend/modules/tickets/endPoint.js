@@ -1,0 +1,17 @@
+const GET_ALL_TICKETS = `Ticket:GET_ALL_TICKETS`;
+const GET_TICKET = `Ticket:GET_TICKET`;
+const ADD_TICKET = `Ticket:ADD_TICKET`;
+const DEL_TICKET = `Ticket:DEL_TICKET`;
+const UPDATA_TICKET = `Ticket:UPDATA_TICKET`;
+const ASSIGN_TICKET = `Ticket:ASSIGN_TICKET`;
+const SOLVE_TICKET = `Ticket:SOLVE_TICKET`;
+
+module.exports = {
+  GET_ALL_TICKETS,
+  GET_TICKET,
+  ADD_TICKET,
+  DEL_TICKET,
+  UPDATA_TICKET,
+  ASSIGN_TICKET,
+  SOLVE_TICKET,
+};

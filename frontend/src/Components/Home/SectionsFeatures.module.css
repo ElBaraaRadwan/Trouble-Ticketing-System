@@ -1,0 +1,15 @@
+.light{
+    background-color: #110f16;
+}
+.blue{
+background-color:  #0076bd;
+}
+
+.image-transform:hover{
+    transform: scale(1.6);
+    transition: all 1s ease-in;
+}
+
+.features-TTS h3:hover{
+    color: #007bff;
+}

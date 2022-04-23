@@ -1,0 +1,14 @@
+.p-belowtitle:after{
+    content: " ";
+    background-color: blue;
+    position: absolute;
+    bottom: 0;
+    left: 48%;
+    width: 50px;;
+    height: 4px;
+}
+.head-of-contents{
+    font-size: 45px;
+    text-transform: uppercase;
+    color: black;
+}

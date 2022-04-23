@@ -1,0 +1,6 @@
+.imageTrans{
+    transition: transform 1s ease-out;
+}
+.imageTrans:hover{
+    transform: scale(1.5);
+}

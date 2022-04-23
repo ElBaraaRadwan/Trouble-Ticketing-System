@@ -1,0 +1,6 @@
+const GET_ALL_REPORTS = "Report:GET_ALL_REPORTS";
+const GET_MY_REPORTS = "Report:GET_MY_REPORTS";
+const ADD_REPORT = "Report:ADD_REPORT";
+const DEL_REPORT = "Report:DEL_REPORT";
+
+module.exports = { GET_ALL_REPORTS, GET_MY_REPORTS, ADD_REPORT, DEL_REPORT };
