@@ -42,12 +42,12 @@ const ticketSchema = new mongoose.Schema(
     ticketUpdatedTime: { type: Date },
     user: {
       type: mongoose.Schema.ObjectId,
-      ref: 'User',
+      ref: 'Users',
       required: true,
     },
-    agentID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Agent",
+    agent: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Agents',
     },
   },
   {
