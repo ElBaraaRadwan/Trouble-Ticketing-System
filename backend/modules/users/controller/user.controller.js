@@ -62,6 +62,7 @@ const sign_in = asyncWrapper(async(req, res) => {
                     _id: user._id,
                     email: user.email,
                     role: user.role,
+                    department: user.department,
                 },
             });
         } else {
