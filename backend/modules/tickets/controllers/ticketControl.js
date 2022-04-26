@@ -30,12 +30,11 @@ const createTicket = async (req, res, next) => {
     const oneDay = 1000 * 60 * 60 * 24 * 1; // millisec * min * huor * day * how many days
     const priortyUpdation = new Date(Date.now() + oneDay);
 
-    const { title, description, department } = req.body;
+    const { title, description, department, userId } = req.body;
     const ticket = await Ticket.create({
-      title, description, department,
+      title, description, department, userId,
       attachment: filesArray,
       ticketUpdatedTime: priortyUpdation,
-      user: req.user.userId,
     });
     res.status(StatusCodes.CREATED).json(ticket);
     //sendTicketConfirmation(User.name, User.email, req.body._id);
@@ -174,8 +173,7 @@ const getAllTickets = asyncWrapper(async (req, res) => {
 
 // Func that find tickets that been created by a user
 const getMyTickts = asyncWrapper(async (req, res) => {
-  const { id } = req.params;
-  const user = await User.findById(id).populate("Ticket");
+  const user = await User.findById(req.user.userId).populate("Ticket");
   res.status(StatusCodes.OK).json({ user });
 });
 
