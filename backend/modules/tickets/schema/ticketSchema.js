@@ -43,12 +43,11 @@ const ticketSchema = new mongoose.Schema(
       ],
     },
     ticketUpdatedTime: { type: Date },
-    user: {
+    userID: {
       type: mongoose.Schema.ObjectId,
       ref: 'Users',
-      required: true,
     },
-    agent: {
+    agentID: {
       type: mongoose.Schema.ObjectId,
       ref: 'Agents',
     },
