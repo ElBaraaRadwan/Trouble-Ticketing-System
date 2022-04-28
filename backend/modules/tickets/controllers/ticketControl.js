@@ -18,7 +18,7 @@ const createTicket = async (req, res, next) => {
     let filesArray = [];
     req.files.forEach((element) => {
       const file = {
-        fileName: element.originalname, 
+        fileName: element.originalname,
         filePath: element.path,
         fileType: element.mimetype,
         fileSize: fileSizeFormatter(element.size, 2),
@@ -32,7 +32,10 @@ const createTicket = async (req, res, next) => {
 
     const { title, description, department, userId } = req.body;
     const ticket = await Ticket.create({
-      title, description, department, userId,
+      title,
+      description,
+      department,
+      userId,
       attachment: filesArray,
       ticketUpdatedTime: priortyUpdation,
     });
@@ -166,14 +169,15 @@ const getTicket = asyncWrapper(async (req, res) => {
 const getAllTickets = asyncWrapper(async (req, res) => {
   const tickets = await Ticket.find({})
     .sort({ createdAt: "desc" })
-    .limit(10)
     .exec();
   res.status(StatusCodes.OK).json({ tickets });
 });
 
 // Func that find tickets that been created by a user
 const getMyTickts = asyncWrapper(async (req, res) => {
-  const user = await User.findOne({ _id: userId }).populate("Ticket");
+  const user = await User.findOne({ _id: userId })
+    .populate("Ticket")
+    .sort({ createdAt: "desc" });
   res.status(StatusCodes.OK).json({ user });
 });
 
