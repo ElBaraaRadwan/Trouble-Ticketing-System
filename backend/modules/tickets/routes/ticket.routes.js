@@ -7,7 +7,7 @@ const {
     getAllTickets,
     getTicket,
     createTicket,
-    updateTicket,
+    replyTicket,
     deleteTicket,
     assignTicket,
     solveTicket,
@@ -18,7 +18,7 @@ router.get("/getAllTicket", /*isAuthoraized(GET_ALL_TICKETS),*/ getAllTickets);
 router.get("/getAllTicket/myTicket", getMyTickts);
 router.post('/createTicket', /*isAuthoraized(ADD_TICKET),*/ uploadTicket.array('attachment'), createTicket);
 router.get("/getTicket/:id", /*isAuthoraized(GET_TICKET),*/ getTicket); // get a single ticket
-router.patch("/updateTicket/:id", /*isAuthoraized(UPDATA_TICKET), */ updateTicket);
+router.patch("/replyTicket/:id", /*isAuthoraized(UPDATA_TICKET), */ replyTicket);
 router.patch("/assignTicket/:id", /*isAuthoraized(ASSIGN_TICKET), */ assignTicket);
 router.patch("/solveTicket/:id", /*isAuthoraized(SOLVE_TICKET), */ solveTicket);
 router.delete("/deleteTicket/:id", /*isAuthoraized(DEL_TICKET), */ deleteTicket);

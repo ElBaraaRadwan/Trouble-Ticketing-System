@@ -27,6 +27,9 @@ const ticketSchema = new mongoose.Schema(
     reply: {
       type: String,
     },
+    solve: {
+      type: String,
+    },
     department: {
       type: String,
       required: [true, "Department must be provided"],

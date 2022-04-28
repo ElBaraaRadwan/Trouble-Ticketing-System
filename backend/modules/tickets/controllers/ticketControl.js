@@ -18,7 +18,7 @@ const createTicket = async (req, res, next) => {
     let filesArray = [];
     req.files.forEach((element) => {
       const file = {
-        fileName: element.originalname,
+        fileName: element.originalname, 
         filePath: element.path,
         fileType: element.mimetype,
         fileSize: fileSizeFormatter(element.size, 2),
@@ -43,8 +43,8 @@ const createTicket = async (req, res, next) => {
   }
 };
 
-const updateTicket = async (req, res) => {
-  const allowedUpdates = ["title", "description"];
+const replyTicket = async (req, res) => {
+  const allowedUpdates = ["reply"];
   const keys = Object.keys(req.body);
   const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
   if (!isUpdationValid)
@@ -109,7 +109,7 @@ const assignTicket = async (req, res) => {
 };
 
 const solveTicket = async (req, res) => {
-  const allowedUpdates = ["reply"];
+  const allowedUpdates = ["solve"];
   const keys = Object.keys(req.body);
   const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
   if (!isUpdationValid)
@@ -164,7 +164,7 @@ const getTicket = asyncWrapper(async (req, res) => {
 });
 
 const getAllTickets = asyncWrapper(async (req, res) => {
-  const tickets = await Ticket.find()
+  const tickets = await Ticket.find({})
     .sort({ createdAt: "desc" })
     .limit(10)
     .exec();
@@ -173,7 +173,7 @@ const getAllTickets = asyncWrapper(async (req, res) => {
 
 // Func that find tickets that been created by a user
 const getMyTickts = asyncWrapper(async (req, res) => {
-  const user = await User.findById(req.user.userId).populate("Ticket");
+  const user = await User.findOne({ _id: userId }).populate("Ticket");
   res.status(StatusCodes.OK).json({ user });
 });
 
@@ -194,7 +194,7 @@ module.exports = {
   solveTicket,
   getMyTickts,
   createTicket,
-  updateTicket,
+  replyTicket,
   deleteTicket,
   //test,
 };

@@ -7,9 +7,15 @@ const feedbackSchema = new mongoose.Schema(
       default: false,
       enum: ["Very Happy", "Happy", "Good", "Sad", "Vrey Sad"], // could use 🙂 🙁 😐 😠
     },
-    userID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Users',
+      required: true,
+    },
+    ticket: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Ticket',
+      required: true,
     },
   },
   {
