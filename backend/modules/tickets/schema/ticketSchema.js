@@ -27,6 +27,9 @@ const ticketSchema = new mongoose.Schema(
     reply: {
       type: String,
     },
+    solve: {
+      type: String,
+    },
     department: {
       type: String,
       required: [true, "Department must be provided"],
@@ -40,12 +43,11 @@ const ticketSchema = new mongoose.Schema(
       ],
     },
     ticketUpdatedTime: { type: Date },
-    user: {
+    userID: {
       type: mongoose.Schema.ObjectId,
       ref: 'Users',
-      required: true,
     },
-    agent: {
+    agentID: {
       type: mongoose.Schema.ObjectId,
       ref: 'Agents',
     },

@@ -30,9 +30,13 @@ const createTicket = async (req, res, next) => {
     const oneDay = 1000 * 60 * 60 * 24 * 1; // millisec * min * huor * day * how many days
     const priortyUpdation = new Date(Date.now() + oneDay);
 
-    const { title, description, department, userId } = req.body;
+    const { title, description, department, userID, agentID } = req.body;
     const ticket = await Ticket.create({
-      title, description, department, userId,
+      title,
+      description,
+      department,
+      agentID,
+      userID,
       attachment: filesArray,
       ticketUpdatedTime: priortyUpdation,
     });
@@ -43,8 +47,8 @@ const createTicket = async (req, res, next) => {
   }
 };
 
-const updateTicket = async (req, res) => {
-  const allowedUpdates = ["title", "description"];
+const replyTicket = async (req, res) => {
+  const allowedUpdates = ["reply"];
   const keys = Object.keys(req.body);
   const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
   if (!isUpdationValid)
@@ -109,7 +113,7 @@ const assignTicket = async (req, res) => {
 };
 
 const solveTicket = async (req, res) => {
-  const allowedUpdates = ["reply"];
+  const allowedUpdates = ["solve"];
   const keys = Object.keys(req.body);
   const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
   if (!isUpdationValid)
@@ -164,16 +168,16 @@ const getTicket = asyncWrapper(async (req, res) => {
 });
 
 const getAllTickets = asyncWrapper(async (req, res) => {
-  const tickets = await Ticket.find()
-    .sort({ createdAt: "desc" })
-    .limit(10)
-    .exec();
+  const tickets = await Ticket.find({}).sort({ createdAt: "desc" }).exec();
   res.status(StatusCodes.OK).json({ tickets });
 });
 
 // Func that find tickets that been created by a user
 const getMyTickts = asyncWrapper(async (req, res) => {
-  const user = await User.findById(req.user.userId).populate("Ticket");
+  const { id: userID } = req.params;
+  const user = await User.findOne({ _id: userID })
+    .populate("Ticket")
+    .sort({ createdAt: "desc" });
   res.status(StatusCodes.OK).json({ user });
 });
 
@@ -194,7 +198,7 @@ module.exports = {
   solveTicket,
   getMyTickts,
   createTicket,
-  updateTicket,
+  replyTicket,
   deleteTicket,
   //test,
 };

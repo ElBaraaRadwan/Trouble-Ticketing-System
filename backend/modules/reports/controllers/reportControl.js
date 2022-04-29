@@ -6,8 +6,8 @@ const { StatusCodes } = require("http-status-codes");
 const { sendReport } = require("../../../utils/Mails");
 
 const createReport = asyncWrapper(async(req, res) => {
-    const { header } = req.body;
-    const report = await Report.create({ header, AgentID: req.params.id });
+    const { header, content } = req.body;
+    const report = await Report.create({ header, content, Agent: req.params.id });
     res.status(StatusCodes.CREATED).json({ report });
     // sendReport(Admin.name, Admin.email, req.body._id);
 });

@@ -9,9 +9,9 @@ const reportSchema = new mongoose.Schema({
     type: String,
     maxlength: [255, "Can't be More than 255 Char"]
   },
-  agentID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Agent",
+  agent: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Agents',
   },
 });
 
