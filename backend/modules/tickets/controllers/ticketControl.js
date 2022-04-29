@@ -30,12 +30,13 @@ const createTicket = async (req, res, next) => {
     const oneDay = 1000 * 60 * 60 * 24 * 1; // millisec * min * huor * day * how many days
     const priortyUpdation = new Date(Date.now() + oneDay);
 
+    const { id: userID } = req.params;
     const { title, description, department } = req.body;
     const ticket = await Ticket.create({
       title,
       description,
       department,
-      user: req.user.userId,
+      userID,
       attachment: filesArray,
       ticketUpdatedTime: priortyUpdation,
     });
