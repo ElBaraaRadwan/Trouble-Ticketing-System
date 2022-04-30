@@ -44,7 +44,7 @@ const ticketSchema = new mongoose.Schema(
     },
     ticketUpdatedTime: { type: Date },
     user: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Users',
       required: true
     },
