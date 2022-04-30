@@ -42,6 +42,20 @@ const createTicket = async (req, res, next) => {
       attachment: filesArray,
       ticketUpdatedTime: priortyUpdation,
     });
+
+    let userTickets = await Ticket.find({ user: userID });
+
+    const sendTicket = await User.findOneAndUpdate(
+      { _id: userID },
+      {
+        createdTickets: [...userTickets],
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
     res.status(StatusCodes.CREATED).json(ticket);
     //sendTicketConfirmation(User.name, User.email, req.body._id);
   } catch (error) {
@@ -181,16 +195,6 @@ const getMyTickts = asyncWrapper(async (req, res) => {
 
   let userTickets = await Ticket.find({ user: userID });
 
-  const sendTicket = await User.findOneAndUpdate(
-    { _id: userID },
-    {
-      createdTickets: [...userTickets],
-    },
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
   if (!userTickets) {
     throw new NotFoundError(`No Ticket with user_id ${userTickets}`);
   }
