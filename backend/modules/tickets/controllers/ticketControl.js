@@ -32,11 +32,12 @@ const createTicket = async (req, res, next) => {
     const priortyUpdation = new Date(Date.now() + oneDay);
 
     //const { id: userID } = req.params;
-    const { title, description, department, userID } = req.body;
+    const { title, description, department, userID, audioRecord } = req.body;
     const ticket = await Ticket.create({
       title,
       description,
       department,
+      audioRecord,
       user: userID,
       attachment: filesArray,
       ticketUpdatedTime: priortyUpdation,
