@@ -178,7 +178,21 @@ const getAllTickets = asyncWrapper(async (req, res) => {
 const getMyTickts = asyncWrapper(async (req, res) => {
   const { id: userID } = req.params;
 
-  let userTickets = await Ticket.find({user: userID})
+  let userTickets = await Ticket.find({ user: userID });
+
+  const sendTicket = await User.findOneAndUpdate(
+    { _id: userID },
+    {
+      createdTickets: [...userTickets],
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  if (!userTickets) {
+    throw new NotFoundError(`No Ticket with user_id ${userTickets}`);
+  }
   res.status(StatusCodes.OK).json({ userTickets, count: userTickets.length });
 });
 
