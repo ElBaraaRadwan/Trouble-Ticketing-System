@@ -36,6 +36,7 @@ const createTicket = async (req, res, next) => {
     const ticket = await Ticket.create({
       title,
       description,
+      
       department,
       audioRecord,
       user: userID,
