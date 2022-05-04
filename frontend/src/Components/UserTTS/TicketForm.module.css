@@ -14,17 +14,24 @@
 	-moz-align-items: center;
 	-webkit-align-items: center;
 	/* background: linear-gradient(90deg,#68d07b,#00b4ff); */
-    background: #d0d0d0;
+    /* background: radial-gradient(circle, rgb(221, 221, 220) 0%, rgb(8, 181, 215) 100%); */
+	background-color: #1f2833;
 	flex-direction: column;
 	-o-flex-direction: column;
 	-ms-flex-direction: column;
 	-moz-flex-direction: column;
 	-webkit-flex-direction: column;
 }
+.page-content label{
+	font-size: 18px !important;
+	font-weight: bold !important;
+}
 .wizard-heading {
-    color: rgb(0, 0, 0);
-    font-weight: 700;
-    font-size: 38px;
+    /* color: rgb(0, 0, 0); */
+	color: white;
+	letter-spacing: 10px;
+    font-weight: 800;
+    font-size: 50px;
     padding-top: 40px;
     padding-bottom: 20px;
     text-align: left;
@@ -39,7 +46,8 @@
     position: absolute;
     pointer-events: none;
     border-color: rgba(255, 255, 255, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    /* border-bottom-color: rgb(0, 0, 0); */
+	background-color: #1f2833;
     border-width: 15px;
 }
 .wizard-v6-content   {
@@ -64,12 +72,15 @@
 }
 .wizard-v6-content .wizard-form {
 	width: 100%;
-	background: rgb(0, 0, 0);
+	background:  #1f2833;;
+	background-color: #1f2833;
 	border-radius: 10px;
 	-o-border-radius: 10px;
 	-ms-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
+	/* box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset; */
+	box-shadow: rgb(255 255 255 / 6%) 6px 6px 6px 5px inset;
 }
 
 .record-button{

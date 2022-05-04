@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import style from "./TicketForm.module.css";
 import Input from "../UI/Input";
 import InputDropDown from "../UI/InputDropDown";
@@ -11,6 +11,7 @@ import Joi from "joi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import FooterText from './../Home/FooterText';
+import { authContext } from "../store/Context/AuthContext";
 
 export default function TicketForm() {
   let [loading, setLoading] = useState(false);
@@ -18,9 +19,10 @@ export default function TicketForm() {
   let [status, setStatus] = useState([]);
   let [record, setRecorder] = useState(null);
   let [files, setFiles] = useState([]);
+  let [mineRecord , setMineRecord] = useState(null)
   let [errorValidation, setErrorValidation] = useState(null);
   const loginFormData = new FormData();
-
+  const authCtx = useContext(authContext);
   const navigate = useNavigate();
   const subjectInputRef = useRef();
   const departmentInputRef = useRef();
@@ -28,7 +30,7 @@ export default function TicketForm() {
 
   const validateTicket = (ticket) => {
     let scheme = Joi.object({
-      subject: Joi.string().min(3).max(10).required(),
+      title: Joi.string().min(3).max(30).required(),
       description: Joi.string().min(60).max(550).required(),
     });
     return scheme.validate(ticket, { abortEarly: false });
@@ -56,18 +58,26 @@ export default function TicketForm() {
     
     const ticket = {
       title: subjectInputRef.current.value,
-      department: departmentInputRef.current.value,
-      description: descriptionInputRef.current.value,
-      attachment: [
-        {record},
-        {files}
-      ],
+      description: descriptionInputRef.current.value
     };
     const tickets = [];
     tickets.push(ticket);
     setTicket(tickets);
-    const validation = validateTicket(ticketToData);
-    if(validation.error && !status){
+    const validation = validateTicket(ticket);
+    // console.log(URL.createObjectURL(record))
+    var chunks = [];
+    chunks.push(record);
+    const RecordDataBase = new Blob (chunks, { type: 'audio/webm' });
+    const mineRecord =  URL.createObjectURL(RecordDataBase);
+    setMineRecord(mineRecord)
+    // const RecordDataBase = window.URL.createObjectURL(new Blob(binaryData, {type: 'audio/webm'}))
+    // console.log(mineREcord)
+    console.log(RecordDataBase)
+    console.log(mineRecord)
+
+    // if(validation.error && !status){
+    console.log(validation)
+    if(validation.error){
       setErrorValidation(validation.error.details);
       setLoading(false);
       return ;
@@ -77,14 +87,20 @@ export default function TicketForm() {
     loginFormData.append("title", subjectInputRef.current.value);
     loginFormData.append("department", departmentInputRef.current.value);
     loginFormData.append("description", descriptionInputRef.current.value);
-    loginFormData.append("attachment", JSON.stringify(attachmentFiles));
+    loginFormData.append("audioRecord", RecordDataBase);
+    loginFormData.append("userID", authCtx.id);
+    // loginFormData.append("attachment", JSON.stringify(attachmentFiles));
+    
+    // title, description, department, userID, agentID 
 
+    console.log('formdata')
     const response = await axios({
-      method: "post",
-      url: "http://localhost:5000/createTicket",
+      method: "POST",
+      url: "http://localhost:5000/createTicket", 
       data: loginFormData,
       headers: { "Content-Type": "multipart/form-data" },
     });
+    console.log(response);
     if(response.statusText === 'Created'){
       setLoading(false);
       setErrorValidation(null);
@@ -94,8 +110,8 @@ export default function TicketForm() {
     }
     console.log(response);
     
-    //   if (data.message === "success") {
-    //     console.log(data)
+    //   if (response.message === "success") {
+    //     console.log(response)
     //     navigate('/HomeUser');
     //     setErrorValidation([]);
     //     // setError("");
@@ -126,9 +142,9 @@ export default function TicketForm() {
               action="#"
               method="post"
             >
-              {errorValidation && (
+              {/* {errorValidation && (
                 <div className="alert alert-danger py-2">{errorValidation}</div>
-              )}
+              )} */}
               {/* {error && <div className="alert alert-danger py-2">{error}</div>} */}
               <div className="w-100">
                 <Input

@@ -10,11 +10,11 @@ export default function CadrForm(props) {
 
     <section
       style={{
-        minHeight: "calc(100vh - 10vh)",
+        minHeight: "calc(111vh - 10vh)",
         color: "white",
-        // background:
-        //   "radial-gradient(circle, rgba(221,221,220,1) 0%, rgba(8,181,215,1) 100%)",
-          backgroundColor : '#110f16'
+        background:
+          "radial-gradient(circle, rgba(221,221,220,1) 0%, rgba(8,181,215,1) 100%)",
+          // backgroundColor : '#110f16'
       }}
       className="d-flex align-items-center"
     >

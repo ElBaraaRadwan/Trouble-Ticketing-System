@@ -36,9 +36,10 @@ export default function Login() {
       );
       console.log(data);
       if (data.message === "success") {
-        console.log(data)
         authCtx.login(data.token);
-        console.log('from login accsess')
+        authCtx.assignRole(data.data.role);
+        authCtx.assignId(data.data._id);
+        console.log(data.data._id)
         navigate('/HomeUser');
         setErrorList([]);
         setError("");
