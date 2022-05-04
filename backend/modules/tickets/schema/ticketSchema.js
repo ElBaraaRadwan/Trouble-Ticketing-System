@@ -13,7 +13,7 @@ const ticketSchema = new mongoose.Schema(
       maxlength: [1000, "Description Can't be More than 1000 Char"],
     },
     attachment: [Object],
-    audioRecord: String,
+    audioRecord: Blob,
     priorty: {
       type: String,
       default: "Low",
