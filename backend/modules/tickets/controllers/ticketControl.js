@@ -36,7 +36,7 @@ const createTicket = async (req, res, next) => {
     const ticket = await Ticket.create({
       title,
       description,
-      
+
       department,
       audioRecord,
       user: userID,
@@ -204,8 +204,7 @@ const getMyTickts = asyncWrapper(async (req, res) => {
 
 // const updateData = () => {
 //   try {
-//     const {priorty} = req.
-//     const tickets = await Ticket.find({})
+//     const tickets = await Ticket.find({priorty, status: 'Pending', ticketUpdatedTime});
 //     if(!tickets = )
 //   } catch (error) {
 
