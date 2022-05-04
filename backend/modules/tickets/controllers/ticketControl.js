@@ -32,15 +32,31 @@ const createTicket = async (req, res, next) => {
     const priortyUpdation = new Date(Date.now() + oneDay);
 
     //const { id: userID } = req.params;
-    const { title, description, department, userID } = req.body;
+    const { title, description, department, userID, audioRecord } = req.body;
     const ticket = await Ticket.create({
       title,
       description,
+      
       department,
+      audioRecord,
       user: userID,
       attachment: filesArray,
       ticketUpdatedTime: priortyUpdation,
     });
+
+    let userTickets = await Ticket.find({ user: userID });
+
+    const sendTicket = await User.findOneAndUpdate(
+      { _id: userID },
+      {
+        createdTickets: [...userTickets],
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
     res.status(StatusCodes.CREATED).json(ticket);
     //sendTicketConfirmation(User.name, User.email, req.body._id);
   } catch (error) {
@@ -178,7 +194,11 @@ const getAllTickets = asyncWrapper(async (req, res) => {
 const getMyTickts = asyncWrapper(async (req, res) => {
   const { id: userID } = req.params;
 
-  let userTickets = await Ticket.find({user: userID})
+  let userTickets = await Ticket.find({ user: userID });
+
+  if (!userTickets) {
+    throw new NotFoundError(`No Ticket with user_id ${userTickets}`);
+  }
   res.status(StatusCodes.OK).json({ userTickets, count: userTickets.length });
 });
 

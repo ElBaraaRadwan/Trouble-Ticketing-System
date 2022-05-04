@@ -68,7 +68,7 @@ const getFAQs = asyncWrapper(async (req, res) => {
 });
 
 const getAllFAQs = asyncWrapper(async (req, res) => {
-  const faq = await FAQs.find().sort({ createdAt: "desc" }).limit(10).exec();
+  const faq = await FAQs.find().sort({ createdAt: "desc" }).exec();
   res.status(StatusCodes.OK).json({ faq });
 });
 
