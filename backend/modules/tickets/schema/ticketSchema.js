@@ -1,3 +1,4 @@
+const { Blob } = require("buffer");
 const mongoose = require("mongoose");
 
 const ticketSchema = new mongoose.Schema(
@@ -13,7 +14,7 @@ const ticketSchema = new mongoose.Schema(
       maxlength: [1000, "Description Can't be More than 1000 Char"],
     },
     attachment: [Object],
-    audioRecord: Blob,
+    audioRecord: { type: String },
     priorty: {
       type: String,
       default: "Low",
@@ -45,12 +46,12 @@ const ticketSchema = new mongoose.Schema(
     ticketUpdatedTime: { type: Date },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Users',
-      required: true
+      ref: "Users",
+      required: true,
     },
     agent: {
       type: mongoose.Schema.ObjectId,
-      ref: 'Agents',
+      ref: "Agents",
     },
   },
   {

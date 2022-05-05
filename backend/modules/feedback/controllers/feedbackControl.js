@@ -1,17 +1,23 @@
 const User = require("../../users/Model/user.model");
 const FeedBack = require("../Model/feedback.model");
 const asyncWrapper = require("../../../middlewares/async");
+const { StatusCodes } = require("http-status-codes");
 
 const createFeedBack = asyncWrapper(async (req, res) => {
-  const feedBack = await FeedBack.create(req.body);
-  res.status(201).json({ feedBack });
+  const { id: ticketID } = req.params;
+  const { userID, status } = req.body;
+  const feedBack = await FeedBack.create({
+    status,
+    user: userID,
+    ticket: ticketID,
+  });
+  res.status(StatusCodes.CREATED).json({ feedBack });
 });
 
 const getAllFeedBacks = asyncWrapper(async (req, res) => {
   const feedBack = await FeedBack.find({});
-  res.status(200).json({ feedBack });
+  res.status(StatusCodes.OK).json({ feedBack });
 });
-
 
 module.exports = {
   createFeedBack,

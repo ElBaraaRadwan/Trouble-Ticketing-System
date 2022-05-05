@@ -36,10 +36,9 @@ const createTicket = async (req, res, next) => {
     const ticket = await Ticket.create({
       title,
       description,
-
       department,
-      audioRecord,
       user: userID,
+      audioRecord,
       attachment: filesArray,
       ticketUpdatedTime: priortyUpdation,
     });
@@ -186,7 +185,7 @@ const getTicket = asyncWrapper(async (req, res) => {
 });
 
 const getAllTickets = asyncWrapper(async (req, res) => {
-  const tickets = await Ticket.find({}).sort({ createdAt: "desc" }).exec();
+  const tickets = await Ticket.find({}, {}, { sort: { _id: -1 } }).exec();
   res.status(StatusCodes.OK).json({ tickets });
 });
 
@@ -194,7 +193,11 @@ const getAllTickets = asyncWrapper(async (req, res) => {
 const getMyTickts = asyncWrapper(async (req, res) => {
   const { id: userID } = req.params;
 
-  let userTickets = await Ticket.find({ user: userID });
+  let userTickets = await Ticket.find(
+    { user: userID },
+    {},
+    { sort: { _id: -1 } }
+  );
 
   if (!userTickets) {
     throw new NotFoundError(`No Ticket with user_id ${userTickets}`);

@@ -11,6 +11,6 @@ router.get(
   /*isAuthoraized(GET_ALL_FEEDBACKS), */
   getAllFeedBacks
 );
-router.post("/createFeedBack", /*isAuthoraized(ADD_FEEDBACK), */ createFeedBack);
+router.post("/createFeedBack/:id", /*isAuthoraized(ADD_FEEDBACK), */ createFeedBack);
 
 module.exports = router;
