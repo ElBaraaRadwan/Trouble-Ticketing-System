@@ -9,7 +9,7 @@ import { authContext } from "../store/Context/AuthContext";
 
 export default function Navbar() {
   const isAuthen = useContext(authContext);
-  const Logged = isAuthen.isLoggend;
+  const Logged = isAuthen.isLoggend && isAuthen.role === 'user';
   return (
     <nav 
     // className="bg-black" 
@@ -88,6 +88,14 @@ export default function Navbar() {
               >
                 Ticket
               </NavLink>
+              <NavLink
+                className={(navData) =>
+                  navData.isActive ? classes.active : classes.NormalLi
+                }
+                to="/myTickets"
+              >
+                My Tickets
+              </NavLink> 
               <NavLink
                 className={(navData) =>
                   navData.isActive ? classes.active : classes.NormalLi

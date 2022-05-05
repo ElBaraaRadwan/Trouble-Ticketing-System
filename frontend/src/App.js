@@ -5,14 +5,16 @@ import Navbar from "./Components/Home/Navbar";
 import Signup from "./Components/User/Signup/Signup";
 import Login from "./Components/User/Login/Login";
 import TtsHome from "./Components/UserTTS/TtsHome";
-import Faqs from "./Components/UserTTS/Faqs";
 import React, { useContext } from "react";
 import { authContext } from "./Components/store/Context/AuthContext";
 import TicketForm from "./Components/UserTTS/TicketForm";
+import FaqsData from './Components/UserTTS/FaqsData';
+import MyTicket from "./Components/UserTTS/MyTicket";
 
 
 function App() {
   const isAuthen = useContext(authContext);
+  const userLogen = isAuthen.isLoggend  && isAuthen.role === 'user' ;
 
   return (
     <>
@@ -27,10 +29,12 @@ function App() {
         <Route path="/login" element={<Login />} />
       </Routes> */}
   <Routes>
-      {isAuthen.isLoggend ? (
+      { userLogen ? (
           <React.Fragment>
             <Route path="/HomeUser" element={<TtsHome />} />
-            <Route path="/Faqs" element={<Faqs />} />
+            <Route path="/Faqs" element={<FaqsData />} />
+            <Route path="/HomeUser" element={<TtsHome />} />
+            <Route path="/myTickets" element={<MyTicket />} />
             <Route path="/submit_ticket" element={<TicketForm />} />
           </React.Fragment>
         ) : (

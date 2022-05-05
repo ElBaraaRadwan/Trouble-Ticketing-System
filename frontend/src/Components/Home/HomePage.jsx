@@ -17,7 +17,7 @@ export default function HomePage() {
         <main
           style={{
             background: `
-        linear-gradient(rgba(0, 0, 0, .6),rgba(0, 0, 0, .6)),
+        linear-gradient(rgba(0, 0, 0, .2),rgba(0, 0, 0, .2)),
         url(${backgroundImage})
         `,
             clipPath: "polygon(0 0, 100% 0, 100% 65%, 0 100%)",
@@ -26,7 +26,7 @@ export default function HomePage() {
             backgroundPosition: "center",
             position: "relative",
             backgroundAttachment: "fixed",
-            height: "calc(100vh - 10vh)",
+            height: "calc(111vh - 10vh)",
           }}
           className={"d-flex align-items-center justify-content-center"}
         >

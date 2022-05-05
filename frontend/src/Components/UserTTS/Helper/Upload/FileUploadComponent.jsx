@@ -51,7 +51,7 @@ const FileUploadComponent = (props) => {
       getFilesFromEvent={getFilesFromEvent}
       accept="image/*"
       maxFiles={5}
-      maxSizeBytes={625000}
+      maxSizeBytes={6250000}
       inputContent="Drop A File"
       styles={{
         border: "none",

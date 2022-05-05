@@ -59,3 +59,23 @@ button:disabled:hover{
   border: none;
 
 }
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  body{
+      zoom: 90%;  
+    }
+}
+
+/* Chrome 29+ */
+@media screen and (-webkit-min-device-pixel-ratio:0)
+  and (min-resolution:.001dpcm) {
+      body{
+          zoom: 90%;  
+        }
+}
+
+/* Chrome 22-28 */
+@media screen and(-webkit-min-device-pixel-ratio:0) {
+  body{
+      zoom: 90%;  
+    }
+}
