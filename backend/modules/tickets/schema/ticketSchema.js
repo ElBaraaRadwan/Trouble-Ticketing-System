@@ -50,7 +50,7 @@ const ticketSchema = new mongoose.Schema(
       required: true,
     },
     agent: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Agents",
     },
   },

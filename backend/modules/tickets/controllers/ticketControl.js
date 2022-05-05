@@ -89,7 +89,6 @@ const replyTicket = async (req, res) => {
       return res
         .status(StatusCodes.NOT_FOUND)
         .json(`No ticket with id : ${ticketID}`);
-
     res.status(StatusCodes.OK).json(ticket);
     //sendTicketUpdation(Agent.name, Agent.email, req.body._id);
   } catch (error) {
