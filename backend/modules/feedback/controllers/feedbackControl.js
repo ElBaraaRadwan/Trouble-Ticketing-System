@@ -5,9 +5,10 @@ const { StatusCodes } = require("http-status-codes");
 
 const createFeedBack = asyncWrapper(async (req, res) => {
   const { id: ticketID } = req.params;
-  const { userID, status } = req.body;
+  const { userID, status, content } = req.body;
   const feedBack = await FeedBack.create({
     status,
+    content,
     user: userID,
     ticket: ticketID,
   });
