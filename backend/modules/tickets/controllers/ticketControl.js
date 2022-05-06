@@ -105,7 +105,7 @@ const solveTicket = async (req, res) => {
       {
         _id: ticketID,
       },
-      { solve: req.body.solve, status: "User-Reply" },
+      {$push: {solve: req.body.solve}, status: "User-Reply" },
       {
         new: true,
         runValidators: true,
@@ -134,7 +134,7 @@ const replyTicket = async (req, res) => {
       {
         _id: ticketID,
       },
-      { reply: req.body.reply, status: "In-Progress" },
+      { $push: {reply: req.body.reply}, status: "In-Progress" },
       {
         new: true,
         runValidators: true,
