@@ -5,7 +5,7 @@ const feedbackSchema = new mongoose.Schema(
     status: {
       type: String,
       default: false,
-      enum: ["Very Happy", "Happy", "Good", "Sad", "Vrey Sad"], // could use 🙂 🙁 😐 😠
+      enum: ["Very Happy", "Happy", "Good", "Sad", "Very Sad"], // could use 🙂 🙁 😐 😠
     },
     // content: {
     //   type: String,

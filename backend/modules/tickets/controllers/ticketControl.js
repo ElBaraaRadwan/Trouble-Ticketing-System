@@ -106,17 +106,14 @@ const solveTicket = async (req, res) => {
     const ticket = await Ticket.findOneAndUpdate(
       {
         _id: ticketID,
-      },
-      req.body,
+      }, 
+      { solve: [...req.body.solve],
+        status: "User-Reply"},
       {
         new: true,
         runValidators: true,
       }
     );
-
-    // const ticketStatus = await Ticket.findOneAndUpdate({ _id: ticketID }, {
-      
-    // });
     if (!ticket)
       return res
         .status(StatusCodes.NOT_FOUND)
@@ -140,7 +137,8 @@ const replyTicket = async (req, res) => {
       {
         _id: ticketID,
       },
-      req.body,
+      {reply: [...req.body.reply],
+        status: "In-Progress"},
       {
         new: true,
         runValidators: true,

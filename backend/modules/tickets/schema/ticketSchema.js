@@ -23,14 +23,14 @@ const ticketSchema = new mongoose.Schema(
     status: {
       type: String,
       default: "Pending",
-      enum: ["Pending", "Solved","Unsolved", "Closed"],
+      enum: ["Pending", "In-Progress", "User-Reply", "Solved","Unsolved", "Closed"],
     },
-    reply: {
+    reply: [{
       type: String,
-    },
-    solve: {
+    }],
+    solve: [{
       type: String,
-    },
+    }],
     department: {
       type: String,
       required: [true, "Department must be provided"],
