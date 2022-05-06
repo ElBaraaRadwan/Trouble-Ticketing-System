@@ -11,7 +11,6 @@ const {
   sendTicketSolution,
   sendTicketUpdation,
 } = require("../../../utils/Mails");
-const { options } = require("../routes/ticket.routes");
 
 // this function for creating a ticket  =>
 const createTicket = async (req, res, next) => {
@@ -77,8 +76,7 @@ const assignTicket = async (req, res) => {
       {
         _id: ticketID,
       },
-      req.body,
-
+      { priorty: req.body.priorty, status: req.body.status },
       {
         new: true,
         runValidators: true,
@@ -106,9 +104,8 @@ const solveTicket = async (req, res) => {
     const ticket = await Ticket.findOneAndUpdate(
       {
         _id: ticketID,
-      }, 
-      { solve: [...req.body.solve],
-        status: "User-Reply"},
+      },
+      { solve: req.body.solve, status: "User-Reply" },
       {
         new: true,
         runValidators: true,
@@ -137,8 +134,7 @@ const replyTicket = async (req, res) => {
       {
         _id: ticketID,
       },
-      {reply: [...req.body.reply],
-        status: "In-Progress"},
+      { reply: req.body.reply, status: "In-Progress" },
       {
         new: true,
         runValidators: true,
