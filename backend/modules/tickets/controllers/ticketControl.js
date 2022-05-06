@@ -30,7 +30,6 @@ const createTicket = async (req, res, next) => {
     const oneDay = 1000 * 60 * 60 * 24 * 1; // millisec * min * huor * day * how many days
     const priortyUpdation = new Date(Date.now() + oneDay);
 
-    //const { id: userID } = req.params;
     const { title, description, department, userID, audioRecord } = req.body;
     const ticket = await Ticket.create({
       title,
@@ -94,7 +93,7 @@ const assignTicket = async (req, res) => {
 };
 
 const solveTicket = async (req, res) => {
-  const allowedUpdates = ["solve"];
+  const allowedUpdates = ["solve", "agent"];
   const keys = Object.keys(req.body);
   const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
   if (!isUpdationValid)
@@ -105,7 +104,11 @@ const solveTicket = async (req, res) => {
       {
         _id: ticketID,
       },
-      {$push: {solve: req.body.solve}, status: "User-Reply" },
+      {
+        $push: { solve: req.body.solve },
+        status: "User-Reply",
+        agent: req.body.agent,
+      },
       {
         new: true,
         runValidators: true,
@@ -134,7 +137,7 @@ const replyTicket = async (req, res) => {
       {
         _id: ticketID,
       },
-      { $push: {reply: req.body.reply}, status: "In-Progress" },
+      { $push: { reply: req.body.reply }, status: "In-Progress" },
       {
         new: true,
         runValidators: true,
