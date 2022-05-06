@@ -7,10 +7,6 @@ const feedbackSchema = new mongoose.Schema(
       default: false,
       enum: ["Very Happy", "Happy", "Good", "Sad", "Very Sad"], // could use 🙂 🙁 😐 😠
     },
-    // content: {
-    //   type: String,
-    //   maxlength: [1000, "Can't be More than 1000 Char"]
-    // },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Users',

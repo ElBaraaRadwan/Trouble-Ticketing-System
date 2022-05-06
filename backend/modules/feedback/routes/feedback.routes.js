@@ -10,7 +10,7 @@ router.get(
   "/getAllFeedBack",
   /*isAuthoraized(GET_ALL_FEEDBACKS), */
   getAllFeedBacks
-);
+); // /createFeedBack/:id most be here 
 router.post("/createFeedBack/:id", /*isAuthoraized(ADD_FEEDBACK), */ createFeedBack);
 
 module.exports = router;
