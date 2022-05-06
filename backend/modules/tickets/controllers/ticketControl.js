@@ -63,39 +63,6 @@ const createTicket = async (req, res, next) => {
   }
 };
 
-const replyTicket = async (req, res) => {
-  const allowedUpdates = ["reply"];
-  const keys = Object.keys(req.body);
-  const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
-  if (!isUpdationValid)
-    res
-      .status(StatusCodes.BAD_REQUEST)
-      .json(`You can only update ${allowedUpdates}`);
-
-  try {
-    const { id: ticketID } = req.params;
-    const ticket = await Ticket.findOneAndUpdate(
-      {
-        _id: ticketID,
-      },
-      req.body,
-      {
-        new: true,
-        runValidators: true,
-        maxTimeMS: 2,
-      }
-    );
-    if (!ticket)
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json(`No ticket with id : ${ticketID}`);
-    res.status(StatusCodes.OK).json(ticket);
-    //sendTicketUpdation(Agent.name, Agent.email, req.body._id);
-  } catch (error) {
-    res.status(StatusCodes.BAD_REQUEST).json(error);
-  }
-};
-
 const assignTicket = async (req, res) => {
   const allowedUpdates = ["priorty", "status"];
   const keys = Object.keys(req.body);
@@ -130,6 +97,39 @@ const assignTicket = async (req, res) => {
 
 const solveTicket = async (req, res) => {
   const allowedUpdates = ["solve"];
+  const keys = Object.keys(req.body);
+  const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
+  if (!isUpdationValid)
+    res.status(StatusCodes.BAD_REQUEST).json("You can only reply");
+  try {
+    const { id: ticketID } = req.params;
+    const ticket = await Ticket.findOneAndUpdate(
+      {
+        _id: ticketID,
+      },
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    // const ticketStatus = await Ticket.findOneAndUpdate({ _id: ticketID }, {
+      
+    // });
+    if (!ticket)
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json(`No ticket with id : ${ticketID}`);
+    res.status(StatusCodes.OK).json(ticket);
+    //sendTicketSolution(User.name, User.email, req.body._id);
+  } catch (error) {
+    res.status(StatusCodes.BAD_REQUEST).json(error);
+  }
+};
+
+const replyTicket = async (req, res) => {
+  const allowedUpdates = ["reply"];
   const keys = Object.keys(req.body);
   const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
   if (!isUpdationValid)
