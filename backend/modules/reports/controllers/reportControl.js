@@ -6,8 +6,8 @@ const { StatusCodes } = require("http-status-codes");
 const { sendReport } = require("../../../utils/Mails");
 
 const createReport = asyncWrapper(async(req, res) => {
-    const { header, content } = req.body;
-    const report = await Report.create({ header, content, Agent: req.params.id });
+    const { header, content, agent } = req.body;
+    const report = await Report.create({ header, content, agent });
     res.status(StatusCodes.CREATED).json({ report });
     // sendReport(Admin.name, Admin.email, req.body._id);
 });
@@ -27,13 +27,6 @@ const deleteReport = asyncWrapper(async(req, res) => {
     }
     res.status(StatusCodes.OK).json({ report });
 });
-
-// Func that find reports that been created by a user  [NOT READY YET]
-//   const reportByUser = asyncWrapper(async (req, res) => {
-//     const { id } = req.params;
-//     const user = await User.findById(id).populate("reports");
-//     res.status(200).json({ user });
-//   });
 
 // Func that find User that been create a report
 const userByReport = asyncWrapper(async(req, res) => {

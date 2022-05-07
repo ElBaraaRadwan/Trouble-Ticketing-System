@@ -17,6 +17,11 @@ const createTicket = async (req, res, next) => {
   try {
     let filesArray = [];
     req.files.forEach((element) => {
+      if (
+        element.mimetype === "image/jpg" ||
+        element.mimetype === "image/jpeg" ||
+        element.mimetype === "image/png"
+      ) {
       const file = {
         fileName: element.originalname,
         filePath: element.path,
@@ -24,19 +29,39 @@ const createTicket = async (req, res, next) => {
         fileSize: fileSizeFormatter(element.size, 2),
       };
       filesArray.push(file);
+    }
     });
     console.log(filesArray);
+
+    let voiceArray = [];
+    req.files.forEach((elem) => {
+      if (
+        elem.mimetype === "audio/mpeg" ||
+        elem.mimetype === "audio/mp3" ||
+        elem.mimetype === "audio/webc"
+      ) {
+        const voice = {
+          voiceName: elem.originalname,
+          voicePath: elem.path,
+          voiceType: elem.mimetype,
+          voiceSize: fileSizeFormatter(elem.size, 2),
+          voiceBuffer: elem.buffer,
+        };
+        voiceArray.push(voice);
+      }
+    });
+    console.log(voiceArray);
 
     const oneDay = 1000 * 60 * 60 * 24 * 1; // millisec * min * huor * day * how many days
     const priortyUpdation = new Date(Date.now() + oneDay);
 
-    const { title, description, department, userID, audioRecord } = req.body;
+    const { title, description, department, userID } = req.body;
     const ticket = await Ticket.create({
       title,
       description,
       department,
       user: userID,
-      audioRecord,
+      audioRecord: voiceArray,
       attachment: filesArray,
       ticketUpdatedTime: priortyUpdation,
     });

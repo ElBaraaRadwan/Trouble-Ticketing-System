@@ -54,7 +54,10 @@ const ticket = multer.diskStorage({
 const ticketfilter = (req, file, cb) => {
   if (
     file.mimetype === "image/png" ||
-    file.mimetype === "image/jpeg"
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "audio/webc" ||
+    file.mimetype === "audio/mp3" ||
+    file.mimetype === "audio/mpeg"
   ) {
     cb(null, true);
   } else {

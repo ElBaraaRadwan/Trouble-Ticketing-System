@@ -1,24 +1,24 @@
-const multer = require('multer');
-const GridFsStorage = require('multer-gridfs-storage');
+const util = require("util");
+const multer = require("multer");
+const { GridFsStorage } = require("multer-gridfs-storage");
 require("dotenv").config();
 
-const storage = new GridFsStorage({
-    url: process.env.MONGODB_URI,
-    file: (req, file) => {
-        return new Promise((resolve, reject) => {
-            crypto.randomBytes(16, (err, buf) => {
-                if (err) {
-                    return reject(err);
-                }
-                const filename = buf.toString('hex') + path.extname(file.originalname);
-                const fileInfo = {
-                    filename: filename,
-                    bucketName: 'uploads'
-                };
-                resolve(fileInfo);
-            });
-        });
+var storage = new GridFsStorage({
+  url: process.env.MONGODB_URI,
+  options: { useNewUrlParser: true, useUnifiedTopology: true },
+  file: (req, file) => {
+    const match = ["image/png", "image/jpeg", "image/jpg"];
+    if (match.indexOf(file.mimetype) === -1) {
+      const filename = `${Date.now()}-Ticket-${file.originalname}`;
+      return filename;
     }
+    return {
+      bucketName: process.env.imgBucket,
+      filename: `${Date.now()}-Ticket-${file.originalname}`
+    };
+  }
 });
+var uploadFiles = multer({ storage }).single("file");
+var uploadFilesMiddleware = util.promisify(uploadFiles);
 
-const upload = multer({ storage });
+module.exports = uploadFilesMiddleware;

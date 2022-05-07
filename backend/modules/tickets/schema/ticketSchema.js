@@ -1,4 +1,3 @@
-const { Blob } = require("buffer");
 const mongoose = require("mongoose");
 
 const ticketSchema = new mongoose.Schema(
@@ -14,7 +13,7 @@ const ticketSchema = new mongoose.Schema(
       maxlength: [1000, "Description Can't be More than 1000 Char"],
     },
     attachment: [Object],
-    audioRecord: { type: String },
+    audioRecord: [Object],
     priorty: {
       type: String,
       default: "Low",
@@ -23,14 +22,25 @@ const ticketSchema = new mongoose.Schema(
     status: {
       type: String,
       default: "Pending",
-      enum: ["Pending", "In-Progress", "User-Reply", "Solved","Unsolved", "Canceled"],
+      enum: [
+        "Pending",
+        "In-Progress",
+        "User-Reply",
+        "Solved",
+        "Unsolved",
+        "Canceled",
+      ],
     },
-    reply: [{
-      type: String,
-    }],
-    solve: [{
-      type: String,
-    }],
+    reply: [
+      {
+        type: String,
+      },
+    ],
+    solve: [
+      {
+        type: String,
+      },
+    ],
     department: {
       type: String,
       required: [true, "Department must be provided"],
