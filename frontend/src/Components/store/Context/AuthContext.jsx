@@ -1,4 +1,6 @@
 import React , {useEffect, useState} from "react";
+import jwt_decode from "jwt-decode";
+
 
 export const authContext = React.createContext({
   token : '',
@@ -12,11 +14,16 @@ export const authContext = React.createContext({
 });
 const isLogged = localStorage.getItem("userToken");
 const roleLocal = localStorage.getItem('role');
-
+let idLocal = ''; 
+if(isLogged){
+  const info = jwt_decode(isLogged);
+  console.log(info);
+  idLocal = info._id;
+}
 const AuthContextProvider = (props) => {
   const [token, setToken] = useState(isLogged); 
   const [role,setRole] = useState(roleLocal);
-  const [id,setId] = useState(null);
+  const [id,setId] = useState(idLocal);
   const isUserLogged = !!token;
 
   const loginHandler = (token) => {

@@ -1,22 +1,62 @@
 import React, { useRef, useState } from 'react'
 import style from "./MyTicket.module.css";
-import FileUploadComponent from './Helper/Upload/FileUploadComponent';
 import axios from 'axios';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ServerError from './../UI/ServerError';
+
+
+const imgUrl =' http://localhost:5000/';
 
 export default function SpecificTicket(props) {
   const [allowReply, setAllowReply] = useState(false);
+  const [errorServer, setErrorServer] = useState(false);
   const { ticketData } = props;
+  const navigate = useNavigate();
+  // const [errorApiResponce , setErrorApiResponce] = useState([]);
+
+
   const { _id, description, title, priorty, status, department, attachment, solve, audioRecord,
     reply } = ticketData;
+    console.log(audioRecord);
   const replyRef = useRef();
+  const feedbackRef = useRef();
 
-  console.log(audioRecord)
+  
+  
 
   const sendResponce = async (e) => {
     e.preventDefault();
     const userReply = replyRef.current.value;
-    const { data } = await axios.post(`http://localhost:5000/replyTicket/${_id}`, userReply);
+    const {data} = await axios.patch(`http://localhost:5000/replyTicket/${_id}`, {  reply : userReply}).catch(err=>
+    {
+      setErrorServer(true);
+      console.log(err)
+    }
+    )
+    console.log(data)
+    // if(result.value.reply != ''){
+    // setErrorServer(false);
+    // navigate('/HomeUser');
+    // }else{
+    // setErrorServer(true);
+    // }
+    // setErrorServer(false);
   }
+
+  const allowdToReply = (e)=>{
+     if(status === 'In-progress'){
+      setAllowReply(false);
+     } if (status === 'User-Reply' && solve){
+       setAllowReply(true);
+     }
+  }
+  
+  useEffect(()=>{
+    allowdToReply();
+  },[])
   return (
     <div
       className="position-sticky"
@@ -73,27 +113,30 @@ export default function SpecificTicket(props) {
                     Audio Description
                   </th>
                   <td>
-                  <audio controls>
-                  <source  src={URL.createObjectURL(audioRecord)} type="audio/webm" />
-                </audio>
+                    <AudioPlayer
+                      autoPlay={false}
+                      loop={false}
+                      src={audioRecord}
+                    // other props here
+                    />
                   </td>
                 </tr>
 
-              ) : ''
+              ) : ( 
+       <></>
+             )
             }
-            {/* audioRecord: "blob:http://localhost:3000/42e5aff2-9980-483c-8708-bb4df9344ff0"
- */}
             <tr>
               <th className={style["specific-row"]} scope="row">
                 attacchment files
               </th>
               <td>
-                {/* <img src={e.} alt="" srcset="" /> */}
                 {
                   attachment.map(e => {
-                    console.log(e)
                     return (
-                      <img className='w-100' src={e.filePath} alt="" />
+                      <>
+                        <img className='w-25' src={imgUrl + e.filePath} alt="" />
+                      </>
                     )
                   })
                 }
@@ -123,8 +166,8 @@ export default function SpecificTicket(props) {
                 </tr>
               )
             }
-            
-         
+
+
           </tbody>
         </table>
         {allowReply ?
@@ -136,7 +179,13 @@ export default function SpecificTicket(props) {
             </form>
           </div>) : (
             <p style={{ fontSize: '24px', color: 'red' }}>You aren't allowed to reply to the ticket yet</p>)}
-
+          {
+            errorServer?    (
+              <ServerError/>
+            )  : (
+            ''
+            )
+          }
       </div>
     </div>
   )

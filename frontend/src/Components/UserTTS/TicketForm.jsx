@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import style from "./TicketForm.module.css";
 import Input from "../UI/Input";
 import InputDropDown from "../UI/InputDropDown";
@@ -6,31 +6,37 @@ import Button from "./../UI/Button";
 import FileUploadComponent from "./Helper/Upload/FileUploadComponent";
 import RecordAudio from "./Helper/Audio/RecordAudio";
 import Fixedimage from "../UI/FixedImage";
-import $ from "jquery";
+import $, { get } from "jquery";
 import Joi from "joi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import FooterText from './../Home/FooterText';
 import { authContext } from "../store/Context/AuthContext";
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+import ServerError from './../UI/ServerError';
+
 
 export default function TicketForm() {
   let [loading, setLoading] = useState(false);
   let [ticketToData, setTicket] = useState([]);
   let [status, setStatus] = useState([]);
-  let [record, setRecorder] = useState(null);
+  let [record, setRecorder] = useState('');
+  let [recordDatabase , setRecordDatabase] = useState(new Blob)
   let [files, setFiles] = useState([]);
-  let [mineRecord , setMineRecord] = useState(null)
-  let [errorValidation, setErrorValidation] = useState(null);
+  let [errorValidation, setErrorValidation] = useState([]);
+  let [errorApiResponce , setErrorApiResponce] = useState(false)
   const loginFormData = new FormData();
   const authCtx = useContext(authContext);
   const navigate = useNavigate();
+  
   const subjectInputRef = useRef();
   const departmentInputRef = useRef();
   const descriptionInputRef = useRef();
 
   const validateTicket = (ticket) => {
     let scheme = Joi.object({
-      title: Joi.string().min(3).max(30).required(),
+      title: Joi.string().min(8).max(30).required(),
       description: Joi.string().min(60).max(550).required(),
     });
     return scheme.validate(ticket, { abortEarly: false });
@@ -39,19 +45,16 @@ export default function TicketForm() {
     setStatus(staus);
   };
   const getFiles = (data) => {
-    const {name , size , type } = data;
-    const image = {
-      fileName :  name,
-      fileType : type ,
-      fileSize : size
-    }
-
-    setFiles((prevArray) => [...prevArray, image]);
+    setFiles((prevArray) => [...prevArray, data]);
   };
 
   const getRecorder = (recorderSrc) => {
     setRecorder(recorderSrc);
   };
+
+  useEffect(()=>{
+    getRecorder();
+  },[])
   const submitForm = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -65,51 +68,105 @@ export default function TicketForm() {
     setTicket(tickets);
     const validation = validateTicket(ticket);
     // console.log(URL.createObjectURL(record))
-    var chunks = [];
+    
+    // const RecordDataBase = window.URL.createObjectURL(new Blob(binaryData, {type: 'audio/webm'}));
+    // console.log(RecordDataBase)
+    
+    
+    let chunks = [];
     chunks.push(record);
-    const RecordDataBase = new Blob (chunks, { type: 'audio/webm' });
-    const mineRecord =  URL.createObjectURL(RecordDataBase);
-    setMineRecord(mineRecord)
-    // const RecordDataBase = window.URL.createObjectURL(new Blob(binaryData, {type: 'audio/webm'}))
-    // console.log(mineREcord)
-    console.log(RecordDataBase)
-    console.log(mineRecord)
+    const audioRecord = new Blob (chunks, { type: 'audio/webm' });
+    setRecorder(audioRecord); 
+    setRecordDatabase(audioRecord);
+   
+    console.log( await audioRecord.arrayBuffer())
 
     // if(validation.error && !status){
-    console.log(validation)
     if(validation.error){
       setErrorValidation(validation.error.details);
       setLoading(false);
       return ;
     }
-    const attachmentFiles = [files , record];
     
-    loginFormData.append("title", subjectInputRef.current.value);
-    loginFormData.append("department", departmentInputRef.current.value);
-    loginFormData.append("description", descriptionInputRef.current.value);
-    loginFormData.append("audioRecord", RecordDataBase);
-    loginFormData.append("userID", authCtx.id);
-    // loginFormData.append("attachment", JSON.stringify(attachmentFiles));
-    
-    // title, description, department, userID, agentID 
-
-    console.log('formdata')
-    const response = await axios({
-      method: "POST",
-      url: "http://localhost:5000/createTicket", 
-      data: loginFormData,
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    console.log(response);
-    if(response.statusText === 'Created'){
+      setErrorValidation([]);
       setLoading(false);
-      setErrorValidation(null);
-      navigate('/HomeUser');
-    }else{
-      console.log(response)
-    }
-    console.log(response);
+
+      let filess = [];
+      files.map((e)=>{
+      // let oneFile = new File (e, { type: 'media/img' });
+      // filess.push(oneFile);
+      })
+
+      // const attachmentFiles = [files ];
+      
+      // attachment
+      loginFormData.append("title", subjectInputRef.current.value);
+      loginFormData.append("department", departmentInputRef.current.value);
+      loginFormData.append("description", descriptionInputRef.current.value);
+      // loginFormData.append("audioRecord", audioRecord);
+      loginFormData.append("userID", authCtx.id);
+      // loginFormData.set("attachment", files);
+      
+      
+      // loginFormData.append("attachment", JSON.stringify(attachmentFiles));
+      
+      console.log(loginFormData.get('title'));
+      console.log(loginFormData.get('department'));
+      console.log(loginFormData.get('description'));
+      console.log(loginFormData.get('audioRecord'));
+      console.log(loginFormData.get('userID'));
+
+      // files.map((e , i)=>{
+      //   loginFormData.append("attachment", files[i]);
+      // })
+
+      if(record){
+        files.push(audioRecord);
+      }
+
+      console.log(audioRecord)
+      console.log(URL.createObjectURL(audioRecord))
+      let index = 0;
+      for (index = 0; index < files.length; index++) {
+        loginFormData.append("attachment", files[index]);
+      }
+      if(record){
+        loginFormData.append("attachment", files[index])
+      }
+      console.log(loginFormData.get('attachment'));
+      // console.log(URL.createObjectURL(loginFormData.get('audioRecord')))
+  
+  
+      // title, description, department, userID, agentID 
+  
+      const responce = await axios.post(
+        'http://localhost:5000/createTicket' , loginFormData
+      )
+      console.log(responce);
+
+      
+    // await axios({
+    //   method: "POST",
+    //   url: "http://localhost:5000/createTicket", 
+    //   data: loginFormData,
+    //   headers: { "Content-Type": "multipart/form-data" },
+    // }).then(res=> console.log(res)).catch(err=>{
+    //   console.log(err);
+    //   setErrorApiResponce(true);
+    // })
+    // console.log(response);
+    // if(response.statusText === 'Created'){
+    //   setLoading(false);
+    //   setErrorValidation(null);
+    //   setErrorApiResponce(false);
+    //   navigate('/HomeUser');
+    // }else{
+    //   console.log(response);
+    //   setErrorApiResponce(true);  
+    // }
+    // console.log(response);
     
+
     //   if (response.message === "success") {
     //     console.log(response)
     //     navigate('/HomeUser');
@@ -142,9 +199,12 @@ export default function TicketForm() {
               action="#"
               method="post"
             >
-              {/* {errorValidation && (
-                <div className="alert alert-danger py-2">{errorValidation}</div>
-              )} */}
+              {errorValidation.map((e)=>{
+                console.log(e);
+                return (
+                  <div className="alert alert-danger py-2">{e.message}</div>
+                )
+              })}
               {/* {error && <div className="alert alert-danger py-2">{error}</div>} */}
               <div className="w-100">
                 <Input
@@ -223,6 +283,9 @@ export default function TicketForm() {
           </div>
         </div>
       </div>
+      {
+        errorApiResponce?   <ServerError/>  : ''
+      }
       <FooterText/>
     </React.Fragment>
   );

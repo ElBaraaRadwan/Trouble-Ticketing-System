@@ -38,3 +38,10 @@
 .NormalLi:hover{
     color : rgb(98, 198, 216);
 }
+
+
+@media screen and (max-width: 768px) {
+    .nav-height{
+      height: auto;
+    }
+  }
