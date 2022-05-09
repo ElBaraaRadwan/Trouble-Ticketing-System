@@ -49,6 +49,19 @@ const sendTicketConfirmation = async ({ name, email, ticketID }) => {
   });
 };
 
+const sendTicketDely = async ({ name, email, ticketID }) => {
+  const message = `<p>We're very sorry for taking so long to respond to your problem, since their were solutions found. We updated your ticket to the highest level of priorty so that can be solve as soon as passable.</p>
+  <br /><p>${ticketID}</p>`;
+
+  return sendEmail({
+    to: email,
+    subject: "Your ticket have been saved",
+    html: `<h2>Hello ${name}</h2>
+   ${message}
+   `,
+  });
+};
+
 const sendTicketUpdation = async ({ name, email, ticketID }) => {
   const message = `<p>The ticket you have been working on got an update, please check it in the website</p>
   <br /><p>${ticketID}</p>`;
@@ -109,4 +122,5 @@ module.exports = {
   sendReport,
   sendResetPassswordEmail,
   sendVerificationEmail,
+  sendTicketDely
 };

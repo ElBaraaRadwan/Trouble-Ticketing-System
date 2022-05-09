@@ -11,6 +11,7 @@ const {
   sendTicketSolution,
   sendTicketUpdation,
 } = require("../../../utils/Mails");
+const fs = require("fs");
 
 // this function for creating a ticket  =>
 const createTicket = async (req, res, next) => {
@@ -22,14 +23,14 @@ const createTicket = async (req, res, next) => {
         element.mimetype === "image/jpeg" ||
         element.mimetype === "image/png"
       ) {
-      const file = {
-        fileName: element.originalname,
-        filePath: element.path,
-        fileType: element.mimetype,
-        fileSize: fileSizeFormatter(element.size, 2),
-      };
-      filesArray.push(file);
-    }
+        const file = {
+          fileName: element.originalname,
+          filePath: element.path,
+          fileType: element.mimetype,
+          fileSize: fileSizeFormatter(element.size, 2),
+        };
+        filesArray.push(file);
+      }
     });
     console.log(filesArray);
 
@@ -44,8 +45,8 @@ const createTicket = async (req, res, next) => {
           voiceName: elem.originalname,
           voicePath: elem.path,
           voiceType: elem.mimetype,
+          voiceEncode: elem.encoding,
           voiceSize: fileSizeFormatter(elem.size, 2),
-          voiceBuffer: elem.buffer,
         };
         voiceArray.push(voice);
       }
@@ -244,5 +245,4 @@ module.exports = {
   createTicket,
   replyTicket,
   deleteTicket,
-  //test,
 };

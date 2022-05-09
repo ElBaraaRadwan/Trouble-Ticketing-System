@@ -5,7 +5,11 @@ const multer = require("multer");
 
 const FAQs = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/FAQs/");
+    if (file.mimetype === "image/png" || file.mimetype === "image/jpeg") {
+      cb(null, "uploads/FAQs/IMG/");
+    } else {
+      cb(null, "uploads/FAQs/");
+    }
   },
   filename: (req, file, cb) => {
     cb(
@@ -41,7 +45,11 @@ const uploadFAQs = multer({
 
 const ticket = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/Tickets/");
+    if (file.mimetype === "image/png" || file.mimetype === "image/jpeg") {
+      cb(null, "uploads/Tickets/IMG/");
+    } else {
+      cb(null, "uploads/Tickets/Audio/");
+    }
   },
   filename: (req, file, cb) => {
     cb(

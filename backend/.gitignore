@@ -2,5 +2,7 @@
 ico
 .env
 package-lock.json
-/uploads/Tickets/**
-/uploads/FAQs/**
+/uploads/Tickets/IMG/**
+/uploads/Tickets/Audio/**
+/uploads/FAQs/IMG/**
+/uploads/FAQs/Video/**
