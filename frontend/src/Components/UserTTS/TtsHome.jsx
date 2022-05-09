@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../Home/Navbar";
+import Navbar from "../Home/Navbarr";
 import { NavLink } from 'react-router-dom';
 import style from './TtsHome.module.css';
 

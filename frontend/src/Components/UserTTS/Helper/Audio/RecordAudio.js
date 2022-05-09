@@ -1,10 +1,11 @@
 import * as React from "react";
 import AudioRecorder from "./AudioRecorder";
 
+
 export default function RecordAudio(props) {
-  let [audioURL, isRecording, startRecording, stopRecording] = AudioRecorder();
+  let [audioURL, isRecording, startRecording, stopRecording ] = AudioRecorder();
   const {getRecorder} = props;
-  getRecorder(audioURL)
+  getRecorder(audioURL);
 
   return (
     <div className="d-flex flex-column">

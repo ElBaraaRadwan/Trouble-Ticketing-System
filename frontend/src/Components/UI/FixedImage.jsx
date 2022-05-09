@@ -1,10 +1,12 @@
 import React from "react";
 import image from "./../../images/process.gif";
 import style from './FixedImage.module.css';
+
+
 const Fixedimage = (props) => {
   return (
     <section className="" style={{ backgroundImage: `url(${image}) ` , 'height' : '360px' }}>
-         <div className={style[""]}>
+         <div className={style["overlay"]}>
             <div className=""
             style={{
               display : 'flex',
