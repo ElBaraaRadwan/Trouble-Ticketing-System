@@ -12,11 +12,13 @@ const {
     assignTicket,
     solveTicket,
     getMyTickts,
+    updateTicket
 } = require("../controllers/ticketControl");
 
 router.get("/getAllTicket", /*isAuthoraized(GET_ALL_TICKETS),*/ getAllTickets);
-router.get("/getAllTicket/myTicket/:id", getMyTickts);
+router.get("/getAllTicket/myTicket", getMyTickts);
 router.post('/createTicket', /*isAuthoraized(ADD_TICKET),*/ uploadTicket.array('attachment'), createTicket);
+router.patch('/updateTicket/:id', /*isAuthoraized(ADD_TICKET),*/ uploadTicket.array('attachment'), updateTicket);
 router.get("/getTicket/:id", /*isAuthoraized(GET_TICKET),*/ getTicket); // get a single ticket
 router.patch("/replyTicket/:id", /*isAuthoraized(UPDATA_TICKET), */ replyTicket);
 router.patch("/assignTicket/:id", /*isAuthoraized(ASSIGN_TICKET), */ assignTicket);

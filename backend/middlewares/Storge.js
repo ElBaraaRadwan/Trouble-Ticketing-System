@@ -8,7 +8,7 @@ const FAQs = multer.diskStorage({
     if (file.mimetype === "image/png" || file.mimetype === "image/jpeg") {
       cb(null, "uploads/FAQs/IMG/");
     } else {
-      cb(null, "uploads/FAQs/");
+      cb(null, "uploads/FAQs/Video/");
     }
   },
   filename: (req, file, cb) => {

@@ -39,16 +39,10 @@ const createTicket = async (req, res, next) => {
       if (
         elem.mimetype === "audio/mpeg" ||
         elem.mimetype === "audio/mp3" ||
-        elem.mimetype === "audio/webc"
+        elem.mimetype === "audio/webm"
       ) {
-        const voice = {
-          voiceName: elem.originalname,
-          voicePath: elem.path,
-          voiceType: elem.mimetype,
-          voiceEncode: elem.encoding,
-          voiceSize: fileSizeFormatter(elem.size, 2),
-        };
-        voiceArray.push(voice);
+        let data = fs.readFileSync(req.file.path);
+        voiceArray.push({ data: data, dateName: req.file.originalname });
       }
     });
     console.log(voiceArray);
@@ -102,6 +96,59 @@ const assignTicket = async (req, res) => {
         _id: ticketID,
       },
       { priorty: req.body.priorty, status: req.body.status },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    if (!ticket)
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json(`No ticket with id : ${ticketID}`);
+    res.status(StatusCodes.OK).json(ticket);
+    //sendTicketSolution(User.name, User.email, req.body._id);
+  } catch (error) {
+    res.status(StatusCodes.BAD_REQUEST).json(error);
+  }
+};
+
+const updateTicket = async (req, res) => {
+  const allowedUpdates = ["title", "department", "description", "attachment"];
+  const keys = Object.keys(req.body);
+  const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
+  if (!isUpdationValid)
+    res.status(StatusCodes.BAD_REQUEST).json("You can only reply");
+  try {
+    const { id: ticketID } = req.params;
+
+    let filesArray = [];
+    req.files.forEach((element) => {
+      if (
+        element.mimetype === "image/jpg" ||
+        element.mimetype === "image/jpeg" ||
+        element.mimetype === "image/png"
+      ) {
+        const file = {
+          fileName: element.originalname,
+          filePath: element.path,
+          fileType: element.mimetype,
+          fileSize: fileSizeFormatter(element.size, 2),
+        };
+        filesArray.push(file);
+      }
+    });
+    console.log(filesArray);
+
+    const ticket = await Ticket.findOneAndUpdate(
+      {
+        _id: ticketID,
+      },
+      {
+        title: req.body.title,
+        department: req.body.department,
+        description: req.body.description,
+        attachment: filesArray,
+      },
       {
         new: true,
         runValidators: true,
@@ -227,15 +274,6 @@ const getMyTickts = asyncWrapper(async (req, res) => {
   res.status(StatusCodes.OK).json({ userTickets, count: userTickets.length });
 });
 
-// const updateData = () => {
-//   try {
-//     const tickets = await Ticket.find({priorty, status: 'Pending', ticketUpdatedTime});
-//     if(!tickets = )
-//   } catch (error) {
-
-//   }
-// };
-
 module.exports = {
   getAllTickets,
   getTicket,
@@ -245,4 +283,5 @@ module.exports = {
   createTicket,
   replyTicket,
   deleteTicket,
+  updateTicket,
 };
