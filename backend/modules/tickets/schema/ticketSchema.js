@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const {Blob, Buffer} = require('node:buffer')
 
 const ticketSchema = new mongoose.Schema(
   {

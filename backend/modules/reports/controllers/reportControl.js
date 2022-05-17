@@ -8,6 +8,19 @@ const { sendReport } = require("../../../utils/Mails");
 const createReport = asyncWrapper(async(req, res) => {
     const { header, content, agent } = req.body;
     const report = await Report.create({ header, content, agent });
+
+    let userReports = await Report.find({ agent });
+
+    const sendReport = await User.findOneAndUpdate(
+      { _id: agent },
+      {
+        createdThings: [...userReports],
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     res.status(StatusCodes.CREATED).json({ report });
     // sendReport(Admin.name, Admin.email, req.body._id);
 });
@@ -28,16 +41,8 @@ const deleteReport = asyncWrapper(async(req, res) => {
     res.status(StatusCodes.OK).json({ report });
 });
 
-// Func that find User that been create a report
-const userByReport = asyncWrapper(async(req, res) => {
-    const { id } = req.params;
-    const agent = await Agent.findById(id).populate("Report");
-    res.status(StatusCodes.OK).json({ agent });
-});
-
 module.exports = {
     createReport,
     getAllReports,
-    userByReport,
     deleteReport,
 };

@@ -1,7 +1,7 @@
 const FAQs = require("../model/FAQs.model");
 const asyncWrapper = require("../../../middlewares/async");
 const { StatusCodes } = require("http-status-codes");
-const fileSizeFormatter = require('../../../utils/fileSize')
+const fileSizeFormatter = require("../../../utils/fileSize");
 
 const createFAQs = async (req, res, next) => {
   try {
@@ -16,27 +16,47 @@ const createFAQs = async (req, res, next) => {
       filesArray.push(file);
     });
     console.log(filesArray);
-    const faq = new FAQs({
-        header: req.body.header,
-        content: req.body.content,
-        department: req.body.department,
-        attachment: filesArray 
+
+    const faq = await FAQs.create({
+      header: req.body.header,
+      content: req.body.content,
+      department: req.body.department,
+      attachment: filesArray,
     });
-    await faq.save();
     res.status(StatusCodes.CREATED).json(faq);
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json(error.message);
   }
 };
 
-const updateFAQs = asyncWrapper(async (req, res) => {
+const editFAQs = asyncWrapper(async (req, res) => {
   const { id: FAQsID } = req.params;
 
-  const faq = await FAQs.findOneAndUpdate({ _id: FAQsID }, req.body, {
-    new: true,
-    runValidators: true,
+  let filesArray = [];
+  req.files.forEach((element) => {
+    const file = {
+      fileName: element.originalname,
+      filePath: element.path,
+      fileType: element.mimetype,
+      fileSize: fileSizeFormatter(element.size, 2),
+    };
+    filesArray.push(file);
   });
+  console.log(filesArray);
 
+  const faq = await FAQs.findOneAndUpdate(
+    { _id: FAQsID },
+    {
+      header: req.body.header,
+      content: req.body.content,
+      department: req.body.department,
+      attachment: filesArray,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
   if (!faq) {
     return res
       .status(StatusCodes.NOT_FOUND)
@@ -76,6 +96,6 @@ module.exports = {
   getAllFAQs,
   getFAQs,
   createFAQs,
-  updateFAQs,
+  editFAQs,
   deleteFAQs,
 };

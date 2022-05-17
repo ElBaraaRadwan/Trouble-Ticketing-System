@@ -11,7 +11,6 @@ const {
   sendTicketSolution,
   sendTicketUpdation,
 } = require("../../../utils/Mails");
-const fs = require("fs");
 
 // this function for creating a ticket  =>
 const createTicket = async (req, res, next) => {
@@ -34,18 +33,17 @@ const createTicket = async (req, res, next) => {
     });
     console.log(filesArray);
 
-    let voiceArray = [];
-    req.files.forEach((elem) => {
-      if (
-        elem.mimetype === "audio/mpeg" ||
-        elem.mimetype === "audio/mp3" ||
-        elem.mimetype === "audio/webm"
-      ) {
-        let data = fs.readFileSync(req.file.path);
-        voiceArray.push({ data: data, dateName: req.file.originalname });
-      }
-    });
-    console.log(voiceArray);
+    const audioArray = req.files
+      .filter((file) => file.mimetype === "audio/webm")
+      .map((file) => {
+        return {
+          fileName: file.originalname,
+          filePath: file.path,
+          fileType: file.mimetype,
+          fileSize: fileSizeFormatter(file.size, 2),
+        };
+      });
+    console.log(audioArray);
 
     const oneDay = 1000 * 60 * 60 * 24 * 1; // millisec * min * huor * day * how many days
     const priortyUpdation = new Date(Date.now() + oneDay);
@@ -56,7 +54,7 @@ const createTicket = async (req, res, next) => {
       description,
       department,
       user: userID,
-      audioRecord: voiceArray,
+      audioRecord: audioArray,
       attachment: filesArray,
       ticketUpdatedTime: priortyUpdation,
     });
@@ -66,7 +64,7 @@ const createTicket = async (req, res, next) => {
     const sendTicket = await User.findOneAndUpdate(
       { _id: userID },
       {
-        createdTickets: [...userTickets],
+        createdThings: [...userTickets],
       },
       {
         new: true,
@@ -106,13 +104,13 @@ const assignTicket = async (req, res) => {
         .status(StatusCodes.NOT_FOUND)
         .json(`No ticket with id : ${ticketID}`);
     res.status(StatusCodes.OK).json(ticket);
-    //sendTicketSolution(User.name, User.email, req.body._id);
+    sendTicketSolution(User.name, User.email, req.body._id);
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json(error);
   }
 };
 
-const updateTicket = async (req, res) => {
+const editTicket = async (req, res) => {
   const allowedUpdates = ["title", "department", "description", "attachment"];
   const keys = Object.keys(req.body);
   const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
@@ -159,7 +157,7 @@ const updateTicket = async (req, res) => {
         .status(StatusCodes.NOT_FOUND)
         .json(`No ticket with id : ${ticketID}`);
     res.status(StatusCodes.OK).json(ticket);
-    //sendTicketSolution(User.name, User.email, req.body._id);
+    sendTicketSolution(User.name, User.email, req.body._id);
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json(error);
   }
@@ -192,7 +190,7 @@ const solveTicket = async (req, res) => {
         .status(StatusCodes.NOT_FOUND)
         .json(`No ticket with id : ${ticketID}`);
     res.status(StatusCodes.OK).json(ticket);
-    //sendTicketSolution(User.name, User.email, req.body._id);
+    sendTicketSolution(User.name, User.email, req.body._id);
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json(error);
   }
@@ -221,7 +219,7 @@ const replyTicket = async (req, res) => {
         .status(StatusCodes.NOT_FOUND)
         .json(`No ticket with id : ${ticketID}`);
     res.status(StatusCodes.OK).json(ticket);
-    //sendTicketSolution(User.name, User.email, req.body._id);
+    sendTicketSolution(User.name, User.email, req.body._id);
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json(error);
   }
@@ -283,5 +281,5 @@ module.exports = {
   createTicket,
   replyTicket,
   deleteTicket,
-  updateTicket,
+  editTicket,
 };

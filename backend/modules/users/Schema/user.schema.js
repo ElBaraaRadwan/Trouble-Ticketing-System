@@ -94,9 +94,8 @@ const UserSchema = new mongoose.Schema({
   passwordTokenExpirationDate: {
     type: Date,
   },
-  createdTickets: [{
+  createdThings: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Ticket",
   }],
 });
 

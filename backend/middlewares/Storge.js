@@ -52,6 +52,7 @@ const ticket = multer.diskStorage({
     }
   },
   filename: (req, file, cb) => {
+    console.log({ file });
     cb(
       null,
       new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
@@ -63,6 +64,7 @@ const ticketfilter = (req, file, cb) => {
   if (
     file.mimetype === "image/png" ||
     file.mimetype === "image/jpeg" ||
+    file.mimetype === "audio/webm" ||
     file.mimetype === "audio/webc" ||
     file.mimetype === "audio/mp3" ||
     file.mimetype === "audio/mpeg"

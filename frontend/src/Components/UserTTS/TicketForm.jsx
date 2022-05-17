@@ -15,7 +15,7 @@ import { authContext } from "../store/Context/AuthContext";
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import ServerError from './../UI/ServerError';
-
+import { base64ToFile } from "./Helper/blob";
 
 export default function TicketForm() {
   let [loading, setLoading] = useState(false);
@@ -73,9 +73,9 @@ export default function TicketForm() {
     // console.log(RecordDataBase)
     
     
-    let chunks = [];
-    chunks.push(record);
-    const audioRecord = new Blob (chunks, { type: 'audio/webm' });
+    console.log({ record })
+
+    const audioRecord = await base64ToFile(record, `audio-${Date.now()}.webm`, "audio/webm");
     setRecorder(audioRecord); 
     setRecordDatabase(audioRecord);
    
@@ -120,8 +120,9 @@ export default function TicketForm() {
       //   loginFormData.append("attachment", files[i]);
       // })
 
+      console.log(new File([audioRecord], `audio-${Date.now()}.webm`,{type: audioRecord.type}))
       if(record){
-        files.push(audioRecord);
+        files.push(new File([audioRecord], `audio-${Date.now()}.webm`,{type: audioRecord.type}));
       }
 
       console.log(audioRecord)
