@@ -1,0 +1,15 @@
+.btn-mine:hover {
+    background: transparent linear-gradient(142deg, #0E0058 0%, #1C00AF 100%) 0% 0% no-repeat padding-box;
+}
+.btn-mine{
+    color: #FFFFFF;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.5s;
+    padding: 13px 40px;
+    border-radius: 10px;
+    display: inline-block;
+    background: transparent linear-gradient(142deg, #1C00AF 0%, #0E0058 100%) 0% 0% no-repeat padding-box;
+    border-color: transparent;
+    margin: 0 5px;
+}

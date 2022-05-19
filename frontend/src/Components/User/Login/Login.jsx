@@ -6,7 +6,16 @@ import Input from './../../UI/Input';
 import Button from './../../UI/Button';
 import { useNavigate } from 'react-router-dom';
 import { authContext } from "../../store/Context/AuthContext";
-
+import heroBg from "../../../images/Images/hero-bg.png"
+import style from "../../NewHome/HomePage.module.css"
+import styleSign from "./../Signup/Signup.module.css"
+import styleAnimate from "../../NewHome/Animation.module.css"
+import shape1 from '../../../images/Images/shape1.png'
+import shape2 from '../../../images/Images/shape2.png'
+import shape3 from '../../../images/Images/shape3.png'
+import { NavLink } from 'react-router-dom';
+import FooterAll from "../../NewHome/FooterAll";
+import Mainbg from "../../UI/Mainbg";
 
 export default function Login() {
   let [errorList, setErrorList] = useState([]);
@@ -40,7 +49,10 @@ export default function Login() {
         authCtx.assignRole(data.data.role);
         authCtx.assignId(data.data._id);
         console.log(data.data._id)
+        console.log('navigate?')
         navigate('/HomeUser');
+        console.log('yes')
+
         setErrorList([]);
         setError("");
         setLoading(false);
@@ -60,10 +72,46 @@ export default function Login() {
     return scheme.validate(user, { abortEarly: false });
   }
   return (
-    <CadrForm>
-      <div className="w-75 m-auto">
-        <h1 className=" text-center ">Login</h1>
-        <form onSubmit={formSubmit} className="w-75 m-auto">
+   <>
+  <Mainbg>
+
+ 
+        <div className="container pb-5 mb-3">
+          <div className="row justify-content-center" id="mainPart">
+          
+            <div className="col-md-12 text-center py-2">
+              <h6 className="" style={{fontWeight : 'bold' , 
+              letterSpacing : '8px' , fontSize : '55px'
+            }}>Login Form</h6>
+              <p className="text-muted">Please fill All data to Login successfully</p>
+            </div>
+
+          </div>
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-10"] + " " + styleAnimate["t-60"]}>
+          <img src={shape1} alt="" />
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-70"] + " " + styleAnimate["t-60"]}>
+          <img src={shape2} alt="" />
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-50"] + " " + styleAnimate["t-100"]}>
+          <img src={shape3} alt="" />
+        </div>
+        </Mainbg>
+      <div className="w-100 m-auto">
+        <form onSubmit={formSubmit}  className="w-50 m-auto p-5"
+      style={{boxShadow : 'rgba(0, 0, 0, 0.1) 0px 4px 12px'}}>
+          <h2 className="">Use your account to Login.</h2>
+        <p className={styleSign["text-mine"]}>don't have an account? 
+        <NavLink   
+                  className={(navData) =>
+                    navData.isActive ? styleSign.active : styleSign.active
+                  }
+                  to="/signup"
+                >
+                  Signup
+                </NavLink>
+        </p>
           <div className="my-2">
             {error && <div className="alert alert-danger py-2">{error}</div>}
           </div>
@@ -93,6 +141,7 @@ export default function Login() {
           <Button loading={loading} type={"Login"} />
         </form>
       </div>
-    </CadrForm>
+      <FooterAll/>
+   </>
   );
 }

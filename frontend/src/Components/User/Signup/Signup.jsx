@@ -2,10 +2,18 @@ import axios from "axios";
 import Joi from "joi";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CadrForm from "../../UI/CadrForm";
 import Input from "../../UI/Input";
 import Button from "./../../UI/Button";
-
+import style from "../../NewHome/HomePage.module.css"
+import styleSign from "./Signup.module.css"
+import heroBg from "../../../images/Images/hero-bg.png"
+import styleAnimate from "../../NewHome/Animation.module.css"
+import shape1 from '../../../images/Images/shape1.png'
+import shape2 from '../../../images/Images/shape2.png'
+import shape3 from '../../../images/Images/shape3.png'
+import { NavLink } from 'react-router-dom';
+import FooterAll from "../../NewHome/FooterAll";
+import Mainbg from "../../UI/Mainbg";
 
 export default function Signup(props){
   let [errorList, setErrorList] = useState([]);
@@ -62,9 +70,44 @@ export default function Signup(props){
     return scheme.validate(user, { abortEarly: false });
   }
   return (
-    <CadrForm>
-      <form onSubmit={formSubmit} className="w-75 m-auto p-1">
-        <h2 className=" text-center">Sign up</h2>
+    <>
+    <Mainbg>
+        <div className="container pb-5 mb-3">
+          <div className="row justify-content-center" id="mainPart">
+          
+            <div className="col-md-12 text-center py-2">
+              <h6 className="" style={{fontWeight : 'bold' , 
+              letterSpacing : '8px' , fontSize : '55px'
+            }}>Sign up Form</h6>
+              <p className="text-muted">Please fill All data to signup successfully</p>
+            </div>
+
+          </div>
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-10"] + " " + styleAnimate["t-60"]}>
+          <img src={shape1} alt="" />
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-70"] + " " + styleAnimate["t-60"]}>
+          <img src={shape2} alt="" />
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-50"] + " " + styleAnimate["t-100"]}>
+          <img src={shape3} alt="" />
+        </div>
+      </Mainbg>
+      <form onSubmit={formSubmit} className="w-50 m-auto p-5"
+      style={{boxShadow : 'rgba(0, 0, 0, 0.1) 0px 4px 12px'}}
+      >
+        <h2 className="">Create new account.</h2>
+        <p className={styleSign["text-mine"]}>Aready Member? 
+        <NavLink   
+                  className={(navData) =>
+                    navData.isActive ? styleSign.active : styleSign.active
+                  }
+                  to="/login"
+                >
+                  Login
+                </NavLink>
+        </p>
         <div className="my-2">
           {error && <div className="alert alert-danger p-2">{error}</div>}
         </div>
@@ -80,18 +123,24 @@ export default function Signup(props){
           )
         )}
         <div className="d-flex justify-content-between">
+          <div className="w-50 pe-2">
           <Input
             type={"text"}
             name={"first_name"}
             labelName={"First Name"}
             ref={inputFirstNameRef}
           />
+          </div>
+          <div className="w-50 ps-2">
           <Input
             type={"text"}
             name={"last_name"}
             labelName={"Last Name"}
             ref={inputLastNameRef}
           />
+          </div>
+        
+        
         </div>
         <Input
           type={"number"}
@@ -113,6 +162,7 @@ export default function Signup(props){
         />
         <Button loading={loading} type={"Register"} />
       </form>
-    </CadrForm>
+      <FooterAll/>
+      </>
   );
 };

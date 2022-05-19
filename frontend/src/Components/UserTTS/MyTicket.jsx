@@ -15,10 +15,11 @@ export default function MyTicket() {
   const [ticketIdToFeedback, setTicketIdToFeedback] = useState('');
   const [errorApiFeedback, setErrorApiFeedback] = useState(false);
   const authCtx = useContext(authContext);
-
+  const id = authCtx.id;
+  console.log(id)
 
   const getTickets = async () => {
-    const { data } = await axios.get(`http://localhost:5000/getAllTicket/myTicket/625de71acc63de34df4e7b0a`);
+    const { data } = await axios.get(`http://localhost:5000/getAllTicket/myTicket/${id}`);
     console.log(data.userTickets);
     setTickets(data.userTickets);
   };
