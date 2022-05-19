@@ -10,15 +10,18 @@ import { authContext } from "./Components/store/Context/AuthContext";
 import TicketForm from "./Components/UserTTS/TicketForm";
 import FaqsData from './Components/UserTTS/FaqsData';
 import MyTicket from "./Components/UserTTS/MyTicket";
+import HomePageAll from "./Components/NewHome/HomePageAll";
+import NavbarAll from "./Components/NewHome/NavbarAll";
 
 
 function App() {
   const isAuthen = useContext(authContext);
   const userLogen = isAuthen.isLoggend  && isAuthen.role === 'user' ;
-
+  
   return (
     <>
-      <Navbarr />
+      {/* <Navbarr /> */}
+      <NavbarAll/>
       {/* <NavbarLogined/> */}
       {/* <Routes>
         <Route path="/HomeUser" element={<TtsHome />} />
@@ -29,9 +32,11 @@ function App() {
         <Route path="/login" element={<Login />} />
       </Routes> */}
   <Routes>
+    
+
       { userLogen ? (
           <React.Fragment>
-            <Route path="/HomeUser" element={<TtsHome />} />
+            {/* <Route path="/HomeUser" element={<TtsHome />} /> */}
             <Route path="/Faqs" element={<FaqsData />} />
             <Route path="/HomeUser" element={<TtsHome />} />
             <Route path="/myTickets" element={<MyTicket />} />
@@ -39,8 +44,9 @@ function App() {
           </React.Fragment>
         ) : (
           <React.Fragment>
+            <Route path="/Home" element={<HomePageAll />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/home" element={<HomePage />} />
+            {/* <Route path="/home" element={<HomePage />} /> */}
             <Route path="/login" element={<Login/>} />
           </React.Fragment>
         )}

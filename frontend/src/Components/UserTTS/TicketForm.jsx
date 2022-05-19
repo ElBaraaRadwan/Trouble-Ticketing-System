@@ -25,10 +25,12 @@ export default function TicketForm() {
   let [recordDatabase , setRecordDatabase] = useState(new Blob)
   let [files, setFiles] = useState([]);
   let [errorValidation, setErrorValidation] = useState([]);
-  let [errorApiResponce , setErrorApiResponce] = useState(false)
+  let [errorApiResponce , setErrorApiResponce] = useState(false);
   const loginFormData = new FormData();
+  
   const authCtx = useContext(authContext);
   const navigate = useNavigate();
+  
   
   const subjectInputRef = useRef();
   const departmentInputRef = useRef();
@@ -103,18 +105,17 @@ export default function TicketForm() {
       loginFormData.append("title", subjectInputRef.current.value);
       loginFormData.append("department", departmentInputRef.current.value);
       loginFormData.append("description", descriptionInputRef.current.value);
-      // loginFormData.append("audioRecord", audioRecord);
+      // loginFormData.append("audioRecord", audRecord);
       loginFormData.append("userID", authCtx.id);
       // loginFormData.set("attachment", files);
       
       
       // loginFormData.append("attachment", JSON.stringify(attachmentFiles));
       
-      console.log(loginFormData.get('title'));
-      console.log(loginFormData.get('department'));
-      console.log(loginFormData.get('description'));
-      console.log(loginFormData.get('audioRecord'));
-      console.log(loginFormData.get('userID'));
+      // console.log(loginFormData.get('title'));
+      // console.log(loginFormData.get('department'));
+      // console.log(loginFormData.get('description'));
+      // console.log(loginFormData.get('userID'));
 
       // files.map((e , i)=>{
       //   loginFormData.append("attachment", files[i]);
@@ -139,32 +140,40 @@ export default function TicketForm() {
   
   
       // title, description, department, userID, agentID 
-  
-      const responce = await axios.post(
-        'http://localhost:5000/createTicket' , loginFormData
-      )
-      console.log(responce);
+
+      // recordFormData.append('wavfile', audioRecord, "recording.wav");
+
+      //   const config = {
+      //       headers: {'content-type': 'multipart/form-data'}
+      //   }
+      // const path = await axios.post('http://localhost:8080/', recordFormData , config); 
+      // console.log(path)
+
+      // const responce = await axios.post(
+      //   'http://localhost:5000/createTicket' , loginFormData
+      // )
+      // console.log(responce);
 
       
-    // await axios({
-    //   method: "POST",
-    //   url: "http://localhost:5000/createTicket", 
-    //   data: loginFormData,
-    //   headers: { "Content-Type": "multipart/form-data" },
-    // }).then(res=> console.log(res)).catch(err=>{
+      const response = await axios.post("http://localhost:5000/createTicket", 
+   loginFormData
+    )
+    // .catch(err=>{
     //   console.log(err);
     //   setErrorApiResponce(true);
     // })
-    // console.log(response);
-    // if(response.statusText === 'Created'){
-    //   setLoading(false);
-    //   setErrorValidation(null);
-    //   setErrorApiResponce(false);
-    //   navigate('/HomeUser');
-    // }else{
-    //   console.log(response);
-    //   setErrorApiResponce(true);  
-    // }
+    console.log(response.statusText);
+    console.log(response);
+    if(response.statusText === 'Created'){
+      setLoading(false);
+      console.log('created')
+      setErrorValidation(null);
+      setErrorApiResponce(false);
+      navigate('/HomeUser');
+    }else{
+      console.log(response);
+      setErrorApiResponce(true);  
+    }
     // console.log(response);
     
 
@@ -200,12 +209,11 @@ export default function TicketForm() {
               action="#"
               method="post"
             >
-              {errorValidation.map((e)=>{
-                console.log(e);
+              {/* {errorValidation.map((e)=>{
                 return (
                   <div className="alert alert-danger py-2">{e.message}</div>
                 )
-              })}
+              })} */}
               {/* {error && <div className="alert alert-danger py-2">{error}</div>} */}
               <div className="w-100">
                 <Input
@@ -277,11 +285,15 @@ export default function TicketForm() {
                   <RecordAudio getRecorder={getRecorder} />
                 </div>
               </div>
+
               <div className="w-100 d-flex justify-content-center">
                 <Button loading={loading} type={"Submit"} />
               </div>
+              
             </form>
           </div>
+                        
+
         </div>
       </div>
       {

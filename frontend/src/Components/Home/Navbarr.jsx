@@ -3,8 +3,10 @@ import style from "./Navbar.module.css";
 import logo from "./../../images/logo.png";
 import { NavLink } from "react-router-dom";
 import classes from "./Navbar.module.css";
+// import { authContext } from "./../store/Context/AuthContet";
+import { Navbar, Nav } from 'react-bootstrap';
 import { authContext } from "../store/Context/AuthContext";
-import { Container, Navbar, NavDropdown, Nav } from 'react-bootstrap';
+
 
 
 
@@ -119,7 +121,6 @@ export default function Navbarr() {
     <Navbar className={style['nav-height']} bg="dark" expand="lg">
       <div className="container-fluid">
 
-      
         <Navbar.Brand href="#home">
           <img
             src={logo}

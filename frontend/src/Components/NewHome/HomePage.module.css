@@ -1,0 +1,180 @@
+
+/* * {
+    font-family: 'Cairo';
+} */
+
+.header-positioned {
+    position: fixed;
+    left: 0px;
+    top: 35px;
+    z-index: 999;
+    width: 100%;
+}
+
+.main-naigation li a:hover {
+    border-bottom: 3px solid #1C00AF !important;
+
+}
+
+.current {
+    border-bottom: 3px solid #1C00AF !important;
+}
+
+
+.pt-220 {
+    padding-top: 220px;
+}
+
+main {
+    position: relative;
+    background-position: center bottom;
+    background-size: cover;
+    background-color: white;
+    /* background-image: url('../images/hero-bg.png'); */
+}
+
+.main-naigation li a {
+    color: #1C00AF;
+    display: block;
+    padding: 5px 0;
+    font-weight: 600;
+    margin: 18px 24px;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+    opacity: 1;
+    text-decoration: none;
+}
+
+.content-box {
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+}
+
+/* box */
+
+.service-block {
+    padding: 20px 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 30px 25px rgb(100 100 140 / 8%);
+}
+.service-block h4{
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.service-block h4:hover{
+    color: #1C00AF;
+}
+.service-icon img{
+    width: 160px;
+    height: 160px;
+}
+
+.text-muted-mine{
+    font-weight: 400;
+    font-size: 16px;
+    color: #848484;
+    line-height: 28px;
+}
+
+
+/*  */
+
+.btn-mine{
+    color: #FFFFFF;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.5s;
+    padding: 13px 40px;
+    border-radius: 10px;
+    display: inline-block;
+    background: transparent linear-gradient(142deg, #1C00AF 0%, #0E0058 100%) 0% 0% no-repeat padding-box;
+    border-color: transparent;
+    margin: 0 5px;
+}
+.btn-mine:hover{
+    background: transparent linear-gradient(142deg, #0E0058 0%, #1C00AF 100%) 0% 0% no-repeat padding-box;
+}
+
+.active {
+    color : rgb(98, 198, 216);
+    padding: 0 8px;
+    text-decoration: none ;
+    font-size: 24px;
+    font-weight: 500;
+}
+.NormalLi{
+    color : rgb(65, 89, 93);
+    padding: 0 8px;
+    text-decoration: none ;
+    font-size: 24px;
+    font-weight: 500;
+}
+.NormalLi:hover{
+    color : rgb(98, 198, 216);
+}
+
+.logo{
+    width:40px;
+    height:40px;
+    object-fit:cover;
+    border-radius:50%;
+}
+.inner{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.success-bg{
+    position: absolute;
+    height: 190%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+.text-mine-spe{
+    font-size: 20px;
+    font-weight: 400;
+}
+.service-style{
+    padding: 25px;
+    margin-top: 30px;
+    border-radius: 25px;
+    box-shadow: 0 1px 17px rgb(0 0 0 / 7%);
+    margin:  0 10px;
+}
+.service-image{
+    margin-bottom: 25px;
+}
+.service-imag img{
+    border-radius: 20px !important;
+}
+.service-two-content{
+    padding: 25px;
+}
+.call-action-content {
+    margin: auto;
+    max-width: 820px;
+    border-radius: 25px;
+    padding: 30px 155px 45px;
+    /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; */
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+
+}
+@media screen and (max-width: 768px) {
+    .responsive{
+      flex-direction: column;
+    }
+    .service-style{
+        margin: 20px 0 !important;
+        padding: 15px;
+    }
+  }

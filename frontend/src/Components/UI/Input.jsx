@@ -9,11 +9,11 @@ const Input = React.forwardRef((props, ref) => {
   return (
     <div className="my-2" key={name}>
       <label
-        style={{ color:'white', fontSize: "20px", padding: "3px 0", fontWeight: "500"}}
+        style={{ color:'black', fontSize: "18px", padding: "3px 0", fontWeight: "bold"}}
         htmlFor={name}
         className={"me-3 " + flex}
       >
-        {labelName}:
+        {labelName}
       </label>
       {
         textForm? <p className="text-muted" style={{ fontSize : '16px'}}>{textForm}</p> : ' ' 

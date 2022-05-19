@@ -6,7 +6,7 @@ export const authContext = React.createContext({
   token : '',
   isLoggend: false,
   role: '',
-  userId : null,
+  id : null,
   login: (token) => {},
   logout: () => {},
   assignRole : (role)=>{},
