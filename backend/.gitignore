@@ -2,7 +2,12 @@
 ico
 .env
 package-lock.json
-/uploads/Tickets/IMG/**
-/uploads/Tickets/Audio/**
-/uploads/FAQs/IMG/**
-/uploads/FAQs/Video/**
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.mp3
+*.mkv
+*.mpeg
+*.webc
+*.webm 

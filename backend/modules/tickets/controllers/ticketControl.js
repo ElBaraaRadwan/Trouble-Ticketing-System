@@ -104,7 +104,7 @@ const assignTicket = async (req, res) => {
         .status(StatusCodes.NOT_FOUND)
         .json(`No ticket with id : ${ticketID}`);
     res.status(StatusCodes.OK).json(ticket);
-    sendTicketSolution(User.name, User.email, req.body._id);
+    //sendTicketSolution(User.name, User.email, req.body._id);
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json(error);
   }
@@ -157,7 +157,7 @@ const editTicket = async (req, res) => {
         .status(StatusCodes.NOT_FOUND)
         .json(`No ticket with id : ${ticketID}`);
     res.status(StatusCodes.OK).json(ticket);
-    sendTicketSolution(User.name, User.email, req.body._id);
+    //sendTicketSolution(User.name, User.email, req.body._id);
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json(error);
   }
@@ -190,7 +190,7 @@ const solveTicket = async (req, res) => {
         .status(StatusCodes.NOT_FOUND)
         .json(`No ticket with id : ${ticketID}`);
     res.status(StatusCodes.OK).json(ticket);
-    sendTicketSolution(User.name, User.email, req.body._id);
+    //sendTicketSolution(User.name, User.email, req.body._id);
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json(error);
   }
@@ -219,7 +219,7 @@ const replyTicket = async (req, res) => {
         .status(StatusCodes.NOT_FOUND)
         .json(`No ticket with id : ${ticketID}`);
     res.status(StatusCodes.OK).json(ticket);
-    sendTicketSolution(User.name, User.email, req.body._id);
+    //sendTicketSolution(User.name, User.email, req.body._id);
   } catch (error) {
     res.status(StatusCodes.BAD_REQUEST).json(error);
   }
