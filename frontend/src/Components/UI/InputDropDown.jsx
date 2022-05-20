@@ -5,8 +5,8 @@ const InputDropDown = React.forwardRef((props , ref)=>{
   return (
     <React.Fragment>
       <label 
-      style={{'fontSize' : '16px' , 'color' :'white'}}
-      htmlFor={name} className="me-2 mb2">Choose a department :</label>
+      style={{'fontSize' : '16px'}}
+      htmlFor={name} className="me-2 mb2 text-dark">Choose a department :</label>
       {
         textForm? <p className="text-muted" style={{ fontSize : '16px'}}>{textForm}</p> : ' ' 
       }

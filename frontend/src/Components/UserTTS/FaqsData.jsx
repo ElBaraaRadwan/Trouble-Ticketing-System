@@ -3,6 +3,13 @@ import $ from "jquery";
 import Fixedimage from "../UI/FixedImage";
 import axios from "axios";
 import style from './MyTicket.module.css'
+import Mainbg from "../UI/Mainbg";
+import styleAnimate from '../NewHome/Animation.module.css'
+import shape1 from '../../images/Images/shape1.png'
+import shape2 from '../../images/Images/shape2.png'
+import shape3 from '../../images/Images/shape3.png'
+import faq from '../../images/Images/faq.png'
+
 
 const singHead = {
   padding: "5px",
@@ -80,15 +87,41 @@ export default function FaqsData() {
 
   return (
     <React.Fragment>
-      <Fixedimage />
+      <Mainbg>
+      <section className="position-relative mt-5">
+        <div className="container-fluid mt-2">
+          <div className="row justify-content-center">
+            <div className="col-md-6">
+              <img className='w-100' src={faq} alt="" />
+            </div>
+            <div className="col-md-5 ms-5 d-flex flex-column justify-content-center">
+              <h4 className="h4 fw-bold" >How FAQs Can Help You?</h4>
+              <p style={{ textAlign: 'justify' }}>
+                FAQs enable you to deal with specific queries that your customers have about your business.
+                They also represent another way to reach out and connect with your
+                target audience. Therefore, it is one of the most important elements of your website strateg
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-10"] + " " + styleAnimate["t-60"]}>
+          <img src={shape1} alt="" />
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-70"] + " " + styleAnimate["t-60"]}>
+          <img src={shape2} alt="" />
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-50"] + " " + styleAnimate["t-100"]}>
+          <img src={shape3} alt="" />
+        </div>
+      </Mainbg>
       <section
-        className="p-5"
-        style={{
-          background: "rgb(31, 40, 51)",
-        }}
+        className="p-5 bg-light"
+        
       >
         <div className="py-3"   id="sales">
-          <h3 className={"text-center text-light " + style['header_faqs']}>Sales Department (FAQs)</h3>
+          <h3 className={"text-center text-dark " + style['header_faqs']}>Sales Department (FAQs)</h3>
           <div className= " m-auto text-center" style={{width : '90%'}}>
             {sales.map((e , i) => {
               return (
@@ -115,7 +148,7 @@ export default function FaqsData() {
           </div>
         </div>
          <div className="py-3"   id="mobile">
-          <h3 className={"text-center text-light " + style['header_faqs']}>Mobile Devices Department (FAQs)</h3>
+          <h3 className={"text-center text-dark " + style['header_faqs']}>Mobile Devices Department (FAQs)</h3>
           <div className= " m-auto text-center" style={{width : '90%'}}>
             {mobile.map((e , i) => {
               return (
@@ -142,7 +175,7 @@ export default function FaqsData() {
           </div>
         </div>
         <div className="py-3"   id="tv">
-          <h3 className={"text-center text-light " + style['header_faqs']}>Television Department (FAQs)</h3>
+          <h3 className={"text-center text-dark " + style['header_faqs']}>Television Department (FAQs)</h3>
           <div className= " m-auto text-center" style={{width : '90%'}}>
             {tv.map((e , i) => {
               return (
@@ -169,7 +202,7 @@ export default function FaqsData() {
           </div>
         </div>
         <div className="py-3" id="Air">
-          <h3 className={"text-center text-light " + style['header_faqs']}>Air Conditioner Department (FAQs)</h3>
+          <h3 className={"text-center text-dark " + style['header_faqs']}>Air Conditioner Department (FAQs)</h3>
           <div className= " m-auto text-center" style={{width : '90%'}}>
             {air.map((e , i) => {
               
@@ -198,7 +231,7 @@ export default function FaqsData() {
           </div>
         </div>  
         <div className="py-3" id="Technical">
-          <h3 className={"text-center text-light " + style['header_faqs']}>Technical Support Department (FAQs)</h3>
+          <h3 className={"text-center text-dark " + style['header_faqs']}>Technical Support Department (FAQs)</h3>
           <div className= " m-auto text-center" style={{width : '90%'}}>
             {techSup.map((e , i) => {
               
@@ -227,7 +260,7 @@ export default function FaqsData() {
           </div>
         </div>
         <div className="py-3" id="Computer">
-          <h3 className={"text-center text-light " + style['header_faqs']}>Computer Devices Department (FAQs)</h3>
+          <h3 className={"text-center text-dark " + style['header_faqs']}>Computer Devices Department (FAQs)</h3>
           <div className= " m-auto text-center" style={{width : '90%'}}>
             {com.map((e , i) => {
               

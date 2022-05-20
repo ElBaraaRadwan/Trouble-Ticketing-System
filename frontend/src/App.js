@@ -1,7 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import HomePage from "./Components/Home/HomePage";
-import Navbarr from "./Components/Home/Navbarr";
 import Signup from "./Components/User/Signup/Signup";
 import Login from "./Components/User/Login/Login";
 import TtsHome from "./Components/UserTTS/TtsHome";

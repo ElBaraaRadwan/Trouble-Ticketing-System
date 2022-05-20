@@ -64,8 +64,9 @@ export default function SpecificTicket(props) {
       <div
         className="container d-flex flex-column align-items-center"
       >
-        <p className="h2 py-3"> Ticket Information </p>
-        <table className="table table-dark table-hover">
+        <p className="h2 py-4" style={{letterSpacing : '8px'  ,fontWeight: 'bold', fontSize: '50px' }}
+        > Ticket Information </p>
+        <table className="table table-light table-hover">
           <tbody>
 
             <tr>

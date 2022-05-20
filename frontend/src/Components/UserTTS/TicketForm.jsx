@@ -5,17 +5,21 @@ import InputDropDown from "../UI/InputDropDown";
 import Button from "./../UI/Button";
 import FileUploadComponent from "./Helper/Upload/FileUploadComponent";
 import RecordAudio from "./Helper/Audio/RecordAudio";
-import Fixedimage from "../UI/FixedImage";
 import $, { get } from "jquery";
 import Joi from "joi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import FooterText from './../Home/FooterText';
 import { authContext } from "../store/Context/AuthContext";
-import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import ServerError from './../UI/ServerError';
 import { base64ToFile } from "./Helper/blob";
+import Mainbg from "../UI/Mainbg";
+import styleAnimate from '../NewHome/Animation.module.css'
+import shape1 from '../../images/Images/shape1.png'
+import shape2 from '../../images/Images/shape2.png'
+import shape3 from '../../images/Images/shape3.png'
+import simple from '../../images/Images/simple.png'
+import FooterAll from "../NewHome/FooterAll";
 
 export default function TicketForm() {
   let [loading, setLoading] = useState(false);
@@ -157,21 +161,17 @@ export default function TicketForm() {
       
       const response = await axios.post("http://localhost:5000/createTicket", 
    loginFormData
-    )
-    // .catch(err=>{
-    //   console.log(err);
-    //   setErrorApiResponce(true);
-    // })
+    ).catch(err=>{
+      setErrorApiResponce(true);
+    })
     console.log(response.statusText);
     console.log(response);
     if(response.statusText === 'Created'){
       setLoading(false);
-      console.log('created')
-      setErrorValidation(null);
+      setErrorValidation([]);
       setErrorApiResponce(false);
       navigate('/HomeUser');
     }else{
-      console.log(response);
       setErrorApiResponce(true);  
     }
     // console.log(response);
@@ -197,9 +197,41 @@ export default function TicketForm() {
   
   return (
     <React.Fragment>
-      <Fixedimage />
+      <Mainbg >
+      <div className="container mb-3">
+          <div className="row" id="mainPart">
+            <div className="col-md-6 ">
+              <div style={{ height : 'inherit' }} 
+               className={"  text-center d-flex flex-column justify-content-center h-100"}>
+                <h2 className='h1' style={{letterSpacing : '5px'  ,fontWeight: 'bold', textAlign: '' }}>
+                Simple Steps, Success Processes</h2>
+                <h4 className="text-center py-1">Don't worry , we are here to help you</h4>
+                <div className="text-muted">
+                  Our Trouble Ticket system was bulid to help you.
+                </div>
+              </div>
+
+            </div>
+            <div className="col-md-5 offset-md-1">
+              <div className={style["hero-img"]}>
+                <img className="w-100" style={{ height: '450px' }} src={simple} alt="" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-10"] + " " + styleAnimate["t-60"]}>
+          <img src={shape1} alt="" />
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-70"] + " " + styleAnimate["t-60"]}>
+          <img src={shape2} alt="" />
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-50"] + " " + styleAnimate["t-100"]}>
+          <img src={shape3} alt="" />
+        </div>
+        </Mainbg>
       <div className={style["page-content"]}>
-        <div className={style["wizard-heading"] + " w-75"}>Ticket Form</div>
+        <div className={style["wizard-heading"] + " w-75 text-dark"}>Ticket Form</div>
         <div className={style["wizard-v6-content"]}>
           <div className={style["wizard-form"]}>
             <form
@@ -209,11 +241,11 @@ export default function TicketForm() {
               action="#"
               method="post"
             >
-              {/* {errorValidation.map((e)=>{
+              {errorValidation.map((e)=>{
                 return (
                   <div className="alert alert-danger py-2">{e.message}</div>
                 )
-              })} */}
+              })}
               {/* {error && <div className="alert alert-danger py-2">{error}</div>} */}
               <div className="w-100">
                 <Input
@@ -240,7 +272,7 @@ export default function TicketForm() {
                 }
                 ref={departmentInputRef}
               />
-              <div className="d-flex my-3 text-light">
+              <div className="d-flex my-3 text-dark">
                 <label htmlFor="description" className="me-2">
                   Description:
                 </label>
@@ -255,8 +287,8 @@ export default function TicketForm() {
               </div>
               <div className="my-2">
                 <label
+                className="text-dark"
                   style={{
-                    color: "white",
                     fontSize: "20px",
                     padding: "0",
                     margin: "5px",
@@ -277,7 +309,7 @@ export default function TicketForm() {
                   type="button"
                   className={style["record-button"]}
                 >
-                  <p className="h6">
+                  <p className="h6 text-dark" >
                     do want to record audio to describe your problem?
                   </p>
                 </button>
@@ -299,7 +331,7 @@ export default function TicketForm() {
       {
         errorApiResponce?   <ServerError/>  : ''
       }
-      <FooterText/>
+      <FooterAll/>
     </React.Fragment>
   );
 }

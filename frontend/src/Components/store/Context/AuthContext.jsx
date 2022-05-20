@@ -17,7 +17,6 @@ const roleLocal = localStorage.getItem('role');
 let idLocal = ''; 
 if(isLogged){
   const info = jwt_decode(isLogged);
-  console.log(info);
   idLocal = info._id;
 }
 const AuthContextProvider = (props) => {

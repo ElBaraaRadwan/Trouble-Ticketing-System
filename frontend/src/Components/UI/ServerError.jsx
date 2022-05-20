@@ -17,7 +17,7 @@ export default function ServerError() {
       borderRadius : '30px'
     }}
     >
-      <i style={{fontSize : '50px' , margin : '10px'}} class="fa-solid fa-circle-exclamation d-block"></i>
+      <i style={{fontSize : '50px' , margin : '10px'}} className="fa-solid fa-circle-exclamation d-block"></i>
       <p style={{fontSize : '18px' , fontWeight : 'bold'}}>
         There is an error connecting to the server <br />
         Please try again 

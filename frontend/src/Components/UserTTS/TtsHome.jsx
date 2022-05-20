@@ -1,14 +1,12 @@
 import React from "react";
-import Navbar from "../Home/Navbarr";
 import { NavLink } from 'react-router-dom';
 import style from './TtsHome.module.css';
 import Mainbg from "../UI/Mainbg";
-import img from '../../images/Images/ticketHome.png'
+import img from '../../images/Images/ticketmain.png'
 
 export default function TtsHome() {
   return (
     <Mainbg>
-       
         <div className="container ">
           <div className="row" id="mainPart">
             <div className="col-md-6 pt-4">
@@ -35,9 +33,9 @@ export default function TtsHome() {
               </div>
 
             </div>
-            <div className="col-md-5 offset-md-1 ">
+            <div className="col-md-6 ">
               <div className={style["hero-img"]}>
-                <img style={{ height: '410px' }} src={img} alt="" />
+                <img className="w-100" style={{ height: '410px' }} src={img} alt="" />
               </div>
             </div>
 
@@ -48,7 +46,7 @@ export default function TtsHome() {
           <div className="bg-white col-md-6">
             <div className="p-4">
               <h4 style={{fontWeight : 'bold !important'}}>
-                <i class="fa-solid fa-circle-question px-2"></i>
+                <i className="fa-solid fa-circle-question px-2"></i>
                 How Does FAQs Help You?
               </h4>
               <p className="ms-5">
@@ -80,7 +78,7 @@ export default function TtsHome() {
           >
             <div className="ms-4 p-4">
               <h4  style={{fontWeight : 'bold !important'}}>
-                <i class="fa-solid fa-ticket px-2"></i>
+                <i className="fa-solid fa-ticket px-2"></i>
                 When Should you submit a Ticket?
               </h4>
               <p className="ms-5">
