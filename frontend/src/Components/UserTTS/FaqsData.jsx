@@ -56,7 +56,7 @@ export default function FaqsData() {
   // le = Date.now();
 
   const getFaqs = async () => {
-    const { data } = await axios.get("http://localhost:5000/getAllFAQs");
+    const { data } = await axios.get("http://localhost:5000/  console.log(data.userTickets);");
     const dataArr = data.faq;
     console.log(data)
 
