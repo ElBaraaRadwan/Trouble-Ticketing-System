@@ -10,7 +10,6 @@ import Joi from "joi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../store/Context/AuthContext";
-import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import ServerError from './../UI/ServerError';
 import { base64ToFile } from "./Helper/blob";
@@ -162,21 +161,17 @@ export default function TicketForm() {
       
       const response = await axios.post("http://localhost:5000/createTicket", 
    loginFormData
-    )
-    // .catch(err=>{
-    //   console.log(err);
-    //   setErrorApiResponce(true);
-    // })
+    ).catch(err=>{
+      setErrorApiResponce(true);
+    })
     console.log(response.statusText);
     console.log(response);
     if(response.statusText === 'Created'){
       setLoading(false);
-      console.log('created')
-      setErrorValidation(null);
+      setErrorValidation([]);
       setErrorApiResponce(false);
       navigate('/HomeUser');
     }else{
-      console.log(response);
       setErrorApiResponce(true);  
     }
     // console.log(response);
@@ -246,11 +241,11 @@ export default function TicketForm() {
               action="#"
               method="post"
             >
-              {/* {errorValidation.map((e)=>{
+              {errorValidation.map((e)=>{
                 return (
                   <div className="alert alert-danger py-2">{e.message}</div>
                 )
-              })} */}
+              })}
               {/* {error && <div className="alert alert-danger py-2">{error}</div>} */}
               <div className="w-100">
                 <Input

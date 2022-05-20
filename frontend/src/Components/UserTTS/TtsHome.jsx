@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../Home/Navbarr";
 import { NavLink } from 'react-router-dom';
 import style from './TtsHome.module.css';
 import Mainbg from "../UI/Mainbg";
@@ -47,7 +46,7 @@ export default function TtsHome() {
           <div className="bg-white col-md-6">
             <div className="p-4">
               <h4 style={{fontWeight : 'bold !important'}}>
-                <i class="fa-solid fa-circle-question px-2"></i>
+                <i className="fa-solid fa-circle-question px-2"></i>
                 How Does FAQs Help You?
               </h4>
               <p className="ms-5">
@@ -79,7 +78,7 @@ export default function TtsHome() {
           >
             <div className="ms-4 p-4">
               <h4  style={{fontWeight : 'bold !important'}}>
-                <i class="fa-solid fa-ticket px-2"></i>
+                <i className="fa-solid fa-ticket px-2"></i>
                 When Should you submit a Ticket?
               </h4>
               <p className="ms-5">
