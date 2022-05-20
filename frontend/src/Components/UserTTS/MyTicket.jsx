@@ -5,7 +5,13 @@ import style from "./MyTicket.module.css";
 import { authContext } from "../store/Context/AuthContext";
 import SpecificTicket from './SpecificTicket';
 import ServerError from './../UI/ServerError';
-
+import Mainbg from "../UI/Mainbg";
+import styleAnimate from '../NewHome/Animation.module.css'
+import shape1 from '../../images/Images/shape1.png'
+import shape2 from '../../images/Images/shape2.png'
+import shape3 from '../../images/Images/shape3.png'
+import simple from '../../images/Images/ticketHome.png'
+import FooterAll from "../NewHome/FooterAll";
 
 export default function MyTicket() {
   const [tickets, setTickets] = useState([]);
@@ -54,18 +60,48 @@ export default function MyTicket() {
 
   return (
     <React.Fragment>
-      <Fixedimage />
+      <Mainbg>
+      <div className="container mb-3">
+          <div className="row" id="mainPart">
+            <div className="col-md-6 ">
+              <div style={{ height : 'inherit' }} 
+               className={"  text-center d-flex flex-column justify-content-center h-100"}>
+                <h2 className='' style={{letterSpacing : '16px'  ,fontWeight: 'bold', fontSize: '55px' }}>
+                My Tickets
+                </h2>
+                <h4 className="text-center py-1"></h4>
+                <div className="text-muted">
+                 You can see All your ticket here.
+                </div>
+              </div>
+
+            </div>
+            <div className="col-md-6">
+              <div className={style["hero-img"]}>
+                <img className="w-100" style={{ height: '450px' }} src={simple} alt="" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-10"] + " " + styleAnimate["t-60"]}>
+          <img src={shape1} alt="" />
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-70"] + " " + styleAnimate["t-60"]}>
+          <img src={shape2} alt="" />
+        </div>
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-50"] + " " + styleAnimate["t-100"]}>
+          <img src={shape3} alt="" />
+        </div>
+      </Mainbg>
       <section style={{
-        // backgroundColor: "#343a40",   
-        // background:
-        //   "radial-gradient(circle, rgba(0,77,123,1) 0%, rgba(148,187,233,1) 100%)"
-        backgroundColor: '#1f2833'
+        backgroundColor: '#f8f9fa'
         , color: "white "
       }}>
-        <section className="container py-5 text-white">
-          <p className="h1 py-4 fw-bold text-center">My Tickets</p>
+        <section className="container mt-4 py-2 text-dark bg-light">
+          <p className=" h1 py-4 fw-bold text-center">My Tickets</p>
           <div className={style['text']}>
-            <table className="table text-left  text-white">
+            <table className="table text-left  text-dark">
               <thead>
                 <tr>
                   <th scope="col " style={{ width: "30px" }}>
@@ -155,6 +191,7 @@ export default function MyTicket() {
           }
         </section>
       </section>
+      <FooterAll/>
     </React.Fragment>
   );
 }

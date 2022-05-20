@@ -221,7 +221,7 @@ const HomePageAll = () => {
           </div>
         </div>
       </section>
-      <section className="w-50 m-auto text-center mt-5 pt-5">
+      <section className="w-50 m-auto text-center mt-5 pt-5 mb-4">
         <div className={style["call-action-content"]}>
           <h4 className="h2">Have any question about us?</h4>
           <p className="">if you have aby question just sgn up and send a ticket</p>
