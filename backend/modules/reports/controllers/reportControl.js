@@ -25,7 +25,7 @@ const createReport = asyncWrapper(async (req, res) => {
 });
 
 const getAllReports = asyncWrapper(async (req, res) => {
-  const report = await Report.find({});
+  const report = await Report.find({}, {}, { sort: { _id: -1 } });
   res.status(StatusCodes.OK).json({ report });
 });
 

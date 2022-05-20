@@ -20,7 +20,10 @@ const feedBackRoute = require("./modules/feedback/routes/feedback.routes");
 const reportRoute = require("./modules/reports/routes/report.routes");
 const FAQsRoute = require("./modules/FAQs/routes/FAQs.routes");
 
+const dashboardRoute = require("./modules/users/routes/Dashboard.routes");
+
 app.use(userRoute, ticketRoute, feedBackRoute, reportRoute, FAQsRoute);
+app.use('/Dashboard', dashboardRoute)
 
 // must be below the routes so the routes can work
 const notFound = require("./middlewares/notFound");
