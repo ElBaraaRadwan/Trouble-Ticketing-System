@@ -45,9 +45,6 @@ const createTicket = async (req, res, next) => {
       });
     console.log(audioArray);
 
-    const oneDay = 1000 * 60 * 60 * 24 * 1; // millisec * min * huor * day * how many days
-    const priortyUpdation = new Date(Date.now() + oneDay);
-
     const { title, description, department, userID } = req.body;
     const ticket = await Ticket.create({
       title,
@@ -56,7 +53,6 @@ const createTicket = async (req, res, next) => {
       user: userID,
       audioRecord: audioArray,
       attachment: filesArray,
-      ticketUpdatedTime: priortyUpdation,
     });
 
     let userTickets = await Ticket.find({ user: userID });
@@ -214,7 +210,7 @@ const replyTicket = async (req, res) => {
         runValidators: true,
       }
     );
-    if (!ticket)
+    if (!ticket) 
       return res
         .status(StatusCodes.NOT_FOUND)
         .json(`No ticket with id : ${ticketID}`);
@@ -272,6 +268,36 @@ const getMyTickts = asyncWrapper(async (req, res) => {
   res.status(StatusCodes.OK).json({ userTickets, count: userTickets.length });
 });
 
+const getAgentTickts = asyncWrapper(async (req, res) => {
+  const { id: agentID } = req.params;
+
+  let agentTickets = await Ticket.find(
+    { agent: agentID },
+    {},
+    { sort: { _id: -1 } }
+  );
+
+  if (!agentTickets) {
+    throw new NotFoundError(`No Ticket with agent_id ${agentTickets}`);
+  }
+  res.status(StatusCodes.OK).json({ agentTickets, count: agentTickets.length });
+});
+
+const ticketDept = asyncWrapper(async (req, res) => {
+  const { id: agentID } = req.params;
+
+  let ticketDept = await Ticket.find({department});
+  let agentDept = await User.findOne({_id: agentID, department: ticketDept})
+
+  if(ticketDept === agentDept)
+  res.status(StatusCodes.OK).json({ ticketDept, count: ticketDept.length });
+});
+
+const test = asyncWrapper(async (req, res) => {
+  let test = await User.find({role: "admin"})
+  res.status(StatusCodes.OK).json({ test });
+});
+
 module.exports = {
   getAllTickets,
   getTicket,
@@ -282,4 +308,7 @@ module.exports = {
   replyTicket,
   deleteTicket,
   editTicket,
+  getAgentTickts,
+  ticketDept,
+  test
 };

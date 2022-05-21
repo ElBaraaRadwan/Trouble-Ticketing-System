@@ -6,12 +6,14 @@ const {
   createReport,
   deleteReport,
   editReport,
+  getMyReports,
 } = require("../controllers/reportControl");
 
 router.get(
   "/getAllReports",
   /*isAuthoraized(GET_ALL_REPORTS), */ getAllReports
 );
+router.get("/getAllReports/MyReports/:id", getMyReports);
 router.post("/createReport", /*isAuthoraized(ADD_REPORT), */ createReport);
 router.delete(
   "/deleteReport/:id",

@@ -11,8 +11,8 @@ const InputDropDown = React.forwardRef((props , ref)=>{
         textForm? <p className="text-muted" style={{ fontSize : '16px'}}>{textForm}</p> : ' ' 
       }
       <select className="form-select" id={id} name={name} ref={ref}>
-        {values.map((el) => (
-          <option value={el.value}> {el.name}</option>
+        {values.map((el, index) => (
+          <option key={el.name + index} value={el.value}> {el.name}</option>
         ))}
       </select>
     </React.Fragment>

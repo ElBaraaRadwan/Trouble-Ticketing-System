@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const d = new Date();
+
 const ticketSchema = new mongoose.Schema(
   {
     title: {
@@ -53,7 +55,10 @@ const ticketSchema = new mongoose.Schema(
         "Devices-Air",
       ],
     },
-    ticketUpdatedTime: { type: Date },
+    ticketUpdatedTime: {
+      type: String,
+      default: `${d.getDate() + 1}-${d.getMonth() + 1}-${d.getFullYear()}`,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Users",
@@ -62,6 +67,10 @@ const ticketSchema = new mongoose.Schema(
     agent: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Agents",
+    },
+    createdDate: {
+      type: String,
+      default: `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`,
     },
   },
   {

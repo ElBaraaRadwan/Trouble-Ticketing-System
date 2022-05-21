@@ -13,10 +13,16 @@ const {
   solveTicket,
   getMyTickts,
   editTicket,
+  getAgentTickts,
+  ticketDept,
+  test
 } = require("../controllers/ticketControl");
 
 router.get("/getAllTicket", /*isAuthoraized(GET_ALL_TICKETS),*/ getAllTickets);
 router.get("/getAllTicket/myTicket/:id", getMyTickts);
+router.get("/getAllTicket/Agent_Ticket/:id", getAgentTickts);
+router.get("/test/:id", ticketDept);
+router.get("/test", test);
 router.post(
   "/createTicket",
   /*isAuthoraized(ADD_TICKET),*/ uploadTicket.array("attachment"),
