@@ -42,14 +42,14 @@ function App() {
     {/* 
     Admin Routes 
 
-      <Route path="/Dashbord" element={<Dashbord  />} />
-            <Route path="/Dash" element={<Dash  />} />
-            <Route path="/DeleteAdmin" element={<DeleteAdmin  />} />
-            <Route path="/UpdataFaq" element={<UpdataFaq  />} />
-            <Route path="/ShowReport" element={<ShowReport  />} />
-            <Route path="/AssignTicket" element={<AssignTicket  />} />
+    //   <Route path="/Dashbord" element={<Dashbord  />} />
+    //         <Route path="/Dash" element={<Dash  />} />
+    //         <Route path="/DeleteAdmin" element={<DeleteAdmin  />} />
+    //         <Route path="/UpdataFaq" element={<UpdataFaq  />} />
+    //         <Route path="/ShowReport" element={<ShowReport  />} />
+    //         <Route path="/AssignTicket" element={<AssignTicket  />} />
     
-    */}
+    // */}
 
       { userLogen ? (
        
@@ -59,7 +59,6 @@ function App() {
         <Routes>
             
             <Route path="/HomeUser" element={<TtsHome />} />
-
             <Route path="/Faqs" element={<FaqsData />} />
             <Route path="/HomeUser" element={<TtsHome />} />
             <Route path="/myTickets" element={<MyTicket />} />

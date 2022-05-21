@@ -12,11 +12,8 @@ var ticketId;
 
 
     const getTickets = async () => {
-        const { data } = await axios.get(`http://localhost:5000/getAllTicket`)
-     
+        const { data } = await axios.get(`https://trouble-ticketing-system.herokuapp.com/getAllTicket`)
         setTickets(data.tickets);
-   
-
     };
 
 
