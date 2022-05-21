@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import ServerError from './../UI/ServerError';
 
 
-const imgUrl =' http://localhost:5000/';
+const imgUrl =' https://trouble-ticketing-system.herokuapp.com/';
 
 export default function SpecificTicket(props) {
   const [allowReply, setAllowReply] = useState(false);
@@ -30,7 +30,7 @@ export default function SpecificTicket(props) {
   const sendResponce = async (e) => {
     e.preventDefault();
     const userReply = replyRef.current.value;
-    const {data} = await axios.patch(`http://localhost:5000/replyTicket/${_id}`, {  reply : userReply}).catch(err=>
+    const {data} = await axios.patch(`https://trouble-ticketing-system.herokuapp.com/replyTicket/${_id}`, {  reply : userReply}).catch(err=>
     {
       setErrorServer(true);
       console.log(err)

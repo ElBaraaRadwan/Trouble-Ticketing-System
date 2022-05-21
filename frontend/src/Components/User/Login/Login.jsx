@@ -7,7 +7,7 @@ import Button from './../../UI/Button';
 import { useNavigate } from 'react-router-dom';
 import { authContext } from "../../store/Context/AuthContext";
 import heroBg from "../../../images/Images/hero-bg.png"
-import style from "../../NewHome/HomePage.module.css"
+import style from "./LoginAll.module.css"
 import styleSign from "./../Signup/Signup.module.css"
 import styleAnimate from "../../NewHome/Animation.module.css"
 import shape1 from '../../../images/Images/shape1.png'
@@ -40,7 +40,7 @@ export default function Login() {
       return ;
     }
      let {data } = await axios.post(
-        `http://localhost:5000/signIn`,
+        `https://trouble-ticketing-system.herokuapp.com/signIn`,
         user
       );
       console.log(data);
@@ -99,7 +99,7 @@ export default function Login() {
         </div>
         </Mainbg>
       <div className="w-100 m-auto">
-        <form onSubmit={formSubmit}  className="w-50 m-auto p-5"
+        <form id="signin" onSubmit={formSubmit}  className={" mb-3 mx-auto p-5 " + style['responsive']}
       style={{boxShadow : 'rgba(0, 0, 0, 0.1) 0px 4px 12px'}}>
           <h2 className="">Use your account to Login.</h2>
         <p className={styleSign["text-mine"]}>don't have an account? 

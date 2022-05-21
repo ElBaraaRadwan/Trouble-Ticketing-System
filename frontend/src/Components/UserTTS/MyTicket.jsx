@@ -25,7 +25,7 @@ export default function MyTicket() {
   console.log(id)
 
   const getTickets = async () => {
-    const { data } = await axios.get(`http://localhost:5000/getAllTicket/myTicket/${id}`);
+    const { data } = await axios.get(`https://trouble-ticketing-system.herokuapp.com/getAllTicket/myTicket/${id}`);
     console.log(data.userTickets);
     setTickets(data.userTickets);
   };
