@@ -257,7 +257,7 @@ const getTicket = asyncWrapper(async (req, res) => {
     _id: id,
   });
   if (!ticket) {
-    throw new NotFoundError(`No Ticket with id ${ticketID}`);
+    throw new NotFoundError(`No Ticket with id ${ticket}`);
   }
   res.status(StatusCodes.OK).json({ ticket });
 });
