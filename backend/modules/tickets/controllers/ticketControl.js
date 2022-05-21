@@ -107,7 +107,13 @@ const assignTicket = async (req, res) => {
 };
 
 const editTicket = async (req, res) => {
-  const allowedUpdates = ["title", "department", "description", "attachment", "audioRecord"];
+  const allowedUpdates = [
+    "title",
+    "department",
+    "description",
+    "attachment",
+    "audioRecord",
+  ];
   const keys = Object.keys(req.body);
   const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
   if (!isUpdationValid)
@@ -154,7 +160,7 @@ const editTicket = async (req, res) => {
         department: req.body.department,
         description: req.body.description,
         attachment: filesArray,
-        audioRecord: audioArray
+        audioRecord: audioArray,
       },
       {
         new: true,
@@ -223,7 +229,7 @@ const replyTicket = async (req, res) => {
         runValidators: true,
       }
     );
-    if (!ticket) 
+    if (!ticket)
       return res
         .status(StatusCodes.NOT_FOUND)
         .json(`No ticket with id : ${ticketID}`);
@@ -246,13 +252,9 @@ const deleteTicket = asyncWrapper(async (req, res) => {
 });
 
 const getTicket = asyncWrapper(async (req, res) => {
-  const {
-    user: { userId },
-    params: { id: ticketID },
-  } = req;
+  const { id } = req.params;
   const ticket = await Ticket.findOne({
-    _id: ticketID,
-    custID: userId,
+    _id: id,
   });
   if (!ticket) {
     throw new NotFoundError(`No Ticket with id ${ticketID}`);
@@ -299,15 +301,15 @@ const getAgentTickts = asyncWrapper(async (req, res) => {
 const ticketDept = asyncWrapper(async (req, res) => {
   const { id: agentID } = req.params;
 
-  let ticketDept = await Ticket.find({department});
-  let agentDept = await User.findOne({_id: agentID, department: ticketDept})
+  let ticketDept = await Ticket.find({ department });
+  let agentDept = await User.findOne({ _id: agentID, department: ticketDept });
 
-  if(ticketDept === agentDept)
-  res.status(StatusCodes.OK).json({ ticketDept, count: ticketDept.length });
+  if (ticketDept === agentDept)
+    res.status(StatusCodes.OK).json({ ticketDept, count: ticketDept.length });
 });
 
 const test = asyncWrapper(async (req, res) => {
-  let test = await User.find({role: "admin"})
+  let test = await User.find({ role: "admin" });
   res.status(StatusCodes.OK).json({ test });
 });
 
@@ -323,5 +325,5 @@ module.exports = {
   editTicket,
   getAgentTickts,
   ticketDept,
-  test
+  test,
 };
