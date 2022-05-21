@@ -44,3 +44,6 @@ https://localhost:5000/uploads/FAQs/IMG/...The_IMG_Name  // Get req for specific
 https://localhost:5000/uploads/FAQs/Video/...The_Video_Name  // Get req for specific FAQ Video
 https://localhost:5000/uploads/Tickets/Audio/...The_Audio_Name  // Get req for specific Ticket Audio
 https://localhost:5000/uploads/Tickets/IMG/...The_IMG_Name  // Get req for specific Ticket Image
+
+    // Dashboard //
+https://localhost:5000/Dashboard/H_O  // GET req for every info that will display to the Head_Office

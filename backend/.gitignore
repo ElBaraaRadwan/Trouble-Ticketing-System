@@ -11,3 +11,4 @@ package-lock.json
 *.mpeg
 *.webc
 *.webm 
+.vscode
