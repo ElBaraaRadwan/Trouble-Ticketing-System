@@ -42,6 +42,7 @@ function App() {
     {/* 
     Admin Routes 
 
+<<<<<<< HEAD
     //   <Route path="/Dashbord" element={<Dashbord  />} />
     //         <Route path="/Dash" element={<Dash  />} />
     //         <Route path="/DeleteAdmin" element={<DeleteAdmin  />} />
@@ -50,6 +51,7 @@ function App() {
     //         <Route path="/AssignTicket" element={<AssignTicket  />} />
     
     // */}
+
 
       { userLogen ? (
        

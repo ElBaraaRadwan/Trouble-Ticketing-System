@@ -45,9 +45,6 @@ const createTicket = async (req, res, next) => {
       });
     console.log(audioArray);
 
-    const oneDay = 1000 * 60 * 60 * 24 * 1; // millisec * min * huor * day * how many days
-    const priortyUpdation = new Date(Date.now() + oneDay);
-
     const { title, description, department, userID } = req.body;
     const ticket = await Ticket.create({
       title,
@@ -56,7 +53,6 @@ const createTicket = async (req, res, next) => {
       user: userID,
       audioRecord: audioArray,
       attachment: filesArray,
-      ticketUpdatedTime: priortyUpdation,
     });
 
     let userTickets = await Ticket.find({ user: userID });
@@ -111,7 +107,13 @@ const assignTicket = async (req, res) => {
 };
 
 const editTicket = async (req, res) => {
-  const allowedUpdates = ["title", "department", "description", "attachment"];
+  const allowedUpdates = [
+    "title",
+    "department",
+    "description",
+    "attachment",
+    "audioRecord",
+  ];
   const keys = Object.keys(req.body);
   const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
   if (!isUpdationValid)
@@ -137,6 +139,18 @@ const editTicket = async (req, res) => {
     });
     console.log(filesArray);
 
+    const audioArray = req.files
+      .filter((file) => file.mimetype === "audio/webm")
+      .map((file) => {
+        return {
+          fileName: file.originalname,
+          filePath: file.path,
+          fileType: file.mimetype,
+          fileSize: fileSizeFormatter(file.size, 2),
+        };
+      });
+    console.log(audioArray);
+
     const ticket = await Ticket.findOneAndUpdate(
       {
         _id: ticketID,
@@ -146,6 +160,7 @@ const editTicket = async (req, res) => {
         department: req.body.department,
         description: req.body.description,
         attachment: filesArray,
+        audioRecord: audioArray,
       },
       {
         new: true,
@@ -237,13 +252,9 @@ const deleteTicket = asyncWrapper(async (req, res) => {
 });
 
 const getTicket = asyncWrapper(async (req, res) => {
-  const {
-    user: { userId },
-    params: { id: ticketID },
-  } = req;
+  const { id } = req.params;
   const ticket = await Ticket.findOne({
-    _id: ticketID,
-    custID: userId,
+    _id: id,
   });
   if (!ticket) {
     throw new NotFoundError(`No Ticket with id ${ticketID}`);
@@ -272,6 +283,36 @@ const getMyTickts = asyncWrapper(async (req, res) => {
   res.status(StatusCodes.OK).json({ userTickets, count: userTickets.length });
 });
 
+const getAgentTickts = asyncWrapper(async (req, res) => {
+  const { id: agentID } = req.params;
+
+  let agentTickets = await Ticket.find(
+    { agent: agentID },
+    {},
+    { sort: { _id: -1 } }
+  );
+
+  if (!agentTickets) {
+    throw new NotFoundError(`No Ticket with agent_id ${agentTickets}`);
+  }
+  res.status(StatusCodes.OK).json({ agentTickets, count: agentTickets.length });
+});
+
+const ticketDept = asyncWrapper(async (req, res) => {
+  const { id: agentID } = req.params;
+
+  let ticketDept = await Ticket.find({ department });
+  let agentDept = await User.findOne({ _id: agentID, department: ticketDept });
+
+  if (ticketDept === agentDept)
+    res.status(StatusCodes.OK).json({ ticketDept, count: ticketDept.length });
+});
+
+const test = asyncWrapper(async (req, res) => {
+  let test = await User.find({ role: "admin" });
+  res.status(StatusCodes.OK).json({ test });
+});
+
 module.exports = {
   getAllTickets,
   getTicket,
@@ -282,4 +323,7 @@ module.exports = {
   replyTicket,
   deleteTicket,
   editTicket,
+  getAgentTickts,
+  ticketDept,
+  test,
 };

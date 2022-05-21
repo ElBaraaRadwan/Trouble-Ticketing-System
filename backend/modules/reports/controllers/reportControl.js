@@ -70,9 +70,26 @@ const editReport = asyncWrapper(async (req, res) => {
   next(res.status(StatusCodes.BAD_REQUEST).json(error));
 });
 
+// Func that find reports that been created by a agent
+const getMyReports = asyncWrapper(async (req, res) => {
+  const { id: agentID } = req.params;
+
+  let agentReports = await Report.find(
+    { agent: agentID },
+    {},
+    { sort: { _id: -1 } }
+  );
+
+  if (!agentReports) {
+    throw new NotFoundError(`No Ticket with user_id ${agentReports}`);
+  }
+  res.status(StatusCodes.OK).json({ agentReports, count: agentReports.length });
+});
+
 module.exports = {
   createReport,
   getAllReports,
   deleteReport,
   editReport,
+  getMyReports
 };

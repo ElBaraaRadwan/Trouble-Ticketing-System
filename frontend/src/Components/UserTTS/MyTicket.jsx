@@ -43,6 +43,7 @@ export default function MyTicket() {
     const data  = await axios.post(`https://trouble-ticketing-system.herokuapp.com/createFeedBack/${ticketId}`, DataFeedback).catch(error => {
       setErrorApiFeedback(true);
     });
+    console.log(data)
     if(data.statusText = "Created"){
       navigate('/HomeUser');
       setErrorApiFeedback(false);
@@ -52,7 +53,6 @@ export default function MyTicket() {
 
   const showFeedback = async (id) => {
     setAllowFeedback(true);
-    console.log(id);
     setTicketIdToFeedback(id);
   }
   const viewTicket = (e) => {
@@ -144,7 +144,7 @@ export default function MyTicket() {
                           </button>
                         </td>
                         {
-                          e.status === 'Closed' ?
+                          e.status === 'in-hold' ?
                             (<td>
                               <button className="btn btn-dark" onClick={() => showFeedback(e._id)}>
                                 show feedback

@@ -100,11 +100,13 @@ export default function TicketForm() {
 
     console.log(loginFormData.getAll("attachment"))
 
-    const response = await axios
-      .post("https://trouble-ticketing-system.herokuapp.com/createTicket", loginFormData)
-      .catch((err) => {
-        setErrorApiResponse(true);
-      });
+      
+      const response = await axios.post("https://trouble-ticketing-system.herokuapp.com/createTicket", 
+   loginFormData
+    ).catch(err=>{
+      setErrorApiResponce(true);
+    })
+    console.log(response.statusText);
     console.log(response);
     if (response.statusText === "Created") {
       setLoading(false);

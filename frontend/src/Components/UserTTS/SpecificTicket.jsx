@@ -44,6 +44,7 @@ export default function SpecificTicket(props) {
     const userReply = [];
     let userReplyFoArr = replyRef.current.value;
     userReply.push(userReplyFoArr);
+
     const {data} = await axios.patch(`https://trouble-ticketing-system.herokuapp.com/replyTicket/${_id}`, {  reply : userReply}).catch(err=>
     {
       setErrorServer(true);
