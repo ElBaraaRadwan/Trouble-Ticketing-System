@@ -4,7 +4,6 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../../UI/Input";
 import Button from "./../../UI/Button";
-import style from "../../NewHome/HomePage.module.css"
 import styleSign from "./Signup.module.css"
 import heroBg from "../../../images/Images/hero-bg.png"
 import styleAnimate from "../../NewHome/Animation.module.css"
@@ -43,7 +42,7 @@ export default function Signup(props){
       setErrorList(validatioForm.error.details);
       setLoading(false);
     } else {
-      let { data } = await axios.post(`http://localhost:5000/addUser`, user);
+      let { data } = await axios.post(`https://trouble-ticketing-system.herokuapp.com/addUser`, user);
       if (data.message === "user created") {
         navigate('/login')
         setLoading(false);
@@ -94,7 +93,7 @@ export default function Signup(props){
           <img src={shape3} alt="" />
         </div>
       </Mainbg>
-      <form onSubmit={formSubmit} className="w-50 m-auto p-5"
+      <form onSubmit={formSubmit} className={" mb-3 mx-auto p-5 " + styleSign['responsive']}
       style={{boxShadow : 'rgba(0, 0, 0, 0.1) 0px 4px 12px'}}
       >
         <h2 className="">Create new account.</h2>

@@ -18,7 +18,7 @@ useEffect(()=>{
    $(window).scroll(function () {
     let wScroll = $(window).scrollTop();
     let offsetTop =  myref.current.offsetTop;
-    if (wScroll >= offsetTop + 40) {
+    if (wScroll >= offsetTop + 10) {
       myref.current.classList.add('bg-light');
       myref.current.classList.add('top-0');
     } else {

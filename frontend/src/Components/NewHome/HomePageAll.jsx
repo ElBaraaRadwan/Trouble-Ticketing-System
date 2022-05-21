@@ -24,7 +24,6 @@ import FooterAll from './FooterAll';
 const HomePageAll = () => {
   return (
     <>
-      <NavbarAll />
       <main style={{ backgroundImage: `url(${heroBg})` }} className={style["pt-220"] + " position-relative"}>
         <div className="container ">
           <div className="row" id="mainPart">
@@ -153,7 +152,7 @@ const HomePageAll = () => {
         <div className={style["success-bg"]} style={{ backgroundImage: `url(${success})` }}>
         </div>
       </section>
-      <secion style={{ marginBottom: '115px' }} className="position-relative">
+      <section style={{ marginBottom: '115px' }} className="position-relative">
         <section style={{
           backgroundImage: `url(${bg})`, width: '90%',
           margin: 'auto', paddingTop: '40px', borderRadius: '50px', paddingBottom: '40px', boxShadow: '0 1px 23px rgb(0 0 0 / 3%)'
@@ -202,14 +201,14 @@ const HomePageAll = () => {
         <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-50"] + " " + styleAnimate["t-100"]}>
           <img src={shape3} alt="" />
         </div>
-      </secion>
+      </section>
       <section className="position-relative mt-5">
         <div className="container-fluid mt-2">
           <div className="row justify-content-center">
             <div className="col-md-6">
               <img className='w-100' src={faq} alt="" />
             </div>
-            <div className="col-md-5 ms-5 d-flex flex-column justify-content-center">
+            <div className={"col-md-5 ms-5 d-flex flex-column justify-content-center " + style['m-0']}>
               <h4 className="h4 fw-bold" >How FAQs Can Help You?</h4>
               <p style={{ textAlign: 'justify' }}>
                 FAQs enable you to deal with specific queries that your customers have about your business.
@@ -221,7 +220,7 @@ const HomePageAll = () => {
           </div>
         </div>
       </section>
-      <section className="w-50 m-auto text-center mt-5 pt-5 mb-4">
+      <section className={" m-auto text-center mt-5 pt-5 mb-4 " + style["w-95"] + ' ' + style["w-50-m"]}>
         <div className={style["call-action-content"]}>
           <h4 className="h2">Have any question about us?</h4>
           <p className="">if you have aby question just sgn up and send a ticket</p>

@@ -107,7 +107,7 @@ const assignTicket = async (req, res) => {
 };
 
 const editTicket = async (req, res) => {
-  const allowedUpdates = ["title", "department", "description", "attachment"];
+  const allowedUpdates = ["title", "department", "description", "attachment", "audioRecord"];
   const keys = Object.keys(req.body);
   const isUpdationValid = keys.every((key) => allowedUpdates.includes(key));
   if (!isUpdationValid)
@@ -133,6 +133,18 @@ const editTicket = async (req, res) => {
     });
     console.log(filesArray);
 
+    const audioArray = req.files
+      .filter((file) => file.mimetype === "audio/webm")
+      .map((file) => {
+        return {
+          fileName: file.originalname,
+          filePath: file.path,
+          fileType: file.mimetype,
+          fileSize: fileSizeFormatter(file.size, 2),
+        };
+      });
+    console.log(audioArray);
+
     const ticket = await Ticket.findOneAndUpdate(
       {
         _id: ticketID,
@@ -142,6 +154,7 @@ const editTicket = async (req, res) => {
         department: req.body.department,
         description: req.body.description,
         attachment: filesArray,
+        audioRecord: audioArray
       },
       {
         new: true,

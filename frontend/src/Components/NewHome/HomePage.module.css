@@ -164,17 +164,40 @@ main {
     margin: auto;
     max-width: 820px;
     border-radius: 25px;
-    padding: 30px 155px 45px;
+    padding: 30px 110px 45px;
     /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; */
     box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
 
+}
+.w-50-m{
+    width: 50%;
 }
 @media screen and (max-width: 768px) {
     .responsive{
       flex-direction: column;
     }
     .service-style{
-        margin: 20px 0 !important;
+        margin: 20px 20px !important;
         padding: 15px;
     }
+    .call-action-content {
+        padding: 20px 10px;
+        max-width: unset;
+        width: 95%;
+
+    }
+    .w-95{
+        width: 95% !important;
+    }
+    .content-box {
+        align-items: center;
+        text-align: center;
+    }
+    .m-0{
+        margin: 30px 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 90%;
+    }
+    
   }
