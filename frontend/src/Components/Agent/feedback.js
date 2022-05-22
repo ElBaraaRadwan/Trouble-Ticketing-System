@@ -33,7 +33,7 @@ class Feedbacks extends React.Component {
     }
 
     get_feedback() {
-        axios.get('/getAllFeedBack')
+        axios.get('https://trouble-ticketing-system.herokuapp.com/getAllFeedBack')
             .then((res) => {
                 this.setState({ feedbacks: res.data.feedBack });
                 $('.search').attr("disabled", false);
@@ -126,7 +126,7 @@ class Feedbacks extends React.Component {
                         </div>
 
 
-                        <table>
+                        <table className={style['style-table'] + ' m-5'}>
                             <tr>
 
                                 <th>status</th>

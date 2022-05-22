@@ -20,12 +20,12 @@ export default class Navbar extends Component {
  <Routes>
  {/* <Route path="/tickets" element={<Article />} /> */}
 
-   <Route path="/faqs" element={<Faqs />}/>
+   {/* <Route path="/faqs" element={<Faqs />}/>
    <Route path="/Customer" element={<Customer />} />
      <Route path="/" exact element={<Article />} />
       <Route path="/" element={<Faqs />} />
       <Route path="/report" element={<Reports />} />
-      <Route path="/tickets" element={<Article />} />
+      <Route path="/tickets" element={<Article />} /> */}
      
      {/* <Route  path="/"  element={<Navigate replace to="/Customer" />}/> */}
      {/* <Navigate  to="/Customer" />               */}

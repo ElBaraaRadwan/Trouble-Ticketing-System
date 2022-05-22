@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import style from './Agent.module.css'
+
 
 class Blog extends React.Component {
 
@@ -33,7 +35,7 @@ class Blog extends React.Component {
         $("#" + this.state.selected_tab + "-section").show();
     }
     load_blog() {
-        axios.get('/getFAQs/' + this.props.blog_id)
+        axios.get('https://trouble-ticketing-system.herokuapp.com/getFAQs/' + this.props.blog_id)
             .then((res) => {
                 this.setState({ Blog: res.data.faq });
 
@@ -50,7 +52,7 @@ class Blog extends React.Component {
         let con_in = $('#content-input').val();
         let dep_in = $('#department-input').val();
 
-        axios.patch('/updateFAQs/' + this.props.blog_id, {
+        axios.patch('https://trouble-ticketing-system.herokuapp.com/updateFAQs/' + this.props.blog_id, {
             header: title_in,
             content: con_in,
             department: dep_in
@@ -113,7 +115,7 @@ class Blog extends React.Component {
                             <span id='update' onClick={() => this.setState({ selected_tab: 'update' })} >Update</span>
                             <hr></hr>
                         </div>
-                        <button className='back btn' onClick={back} title="back to tickets"><FontAwesomeIcon icon={faAngleLeft} /> </button>
+                        <button className={style['back'] + ' ' + style['btn']} onClick={back} title="back to tickets"><FontAwesomeIcon icon={faAngleLeft} /> </button>
 
                         <div id='update-section'>
                             <p>header</p>

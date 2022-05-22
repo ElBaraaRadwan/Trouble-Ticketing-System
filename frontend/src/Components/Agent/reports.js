@@ -6,6 +6,8 @@ import Header from './Header';
 import axios from 'axios';
 import $ from 'jquery';
 import { Viewbtn_add_report,Viewbtn_report } from './view';
+import style from './Agent.module.css'
+
 class Reports extends React.Component {
     constructor(props) {
         super(props);
@@ -33,7 +35,7 @@ class Reports extends React.Component {
     }
 
     get_tickets() {
-        axios.get('/getAllReports')
+        axios.get('https://trouble-ticketing-system.herokuapp.com/getAllReports')
             .then((res) => {
                 this.setState({ reports: res.data.report });
                 $('.search').attr("disabled", false);
@@ -126,7 +128,7 @@ class Reports extends React.Component {
                         </div>
 
 
-                        <table>
+                        <table className={style['style-table']}>
                             <tr>
 
                                 <th>header</th>
@@ -138,7 +140,7 @@ class Reports extends React.Component {
                                 <tr className='results'>
                                     <td key={report.key}>{report.header}</td>
                                     <td key={report.key}>{report.content}</td>
-                                    <td> <button className='btn del-btn' onClick={() => axios.delete('/deleteReport/' + report._id).then((res) => { window.location.reload(); })}>Delete</button></td>
+                                    <td> <button className='btn del-btn' onClick={() => axios.delete('https://trouble-ticketing-system.herokuapp.com/deleteReport/' + report._id).then((res) => { window.location.reload(); })}>Delete</button></td>
                                 </tr>
                             ))}
 
@@ -146,7 +148,7 @@ class Reports extends React.Component {
                                 <tr className='results'>
                                     <td key={report.key}>{report.header}</td>
                                     <td key={report.key}>{report.content}</td>
-                                    <td><button className='btn del-btn' onClick={() => axios.delete('/deleteReport/' + report._id).then((res) => { window.location.reload(); })}>Delete</button></td>
+                                    <td><button className='btn del-btn' onClick={() => axios.delete('https://trouble-ticketing-system.herokuapp.com/deleteReport/' + report._id).then((res) => { window.location.reload(); })}>Delete</button></td>
                                 </tr>
                             ))}
                         </table>

@@ -20,13 +20,13 @@ export default function Navbar() {
     >
       <div
         className={
-          "d-flex justify-content-between  align-items-center container-fluid " +
+          "d-flex justify-content-between  align-items-center container-fluid "  +
           style["nav-height"]
         }
       >
         <ul className="d-flex align-items-center p-0 m-0">
           <img
-            // src={logo}
+            src={logo}
             className={style["logo"] + " mx-3"}
             alt="Logo of company"
           />
@@ -71,43 +71,7 @@ export default function Navbar() {
               >
                 Logout
               </NavLink> */}
-          {Logged ? (
             <React.Fragment>
-              <NavLink
-                className={(navData) =>
-                  navData.isActive ? classes.active : classes.NormalLi
-                }
-                to="/HomeUser"
-              >
-                Home
-              </NavLink>
-             
-
-              
-              <NavLink
-                className={(navData) =>
-                  navData.isActive ? classes.active : classes.NormalLi
-                }
-                to="/submit_ticket"
-              >
-                Ticket
-              </NavLink>
-              <NavLink
-                className={(navData) =>
-                  navData.isActive ? classes.active : classes.NormalLi
-                }
-                to="/myTickets"
-              >
-                My Tickets
-              </NavLink> 
-              <NavLink
-                className={(navData) =>
-                  navData.isActive ? classes.active : classes.NormalLi
-                }
-                to="/Faqs"
-              >
-                Faqs
-              </NavLink>
             
               <NavLink
                 className={(navData) =>
@@ -153,24 +117,10 @@ export default function Navbar() {
               
               
             </React.Fragment>
-          ) : (
-            <NavLink
-              className={(navData) =>
-                navData.isActive ? classes.active : classes.NormalLi
-              }
-              to="/Home"
-            >
-              Home
-            </NavLink>
-
-
-
-
-
-          )}
+          
         </ul>
         <ul className="d-flex justify-content-between p-0 m-0">
-          {Logged ? (
+      
             <React.Fragment>
               <NavLink
                 onClick={()=>isAuthen.logout()}
@@ -182,26 +132,6 @@ export default function Navbar() {
                 Logout
               </NavLink>
             </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <NavLink
-                className={(navData) =>
-                  navData.isActive ? classes.active : classes.NormalLi
-                }
-                to="/signup"
-              >
-                Signup
-              </NavLink>
-              <NavLink
-                className={(navData) =>
-                  navData.isActive ? classes.active : classes.NormalLi
-                }
-                to="/login"
-              >
-                Login
-              </NavLink>
-            </React.Fragment>
-          )}
         </ul>
       </div>
     </nav>

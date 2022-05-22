@@ -7,6 +7,8 @@ import axios from 'axios';
 import $ from 'jquery';
 import Viewbtn from './view';
 import { Viewbtn_add } from './view';
+import style from './Agent.module.css'
+
 class Article extends React.Component {
     constructor(props) {
         super(props);
@@ -36,7 +38,7 @@ class Article extends React.Component {
     }
 
     get_tickets() {
-        axios.get('/getAllTicket')
+        axios.get('https://trouble-ticketing-system.herokuapp.com/getAllTicket')
             .then((res) => {
                 this.setState({ tickets: res.data.tickets });
                 $('.search').attr("disabled", false);
@@ -127,7 +129,7 @@ class Article extends React.Component {
                             </Dropdown>
                             {/* <input disabled type="text" className='search ms-3' placeholder='Search' onKeyPress={e => this.search(e)}></input> */}
                         </div>
-                        <table class="p-5 tab">
+                        <table className={"p-5 tab "+ style['style-table']}>
                             <tr>
 
                                 <th>title</th>
@@ -145,7 +147,7 @@ class Article extends React.Component {
                                     <td key={ticket.key}>{ticket.status}</td>
                                     <td key={ticket.key}>{ticket.createdAt.slice(0, 10)}</td>
                                     <td key={ticket.key}>{ticket.department}</td>
-                                    <td><button className='btn view-btn' onClick={() => { this.showAppMain(ticket._id) }}>View</button> <button className='btn del-btn' onClick={() => axios.delete('/deleteTicket/' + ticket._id).then((res) => { window.location.reload(); })}>Delete</button></td>
+                                    <td><button className='btn view-btn' onClick={() => { this.showAppMain(ticket._id) }}>View</button> <button className='btn del-btn' onClick={() => axios.delete('https://trouble-ticketing-system.herokuapp.com/deleteTicket/' + ticket._id).then((res) => { window.location.reload(); })}>Delete</button></td>
                                 </tr>
                             ))}
 
@@ -156,7 +158,7 @@ class Article extends React.Component {
                                     <td key={ticket.key}>{ticket.status}</td>
                                     <td key={ticket.key}>{ticket.createdAt.slice(0, 10)}</td>
                                     <td key={ticket.key}>{ticket.department}</td>
-                                    <td><button className='btn view-btn' onClick={() => { this.showAppMain(ticket._id) }}>View</button> <button className='btn del-btn' onClick={() => axios.delete('/deleteTicket/' + ticket._id).then((res) => { window.location.reload(); })}>Delete</button></td>
+                                    <td><button className='btn view-btn' onClick={() => { this.showAppMain(ticket._id) }}>View</button> <button className='btn del-btn' onClick={() => axios.delete('https://trouble-ticketing-system.herokuapp.com/deleteTicket/' + ticket._id).then((res) => { window.location.reload(); })}>Delete</button></td>
                                 </tr>
                             ))}
                         </table>

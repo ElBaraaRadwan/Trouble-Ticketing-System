@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import style from './Agent.module.css'
+
 
 class Add extends React.Component {
     handleCreate()
@@ -23,7 +25,7 @@ class Add extends React.Component {
             form.append("department",department_in);
             // form.append("priorty",priorty_in);
             // form.append("status",status_in);
-       axios.post('/createTicket',form)
+       axios.post('https://trouble-ticketing-system.herokuapp.com/createTicket',form)
       .then((res) => {
         $('#title-input').val('');
         $('#description-input').val('');
@@ -46,29 +48,29 @@ class Add extends React.Component {
             return (
                 <div>
                     <Header />
-                    <div className='message-wrap'>
+                    <div className={style['message-wrap']}>
           <FontAwesomeIcon icon={faClose} style={{ float: 'right', cursor: 'pointer' }} onClick={() => $('.message-wrap').hide()} />
           <br></br>
-          <p className='message'></p>
+          <p className={style['message']}></p>
         </div>
-                    <button className='back btn' onClick={back} title="back to tickets"><FontAwesomeIcon icon={faAngleLeft} /> </button>
+                    <button className={style['back'] + ' ' + style['btn']} onClick={back} title="back to tickets"><FontAwesomeIcon icon={faAngleLeft} /> </button>
                 <div className='row mt-3 container-fluid'>
                     
                     <div className='m-auto col-xl-10 col-lg-10'>
                         <p className='h3'>Create a Ticket</p>
-                        <div className='error-message'>
+                        <div className={style['error-message']}>
                         <FontAwesomeIcon icon={faClose} style={{ float: 'right', cursor: 'pointer' }} onClick={() => $('.error-message').hide()} />
                         <br></br>
-                            <p className='er-message'></p>
+                            <p className={style['er-message']}></p>
 
                         </div>
                         <div>
                         <p>title</p>
-                            <input id='title-input' className='in'></input>
+                            <input id='title-input' className={style['in']}></input>
                             <p>description</p>
-                            <textarea id='description-input' className='in'></textarea>
+                            <textarea id='description-input' className={style['in']}></textarea>
                             <p>department</p>
-                            <select id='department-input' className='in'>
+                            <select id='department-input' className={style['in']}>
                             <option value="Sales">Sales</option>
                             <option value="Tech-Sup">Tech-Sup</option>
                             <option value="Devices-Com">Devices-Com</option>
@@ -90,7 +92,7 @@ class Add extends React.Component {
                             <option value="Solved">Solved</option>
                             <option value="Closed">Closed</option>
                             </select> */}
-                            <p align='center'><button className='btn reply-btn mt-2' onClick={this.handleCreate}>Create</button></p>
+                            <p align='center'><button className={style['btn'] + ' ' + style['reply-btn']  + ' ' + 'mt-2'} onClick={this.handleCreate}>Create</button></p>
                         </div>
                         </div>
                         </div>

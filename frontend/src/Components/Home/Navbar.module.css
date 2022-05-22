@@ -1,0 +1,51 @@
+.nav-height{
+ height: 10vh;
+ color: white;
+ font-size: 18px;
+}
+
+.nav-height ul{
+    list-style: none;
+}
+.nav-height ul li{
+    padding: 0 10px ;
+  
+}
+
+.logo{
+    width:40px;
+    height:40px;
+    object-fit:cover;
+    border-radius:50%;
+}
+
+.NormalLi{
+    color : white;
+    background-color: transparent;
+   }
+.active , .NormalLi{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 23px;
+    text-decoration: none;
+    padding: 0 10px;
+    font-family: 500;
+    background-color: transparent;
+
+}
+
+.active {
+    color : rgb(98, 198, 216);
+}
+.active:hover{
+    color : rgb(98, 198, 216);
+}
+.NormalLi:hover{
+    color : rgb(98, 198, 216);
+}
+
+
+@media screen and (max-width: 768px) {
+    .nav-height{
+      height: auto;
+    }
+  }

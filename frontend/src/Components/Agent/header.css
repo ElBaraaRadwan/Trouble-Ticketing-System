@@ -109,7 +109,7 @@
 } */
 ul{
     list-style: none;
-    background-color: rgb(143, 138, 138);
+    /* background-color: rgb(143, 138, 138); */
     height: 40px;
     display: flex;
     align-items: center;

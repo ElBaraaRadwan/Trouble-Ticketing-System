@@ -7,23 +7,6 @@ h4{
     display: block;
     font-family: 'Source Sans Pro', sans-serif;
 }
-table, th, td ,tr{
-    border: 1px solid rgb(136, 131, 131);
-    border-collapse: collapse;
-    padding: 8px;
-  }
-table tr th{
-    padding-left: 60px;    
-}  
-table tbody tr{
-    border: 1px solid rgb(136, 131, 131);
-    border-collapse: collapse;
-  }  
-
-  
-table tbody td{
-    padding: 3px 60px; 
-  }  
 
 .dropdown{
     width: 180px;
@@ -34,6 +17,7 @@ table tbody td{
     border-radius: 3px;
     cursor: pointer;
     outline: none;
+    display: contents;
    
     /* background-color: black; */
 }

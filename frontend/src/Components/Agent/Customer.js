@@ -5,6 +5,7 @@ import Header from './Header';
 import { FaSearch } from 'react-icons/fa';
 import { AiOutlinePlus } from "react-icons/ai";
 import axios from 'axios';
+import style from './Agent.module.css'
 
 class Customer extends React.Component {
     state={
@@ -15,7 +16,7 @@ class Customer extends React.Component {
     }
 
     Customer() {
-        axios.get('/users')
+        axios.get('https://trouble-ticketing-system.herokuapp.com/users')
             .then((res) => {
                 console.log("users");
                 console.log(res);
@@ -47,8 +48,8 @@ class Customer extends React.Component {
                 {/* grid system */}
                 <div className='row d-flex justify-content-center ms-4' style={{ boxsizing: "border-box" }}>
                     <div className='col-xl-3 col-lg-3 col-md-6 col-sm-12'>
-                        <select className='dropdown'>
-                            <option className='sortby ' value="SortBy: CreatedAt" disabled>SortBy</option>
+                        <select className={style['dropdown']}>
+                            <option className={style['sortby']} value="SortBy: CreatedAt" disabled>SortBy</option>
                             {/* <option selected value="CreatedAt">SortBy: CreatedAt</option> */}
                             <option value="CreatedAt">CreatedAt</option>
                             <option value="Name">Name</option>
@@ -65,8 +66,8 @@ class Customer extends React.Component {
                     {/* search input*/}
 
                     <div className='col-xl-3 col-lg-3 col-md-6 col-sm-12 position-relative'>
-                        <input type="text" className='input-search' placeholder='Search'></input>
-                        <FaSearch className='icon-search' />
+                        <input type="text" className={style['input-search']} placeholder='Search'></input>
+                        <FaSearch className={style['icon-search']} />
 
                     </div>
 
@@ -89,7 +90,7 @@ class Customer extends React.Component {
                 {/* <div className='pt-4'>
                     <JsonDataDisplay />
                 </div> */}
-                   <table className='m-5'>
+                   <table className={style['style-table'] + ' m-5'}>
                             <tr >
 
                                 <th>Name</th>

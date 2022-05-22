@@ -7,6 +7,8 @@ import axios from 'axios';
 import $ from 'jquery';
 import { Viewbtn_blogs } from './view';
 import { Viewbtn_add_blog } from './view';
+import style from './Agent.module.css'
+
 class Faqs extends React.Component {
     constructor(props) {
         super(props);
@@ -37,7 +39,7 @@ class Faqs extends React.Component {
     }
 
     get_blogs() {
-        axios.get('/getAllFAQs')
+        axios.get('https://trouble-ticketing-system.herokuapp.com/getAllFAQs')
             .then((res) => {
                 this.setState({ blogs: res.data.faq });
                 $('.search').attr("disabled", false);
@@ -105,20 +107,21 @@ class Faqs extends React.Component {
                 <div className='row mt-3 container-fluid'>
                     <div className='m-auto col-xl-10 col-lg-10'>
                         <p className='h3'>FAQs</p>
-                        <button className='add-blog btn reply-btn' onClick={() => { this.showAdd()}}>Create a FAQ</button>
+                        <button className='add-blog btn reply-btn'
+                         onClick={() => { this.showAdd()}}>Create a FAQ</button>
                         <div className='section'>
                             <Dropdown >
-                                <Dropdown.Toggle variant="" id="dropdown-basic" className='reply-btn mb-4 mt-4'>
+                                <Dropdown.Toggle variant="" id="dropdown-basic" className='reply-btn   mb-4 mt-4'>
                                     Sort By:
                                 </Dropdown.Toggle>
                                 {this.state.search_results.length !== 0 && <Dropdown.Menu>
-                                    <span className='details m-3'>Sort by</span>
+                                    <span className={style['details'] + ' m-3'}>Sort by</span>
                                     <Dropdown.Item href="#/action-1" onClick={e => this.sort_by(e, 'title')}>title</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2" onClick={e => this.sort_by(e, 'date')}>Recently updated</Dropdown.Item>
                                 </Dropdown.Menu>
                                 }
                                 {this.state.search_results.length === 0 && <Dropdown.Menu>
-                                    <span className='details m-3'>Sort by</span>
+                                    <span className={style['details'] + ' m-3'}>Sort by</span>
                                     <Dropdown.Item href="#/action-1" onClick={e => this.sort_by(e, 'title')}>title</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2" onClick={e => this.sort_by(e, 'date')}>Recently updated</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2" onClick={e => this.sort_by(e, 'none')}>Default</Dropdown.Item>
@@ -129,9 +132,8 @@ class Faqs extends React.Component {
                         </div>
 
 
-                        <table>
+                        <table className={style["style-table"]}>
                             <tr>
-
                                 <th>Header</th>
                                 <th>Department</th>
                                 <th>Date</th>
@@ -139,28 +141,28 @@ class Faqs extends React.Component {
                             </tr>
 
                             {this.state.search_results.length === 0 && this.state.blogs.map(blog => (
-                                <tr className='results'>
+                                <tr className={style['results']}>
                                     <td key={blog.key}>{blog.header}</td>
                                     <td key={blog.key}>{blog.department}</td>
                                     <td key={blog.key}>{blog.createdAt.slice(0, 10)}</td>
-                                    <td><button className='btn view-btn' onClick={() => { this.showAppMain(blog._id) }}>View</button> <button className='btn del-btn' onClick={() => axios.delete('/deleteFAQs/' + blog._id).then((res) => { window.location.reload(); })}>Delete</button></td>
+                                    <td><button className='btn view-btn' onClick={() => { this.showAppMain(blog._id) }}>View</button> <button className='btn del-btn' onClick={() => axios.delete('https://trouble-ticketing-system.herokuapp.com/deleteFAQs/' + blog._id).then((res) => { window.location.reload(); })}>Delete</button></td>
                                 </tr>
                             ))}
 
                             {this.state.search_results.map(blog => (
-                                <tr className='results'>
+                                <tr className={style['results']}>
                                     <td key={blog.key}>{blog.header}</td>
                                     <td key={blog.key}>{blog.content}</td>
                                     <td key={blog.key}>{blog.department}</td>
                                     <td key={blog.key}>{blog.createdAt.slice(0, 10)}</td>
-                                    <td><button className='btn view-btn' onClick={() => { this.showAppMain(blog._id) }}>View</button> <button className='btn del-btn' onClick={() => axios.delete('/deleteFAQs/' + blog._id).then((res) => { window.location.reload(); })}>Delete</button></td>
+                                    <td><button className={'btn ' + style['view-btn']} onClick={() => { this.showAppMain(blog._id) }}>View</button> <button className='btn del-btn' onClick={() => axios.delete('https://trouble-ticketing-system.herokuapp.com/deleteFAQs/' + blog._id).then((res) => { window.location.reload(); })}>Delete</button></td>
                                 </tr>
                             ))}
                         </table>
                         {this.state.search_results.length !== 0 && <p align='center'><button onClick={() => this.back()} className={'view-btn btn mt-2'}>return</button></p>}
                         {this.state.blogs.length === 0 && <p className='h4' align='center'>Couldn't find any tickets</p>}
-                        <div className='no-results'><p className='h4 ' align='center'>Couldn't find any results</p>
-                            <p align='center'><button className='btn view-btn mt-2' onClick={() => { $('.results').show(); $('.no-results').hide(); }}>return</button></p>
+                        <div className={style['no-results']}><p className='h4 ' align='center'>Couldn't find any results</p>
+                            <p align='center'><button className={'btn mt-2 ' + style['view-btn']} onClick={() => { $('.results').show(); $('.no-results').hide(); }}>return</button></p>
                         </div>
                     </div>
                 </div>

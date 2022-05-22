@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import style from './Agent.module.css'
 
 class Addreport extends React.Component {
     handleCreate()
@@ -17,7 +18,7 @@ class Addreport extends React.Component {
         let form = new FormData();
             form.append("header",header_in);
             form.append("content",content_in);
-       axios.post('/createReport',form)
+       axios.post('https://trouble-ticketing-system.herokuapp.com/createReport',form)
       .then((res) => {
           $('#header-input').val('');
           $('#content-input').val('');
@@ -38,31 +39,31 @@ class Addreport extends React.Component {
             return (
                 <div>
                     <Header />
-                    <div className='message-wrap'>
+                    <div className={style['message-wrap']}>
           <FontAwesomeIcon icon={faClose} style={{ float: 'right', cursor: 'pointer' }} onClick={() => $('.message-wrap').hide()} />
           <br></br>
-          <p className='message'></p>
+          <p className={style['message']}></p>
         </div>
-                    <button className='back btn' onClick={back} title="back to tickets"><FontAwesomeIcon icon={faAngleLeft} /> </button>
+                    <button className={style['back'] + ' ' + style['btn']} onClick={back} title="back to tickets"><FontAwesomeIcon icon={faAngleLeft} /> </button>
                 <div className='row mt-3 container-fluid'>
                     
                     <div className='m-auto col-xl-10 col-lg-10'>
                     <p className='h3'>Create a report</p>
-                    <div className='error-message'>
+                    <div className={style['error-message']}>
                         <FontAwesomeIcon icon={faClose} style={{ float: 'right', cursor: 'pointer' }} onClick={() => $('.error-message').hide()} />
                         <br></br>
-                            <p className='er-message'></p>
+                            <p className={style['er-message']}></p>
 
                         </div>
                         
                         <div>
                         <p>header</p>
-                            <input id='header-input' className='in'></input>
+                            <input id='header-input' className={style['in']}></input>
                             <p className='error-bag-header'></p>
                             <p>content</p>
-                            <textarea id='content-input' className='in'></textarea>
-                            <p className='error-bag-content'></p>
-                            <p align='center'><button className='btn reply-btn' onClick={this.handleCreate}>Create</button></p>
+                            <textarea id='content-input' className={style['in']}></textarea>
+                            <p className={style['error-bag-content']}></p>
+                            <p align='center'><button className={style['btn'] + ' ' + style['reply-btn']} onClick={this.handleCreate}>Create</button></p>
                                 </div>
                         </div>
                         </div>

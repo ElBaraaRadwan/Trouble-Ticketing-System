@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import style from './Agent.module.css'
 
 class Ticket extends React.Component {
 
@@ -35,7 +36,7 @@ class Ticket extends React.Component {
     $("#" + this.state.selected_tab + "-section").show();
   }
   load_ticket() {
-    axios.get('/getTicket/' + this.props.ticket_id)
+    axios.get('https://trouble-ticketing-system.herokuapp.com/getTicket/' + this.props.ticket_id)
       .then((res) => {
         this.setState({ ticket: res.data.ticket });
 
@@ -51,7 +52,7 @@ class Ticket extends React.Component {
     let title_in = $('#title-input').val();
     let des_in = $('#description-input').val();
 
-    axios.patch('/updateTicket/' + this.props.ticket_id, {
+    axios.patch('https://trouble-ticketing-system.herokuapp.com/updateTicket/' + this.props.ticket_id, {
       title: title_in,
       description: des_in
     })
@@ -79,7 +80,7 @@ class Ticket extends React.Component {
   }
   handleReply() {
     let reply_in = $('#reply-input').val();
-    axios.patch('/solveTicket/' + this.props.ticket_id, {
+    axios.patch('https://trouble-ticketing-system.herokuapp.com/solveTicket/' + this.props.ticket_id, {
       reply: reply_in,
     })
       .then((res) => {
@@ -96,7 +97,7 @@ class Ticket extends React.Component {
   handleAssign() {
     let priorty_in = $('#priorty-input').val();
     let status_in = $('#status-input').val();
-    axios.patch('/assignTicket/' + this.props.ticket_id, {
+    axios.patch('https://trouble-ticketing-system.herokuapp.com/assignTicket/' + this.props.ticket_id, {
       priorty: priorty_in,
       status: status_in
     })
@@ -153,7 +154,7 @@ class Ticket extends React.Component {
               <span id='assign' onClick={() => this.setState({ selected_tab: 'assign' })}>Assign</span>
               <hr></hr>
             </div>
-            <button className='back btn' onClick={back} title="back to tickets"><FontAwesomeIcon icon={faAngleLeft} /> </button>
+            <button className={style['back'] + ' ' + style['btn']} onClick={back} title="back to tickets"><FontAwesomeIcon icon={faAngleLeft} /> </button>
             <div id='reply-section'>
               <div>
                 <textarea row="10" placeholder=" Write a reply." className='text-area' id='reply-input'></textarea>
