@@ -4,16 +4,16 @@ const {
     getUser,
     deleteUser,
     updateUserName,
-    sign_in,
+    sign_in, 
 } = require("../controller/user.controller");
-// const {
-//     getAllAgents,
-//     agent_sign_up,
-//     getAgent,
-//     deleteAgent,
-//     updateAgent,
-//     agent_sign_in,
-// } = require("../controller/admin.controller");
+const {
+    getAllAgents,
+    agent_sign_up,
+    getAgent,
+    deleteAgent,
+    updateAgent,
+    agent_sign_in,
+} = require("../controller/admin.controller");
 const validateRequest = require("../../../common/middleware/validateRequest");
 const isAuthoraized = require("../../../common/middleware/isAuthoraized");
 const { addUserSchema, singInSchema, addadminSchema, agentsingInSchema } = require("../joi/userValidation");
@@ -24,7 +24,7 @@ const router = require("express").Router();
 router.get("/users", /*isAuthoraized(GET_ALL_USERS),*/ getAllUsers);
 // router.get("/agents", isAuthoraized(GET_ALL_AGENTS), getAllAgents);
 router.post("/addUser", validateRequest(addUserSchema), sign_up);
-// router.post("/addagent", isAuthoraized(ADD_AGENTS), validateRequest(addadminSchema), agent_sign_up);
+router.post("/addagent", isAuthoraized(ADD_AGENTS), validateRequest(addadminSchema), agent_sign_up);
 router.post("/signIn", validateRequest(singInSchema), sign_in);
 // router.post("/agentsignIn", validateRequest(agentsingInSchema), agent_sign_in);
 router.delete("/deleteUser/:id", isAuthoraized(DELETE_USERS), deleteUser);

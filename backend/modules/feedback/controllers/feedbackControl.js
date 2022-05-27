@@ -2,6 +2,7 @@ const User = require("../../users/Model/user.model");
 const FeedBack = require("../Model/feedback.model");
 const asyncWrapper = require("../../../middlewares/async");
 const { StatusCodes } = require("http-status-codes");
+const Ticket = require("../../tickets/model/ticket.model");
 
 const createFeedBack = asyncWrapper(async (req, res) => {
   const { id: ticketID } = req.params;
@@ -11,6 +12,10 @@ const createFeedBack = asyncWrapper(async (req, res) => {
     user: userID,
     ticket: ticketID,
   });
+  const ticket = await Ticket.findByIdAndUpdate(
+    { _id: ticketID },
+    { status: "Finished" }
+  );
   res.status(StatusCodes.CREATED).json({ feedBack });
 });
 

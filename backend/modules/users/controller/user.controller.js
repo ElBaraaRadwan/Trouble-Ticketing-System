@@ -7,7 +7,7 @@ require("dotenv").config();
 
 
 const getAllUsers = async(req, res) => {
-    const users = await User.find({}).select("-password");
+    const users = await User.find({}, {}, { sort: { _id: -1 } }).select("-password");
     res.json({ message: "All users", data: users });
 };
 

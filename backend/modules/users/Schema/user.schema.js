@@ -66,7 +66,7 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["admin", "agent", "user"],
+    enum: ["H_O", "admin", "agent", "user"],
     default: "user",
   },
   department: {
@@ -94,9 +94,11 @@ const UserSchema = new mongoose.Schema({
   passwordTokenExpirationDate: {
     type: Date,
   },
-  createdThings: [{
-    type: mongoose.Schema.Types.ObjectId,
-  }],
+  createdThings: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+  ],
 });
 
 UserSchema.pre("save", async function () {
