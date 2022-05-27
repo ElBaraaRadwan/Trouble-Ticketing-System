@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { blobToBase64 } from "../blob";
 
 const AudioRecorder = () => {
-  const [audioObject, setAudioObject] = useState("");
+  const [audioURL, setAudioURL] = useState("");
   const [isRecording, setIsRecording] = useState(false);
   const [recorder, setRecorder] = useState(null);
 
@@ -20,8 +21,8 @@ const AudioRecorder = () => {
     }
     // Obtain the audio when ready.
     const handleData = async (e) => {
-      const blob = e.data;
-      setAudioObject({ blob, url: URL.createObjectURL(e.data) });
+      const base64 = await blobToBase64(e.data);
+      setAudioURL(base64);
     };
     recorder.addEventListener("dataavailable", handleData);
     return () => recorder.removeEventListener("dataavailable", handleData);
@@ -33,7 +34,7 @@ const AudioRecorder = () => {
     setIsRecording(false);
   };
 
-  return [audioObject, isRecording, startRecording, stopRecording];
+  return [audioURL, isRecording, startRecording, stopRecording];
 };
 
 async function requestRecorder() {

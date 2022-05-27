@@ -12,6 +12,7 @@ import shape2 from '../../images/Images/shape2.png'
 import shape3 from '../../images/Images/shape3.png'
 import simple from '../../images/Images/ticketHome.png'
 import FooterAll from "../NewHome/FooterAll";
+import { useNavigate } from 'react-router-dom';
 
 export default function MyTicket() {
   const [tickets, setTickets] = useState([]);
@@ -20,6 +21,7 @@ export default function MyTicket() {
   const [allowFeedback, setAllowFeedback] = useState(false);
   const [ticketIdToFeedback, setTicketIdToFeedback] = useState('');
   const [errorApiFeedback, setErrorApiFeedback] = useState(false);
+  const navigate = useNavigate();
   const authCtx = useContext(authContext);
   const id = authCtx.id;
   console.log(id)
@@ -38,16 +40,19 @@ export default function MyTicket() {
       userID,
       status
     }
-    const { data } = await axios.post(`http:/localhost:5000/createFeedBack/${ticketId}`, DataFeedback).catch(error => {
-      console.log(error);
+    const data  = await axios.post(`https://trouble-ticketing-system.herokuapp.com/createFeedBack/${ticketId}`, DataFeedback).catch(error => {
       setErrorApiFeedback(true);
     });
-    console.log(data);
+    console.log(data)
+    if(data.statusText = "Created"){
+      navigate('/HomeUser');
+      setErrorApiFeedback(false);
+    }
   }
+  
 
   const showFeedback = async (id) => {
     setAllowFeedback(true);
-    console.log(id);
     setTicketIdToFeedback(id);
   }
   const viewTicket = (e) => {
@@ -128,7 +133,7 @@ export default function MyTicket() {
                 {
                   tickets.map((e, i) => {
                     return (
-                      <tr>
+                      <tr key={e._id}>
                         <th scope="row">{i + 1}</th>
                         <td>{e.title}</td>
                         <td>{e.priorty}</td>
@@ -139,7 +144,7 @@ export default function MyTicket() {
                           </button>
                         </td>
                         {
-                          e.status === 'Closed' ?
+                          e.status === 'in-hold' ?
                             (<td>
                               <button className="btn btn-dark" onClick={() => showFeedback(e._id)}>
                                 show feedback
@@ -164,7 +169,7 @@ export default function MyTicket() {
           </div>
 
           {
-            showTicket && <SpecificTicket ticketData={oneTicket} />
+            showTicket && <SpecificTicket  ticketData={oneTicket} />
           }
           {
             allowFeedback &&

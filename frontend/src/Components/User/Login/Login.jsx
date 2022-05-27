@@ -33,16 +33,16 @@ export default function Login() {
       email: inputEmailRef.current.value,
       password: inputPasswordRef.current.value,
     };
-    let validatioForm = validateRegisterForm(user);
-    if (validatioForm.error) {
-      setErrorList(validatioForm.error.details);
-      setLoading(false);
-      return ;
-    }
+    // let validatioForm = validateRegisterForm(user);
+    // if (validatioForm.error) {
+    //   setErrorList(validatioForm.error.details);
+    //   setLoading(false);
+    //   return ;
+    // }
      let {data } = await axios.post(
         `https://trouble-ticketing-system.herokuapp.com/signIn`,
         user
-      );
+      ).catch(err=>console.log(err))
       console.log(data);
       if (data.message === "success") {
         authCtx.login(data.token);
@@ -50,14 +50,20 @@ export default function Login() {
         authCtx.assignId(data.data._id);
         console.log(data.data._id)
         console.log('navigate?')
-        navigate('/HomeUser');
+        if(data.data.role === 'user'){
+          navigate('/HomeUser');
+        }
+        if(data.data.role === 'agent'){
+          navigate('/Customer');
+        } 
         console.log('yes')
-
+        setErrorList([]);
+        setLoading(false);
         setErrorList([]);
         setError("");
         setLoading(false);
       } else {
-        setError(validatioForm.error.details);
+        // setError(validatioForm.error.details);
         setErrorList(data.message);
         setLoading(false);
     }
@@ -115,7 +121,7 @@ export default function Login() {
           <div className="my-2">
             {error && <div className="alert alert-danger py-2">{error}</div>}
           </div>
-          {errorList.map((error, i) =>
+          {/* {errorList.map((error, i) =>
             error.context.label === "password" ? (
               <div key={i} className="alert alert-danger py-2 m-2">
                 incorrect password
@@ -125,7 +131,7 @@ export default function Login() {
                 {error.message}
               </div>
             )
-          )}
+          )} */}
           <Input
           type={"email"}
           name={"email"}

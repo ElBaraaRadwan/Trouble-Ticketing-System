@@ -18,16 +18,89 @@ import UpdataFaq from "./Components/Admin/UpdataFaq";
 import ShowReport from "./Components/Admin/ShowReport";
 import AssignTicket from "./Components/Admin/AssignTicket";
 import NavbarAll from "./Components/NewHome/NavbarAll";
+import Faqs from "./Components/Agent/faqs";
+import Customer from "./Components/Agent/Customer";
+import Article from "./Components/Agent/tickets";
+import Reports from "./Components/Agent/reports";
+import Navbar from './Components/Home/Navbar';
 
 
 
 function App() {
   const isAuthen = useContext(authContext);
   const userLogen = isAuthen.isLoggend  && isAuthen.role === 'user' ;
+  const AgentLogen = isAuthen.isLoggend  && isAuthen.role === 'agent' ;
   
   return (
     <>
-      {/* <Navbarr /> */}
+{/* 
+    THE Admin Routes
+ <React.Fragment> 
+<Navbar />
+
+<Routes>
+      <Route path="/Dashbord" element={<Dashbord  />} />
+            <Route path="/Dash" element={<Dash  />} />
+            <Route path="/DeleteAdmin" element={<DeleteAdmin  />} />
+            <Route path="/UpdataFaq" element={<UpdataFaq  />} />
+            <Route path="/ShowReport" element={<ShowReport  />} />
+            <Route path="/AssignTicket" element={<AssignTicket  />} />
+            </Routes>
+  </React.Fragment>   */}
+    
+
+
+       {
+         AgentLogen ? (
+          <Routes>
+            <Route path="/faqs" element={<Faqs />}/>
+          <Route path="/Customer" element={<Customer />} />
+            <Route path="/" exact element={<Article />} />
+             <Route path="/" element={<Faqs />} />
+             <Route path="/report" element={<Reports />} />
+             <Route path="/tickets" element={<Article />} />
+          </Routes>
+         ) : ''
+       }
+
+      { userLogen ? (
+       
+          <React.Fragment>
+           <NavbarAll/>
+        <Routes>
+            
+            <Route path="/HomeUser" element={<TtsHome />} />
+            <Route path="/Faqs" element={<FaqsData />} />
+            <Route path="/HomeUser" element={<TtsHome />} />
+            <Route path="/myTickets" element={<MyTicket />} />
+            <Route path="/submit_ticket" element={<TicketForm />} />
+          
+            </Routes>
+            
+          </React.Fragment>
+        ) : (
+          ' '
+        )}
+      {
+        !userLogen && !AgentLogen ? 
+        (
+          <React.Fragment>
+          <NavbarAll/>
+         <Routes>
+           <Route path="/Home" element={<HomePageAll />} />
+         <Route path="/signup" element={<Signup />} />
+         <Route path="/login" element={<Login/>} />
+         </Routes>
+       </React.Fragment>
+        ) : ' '
+      } 
+    </>
+  );
+}
+
+export default App;
+
+   {/* <Navbarr /> */}
       
       {/* <NavbarLogined/> */}
       {/* <Routes>
@@ -39,49 +112,6 @@ function App() {
         <Route path="/login" element={<Login />} />
       </Routes> */}
 
-    {/* 
-    Admin Routes 
-
-      <Route path="/Dashbord" element={<Dashbord  />} />
-            <Route path="/Dash" element={<Dash  />} />
-            <Route path="/DeleteAdmin" element={<DeleteAdmin  />} />
-            <Route path="/UpdataFaq" element={<UpdataFaq  />} />
-            <Route path="/ShowReport" element={<ShowReport  />} />
-            <Route path="/AssignTicket" element={<AssignTicket  />} />
     
-    */}
-
-      { userLogen ? (
-       
-          <React.Fragment>
-           <NavbarAll/>
-            {/* <Route path="/HomeUser" element={<TtsHome />} /> */}
-        <Routes>
-            
-            <Route path="/HomeUser" element={<TtsHome />} />
-
-            <Route path="/Faqs" element={<FaqsData />} />
-            <Route path="/HomeUser" element={<TtsHome />} />
-            <Route path="/myTickets" element={<MyTicket />} />
-            <Route path="/submit_ticket" element={<TicketForm />} />
-          
-            </Routes>
-            
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-             <NavbarAll/>
-            <Routes>
-              <Route path="/Home" element={<HomePageAll />} />
-            <Route path="/signup" element={<Signup />} />
-            {/* <Route path="/home" element={<HomePage />} /> */}
-            <Route path="/login" element={<Login/>} />
-            </Routes>
-          </React.Fragment>
-        )}
-        
-    </>
-  );
+{    // Admin Routes 
 }
-
-export default App;

@@ -1,0 +1,130 @@
+.nav-bar{
+    height: 70px;
+    background-color: #FAFAFA;
+    border-bottom: solid 1px #D3D3D3;
+    font-size: 0;
+    
+    
+    
+}
+.search-bar{width: 50%;}
+.search-bar input{
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+    max-width: 600px;
+    margin-left:10px ;
+    font-size: 17px;
+    color: #333333;
+    padding: 9px 15px 10px 40px;
+    background-image: url('./magnifying-glass-solid.svg');
+    background-repeat: no-repeat;
+    background-position:2% 50% ;
+    background-color: transparent;
+    background-size: 20px;
+    outline: none;
+}
+.search-bar input:focus{
+    box-shadow: 0px 4px 15.36px 0.64px rgb(0 0 0 / 10%), 0px 2px 6px 0px rgb(0 0 0 / 12%);
+    background-color: #FFFFFF;
+}
+.user-action{
+    width: 50%;
+    text-align: right;
+    
+}
+.user-profile{
+
+    margin-right:95px ;
+}
+.user-avatar{
+    height: 40px;
+    width: 40px;
+    border-radius: 3px;
+    vertical-align: baseline !important;
+}
+
+
+.user-info{
+    font-size: 15px;
+    display: inline-block;
+    margin-left: 10px;
+    text-align: left;
+}
+.user-info span{
+    display: block;
+}
+.greeting{
+    color: #9E9E9E;
+}
+.ellips-icon{
+    font-size: 40px;
+    margin-left: 30px;
+}
+.btn-wraber{
+    display: block;
+}
+.add-btn{
+    background-color: #25C943;
+    font-size: 40px;
+    margin-left: 25px;
+    
+    width: 70px; 
+    height: 70px;
+    
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+#clickableellips{
+    cursor: pointer;
+}
+
+.user-dropdown{
+    position: relative;
+    display: inline-block;
+    font-size: 15px;
+    margin-top: 10px;
+}
+.user-menu{
+    right: 0;
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-add{
+    margin-top: 15px;
+    font-size: 15px;
+}
+.show {display:block;}
+/* body{
+    margin: 0px;
+    padding: 0px;
+} */
+ul{
+    list-style: none;
+    /* background-color: rgb(143, 138, 138); */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+li{
+    /* display: inline;
+    padding: 60px; */
+    /* padding-top: 25px; */
+    display: flex;
+    align-items: center;
+
+}
+ul li a ,ul li a:hover{
+    text-decoration: none;
+    color: white;
+}
+

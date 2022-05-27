@@ -8,11 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import ServerError from './../UI/ServerError';
 
 
-const imgUrl =' https://trouble-ticketing-system.herokuapp.com/';
+const imgUrl ='https://trouble-ticketing-system.herokuapp.com/';
+const recordUrl ='https://trouble-ticketing-system.herokuapp.com/';
 
 export default function SpecificTicket(props) {
   const [allowReply, setAllowReply] = useState(false);
   const [errorServer, setErrorServer] = useState(false);
+  const [userRecordUrl , setUserRecordUrl] = useState(false);
+  const [srcUrl , setSrcUrl] = useState('none');
   const { ticketData } = props;
   const navigate = useNavigate();
   // const [errorApiResponce , setErrorApiResponce] = useState([]);
@@ -20,16 +23,28 @@ export default function SpecificTicket(props) {
 
   const { _id, description, title, priorty, status, department, attachment, solve, audioRecord,
     reply } = ticketData;
-    console.log(audioRecord);
   const replyRef = useRef();
   const feedbackRef = useRef();
-
-  
+    const showRecord = ()=>{
+      if(audioRecord.length == 0){
+        setUserRecordUrl(false);
+        setSrcUrl("none")
+      }else{
+        setUserRecordUrl(true)
+        setSrcUrl(recordUrl + audioRecord[0].filePath)
+      }
+    }
+    useEffect(()=>{
+      showRecord()
+    },[audioRecord])
   
 
   const sendResponce = async (e) => {
     e.preventDefault();
-    const userReply = replyRef.current.value;
+    const userReply = [];
+    let userReplyFoArr = replyRef.current.value;
+    userReply.push(userReplyFoArr);
+
     const {data} = await axios.patch(`https://trouble-ticketing-system.herokuapp.com/replyTicket/${_id}`, {  reply : userReply}).catch(err=>
     {
       setErrorServer(true);
@@ -37,19 +52,19 @@ export default function SpecificTicket(props) {
     }
     )
     console.log(data)
-    // if(result.value.reply != ''){
-    // setErrorServer(false);
-    // navigate('/HomeUser');
-    // }else{
-    // setErrorServer(true);
-    // }
-    // setErrorServer(false);
+    if(data){
+    setErrorServer(false);
+    navigate('/HomeUser');
+    }else{
+    setErrorServer(true);
+    }
+    setErrorServer(false);
   }
 
   const allowdToReply = (e)=>{
      if(status === 'In-progress'){
       setAllowReply(false);
-     } if (status === 'User-Reply' && solve){
+     } if (status === "User-Reply" && solve.length > 0){
        setAllowReply(true);
      }
   }
@@ -59,6 +74,7 @@ export default function SpecificTicket(props) {
   },[])
   return (
     <div
+      
       className="position-sticky"
     >
       <div
@@ -108,7 +124,7 @@ export default function SpecificTicket(props) {
               </td>
             </tr>
             {
-              audioRecord ? (
+              userRecordUrl ? (
                 <tr>
                   <th className={style["specific-row"]} scope="row">
                     Audio Description
@@ -117,7 +133,7 @@ export default function SpecificTicket(props) {
                     <AudioPlayer
                       autoPlay={false}
                       loop={false}
-                      src={audioRecord}
+                      src={srcUrl}
                     // other props here
                     />
                   </td>
@@ -127,7 +143,7 @@ export default function SpecificTicket(props) {
        <></>
              )
             }
-            <tr>
+              <tr>
               <th className={style["specific-row"]} scope="row">
                 attacchment files
               </th>
@@ -150,7 +166,7 @@ export default function SpecificTicket(props) {
                     Agent responce
                   </th>
                   <td>
-                    {solve}
+                    {solve.map(e=> <p>{e} <hr/> </p>)}
                   </td>
                 </tr>
               )
@@ -162,13 +178,11 @@ export default function SpecificTicket(props) {
                     My responce
                   </th>
                   <td>
-                    {reply}
+                    {reply.map(e=> <p>{e} <hr/> </p>)}
                   </td>
                 </tr>
               )
             }
-
-
           </tbody>
         </table>
         {allowReply ?

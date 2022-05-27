@@ -2,38 +2,40 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import style from "./TicketForm.module.css";
 import Input from "../UI/Input";
 import InputDropDown from "../UI/InputDropDown";
-import Button from "./../UI/Button";
+import Button from "../UI/Button";
 import FileUploadComponent from "./Helper/Upload/FileUploadComponent";
-import RecordAudio from "./Helper/Audio/RecordAudio";
+import RecordAudio from "./Helper/Audio/RecordAudioMine";
 import $, { get } from "jquery";
 import Joi from "joi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../store/Context/AuthContext";
-import "react-h5-audio-player/lib/styles.css";
-import ServerError from "./../UI/ServerError";
+import 'react-h5-audio-player/lib/styles.css';
+import ServerError from '../UI/ServerError';
 import { base64ToFile } from "./Helper/blob";
 import Mainbg from "../UI/Mainbg";
-import styleAnimate from "../NewHome/Animation.module.css";
-import shape1 from "../../images/Images/shape1.png";
-import shape2 from "../../images/Images/shape2.png";
-import shape3 from "../../images/Images/shape3.png";
-import simple from "../../images/Images/simple.png";
+import styleAnimate from '../NewHome/Animation.module.css'
+import shape1 from '../../images/Images/shape1.png'
+import shape2 from '../../images/Images/shape2.png'
+import shape3 from '../../images/Images/shape3.png'
+import simple from '../../images/Images/simple.png'
 import FooterAll from "../NewHome/FooterAll";
 
-export default function TicketForm() {
+export default function TicketFormMine() {
   let [loading, setLoading] = useState(false);
   let [ticketToData, setTicket] = useState([]);
   let [status, setStatus] = useState([]);
-  let [record, setRecorder] = useState({ url: "", blob: null });
+  let [record, setRecorder] = useState('');
+  let [recordDatabase , setRecordDatabase] = useState(new Blob)
   let [files, setFiles] = useState([]);
   let [errorValidation, setErrorValidation] = useState([]);
-  let [errorApiResponse, setErrorApiResponse] = useState(false);
+  let [errorApiResponce , setErrorApiResponce] = useState(false);
   const loginFormData = new FormData();
+  
   const authCtx = useContext(authContext);
   const navigate = useNavigate();
-  const bindRecord = (recordObject) => setRecorder(recordObject);
-
+  console.log(' I am in my not not')
+  
   const subjectInputRef = useRef();
   const departmentInputRef = useRef();
   const descriptionInputRef = useRef();
@@ -52,53 +54,109 @@ export default function TicketForm() {
     setFiles((prevArray) => [...prevArray, data]);
   };
 
+  const getRecorder = (recorderSrc) => {
+    setRecorder(recorderSrc);
+  };
+
+  useEffect(()=>{
+    getRecorder();
+  },[])
   const submitForm = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+    
     const ticket = {
       title: subjectInputRef.current.value,
-      description: descriptionInputRef.current.value,
+      description: descriptionInputRef.current.value
     };
     const tickets = [];
     tickets.push(ticket);
     setTicket(tickets);
     const validation = validateTicket(ticket);
+    // console.log(URL.createObjectURL(record))
+    
+    // const RecordDataBase = window.URL.createObjectURL(new Blob(binaryData, {type: 'audio/webm'}));
+    // console.log(RecordDataBase)
+    
+    
+    console.log({ record })
 
-    const audioRecord = record.blob;
-    if (validation.error) {
+    const audioRecord = await base64ToFile(record, `audio-${Date.now()}.webm`, "audio/webm");
+    setRecorder(audioRecord); 
+    setRecordDatabase(audioRecord);
+   
+    console.log( await audioRecord.arrayBuffer())
+
+    // if(validation.error && !status){
+    if(validation.error){
       setErrorValidation(validation.error.details);
       setLoading(false);
-      return;
+      return ;
     }
+    
+      setErrorValidation([]);
+      setLoading(false);
 
-    setErrorValidation([]);
-    setLoading(false);
+      let filess = [];
+      files.map((e)=>{
+      // let oneFile = new File (e, { type: 'media/img' });
+      // filess.push(oneFile);
+      })
 
-    loginFormData.append("title", subjectInputRef.current.value);
-    loginFormData.append("department", departmentInputRef.current.value);
-    loginFormData.append("description", descriptionInputRef.current.value);
-    loginFormData.append("userID", authCtx.id);
+      // const attachmentFiles = [files ];
+      
+      // attachment
+      loginFormData.append("title", subjectInputRef.current.value);
+      loginFormData.append("department", departmentInputRef.current.value);
+      loginFormData.append("description", descriptionInputRef.current.value);
+      // loginFormData.append("audioRecord", audRecord);
+      loginFormData.append("userID", authCtx.id);
+      // loginFormData.set("attachment", files);
+      
+      
+      // loginFormData.append("attachment", JSON.stringify(attachmentFiles));
+      
+      // console.log(loginFormData.get('title'));
+      // console.log(loginFormData.get('department'));
+      // console.log(loginFormData.get('description'));
+      // console.log(loginFormData.get('userID'));
 
-    if (record) {
-      files.push(
-        new File([audioRecord], `record-${Date.now()}.webm`, {
-          type: audioRecord.type,
-        })
-      );
-    }
-    console.log(files)
+      // files.map((e , i)=>{
+      //   loginFormData.append("attachment", files[i]);
+      // })
 
-    let index = 0;
-    for (index = 0; index < files.length; index++) {
-      loginFormData.append("attachment", files[index]);
-    }
-    if (record) {
-      loginFormData.append("attachment", files[index]);
-    }
+      console.log(new File([audioRecord], `audio-${Date.now()}.webm`,{type: audioRecord.type}))
+      if(record){
+        files.push(new File([audioRecord], `audio-${Date.now()}.webm`,{type: audioRecord.type}));
+      }
 
+      console.log(audioRecord)
+      console.log(URL.createObjectURL(audioRecord))
+      let index = 0;
+      for (index = 0; index < files.length; index++) {
+        loginFormData.append("attachment", files[index]);
+      }
+      if(record){
+        loginFormData.append("attachment", files[index])
+      }
+      console.log(loginFormData.get('attachment'));
+      // console.log(URL.createObjectURL(loginFormData.get('audioRecord')))
+  
+      
+      // title, description, department, userID, agentID 
 
-    console.log(loginFormData.getAll("attachment"))
+      // recordFormData.append('wavfile', audioRecord, "recording.wav");
+
+      //   const config = {
+      //       headers: {'content-type': 'multipart/form-data'}
+      //   }
+      // const path = await axios.post('http://localhost:8080/', recordFormData , config); 
+      // console.log(path)
+
+      // const responce = await axios.post(
+      //   'https://trouble-ticketing-system.herokuapp.com/createTicket' , loginFormData
+      // )
+      // console.log(responce);
 
       
       const response = await axios.post("https://trouble-ticketing-system.herokuapp.com/createTicket", 
@@ -108,14 +166,27 @@ export default function TicketForm() {
     })
     console.log(response.statusText);
     console.log(response);
-    if (response.statusText === "Created") {
+    if(response.statusText === 'Created'){
       setLoading(false);
       setErrorValidation([]);
-      setErrorApiResponse(false);
-      navigate("/HomeUser");
-    } else {
-      setErrorApiResponse(true);
+      setErrorApiResponce(false);
+      navigate('/HomeUser');
+    }else{
+      setErrorApiResponce(true);  
     }
+    // console.log(response);
+    
+
+    //   if (response.message === "success") {
+    //     console.log(response)
+    //     navigate('/HomeUser');
+    //     setErrorValidation([]);
+    //     // setError("");
+    //     setLoading(false);
+    //   } else {
+    //     // setErrorList(data.message);
+    //     setLoading(false);
+    // }
   };
 
   const toggleHandler = (e) => {
@@ -123,93 +194,44 @@ export default function TicketForm() {
       $("#recordBlock").slideToggle();
     });
   };
-
+  
   return (
     <React.Fragment>
-      <Mainbg>
-        <div className="container mb-3">
+      <Mainbg >
+      <div className="container mb-3">
           <div className="row" id="mainPart">
             <div className="col-md-6 ">
-              <div
-                style={{ height: "inherit" }}
-                className={
-                  "  text-center d-flex flex-column justify-content-center h-100"
-                }
-              >
-                <h2
-                  className="h1"
-                  style={{
-                    letterSpacing: "5px",
-                    fontWeight: "bold",
-                    textAlign: "",
-                  }}
-                >
-                  Simple Steps, Success Processes
-                </h2>
-                <h4 className="text-center py-1">
-                  Don't worry , we are here to help you
-                </h4>
+              <div style={{ height : 'inherit' }} 
+               className={"  text-center d-flex flex-column justify-content-center h-100"}>
+                <h2 className='h1' style={{letterSpacing : '5px'  ,fontWeight: 'bold', textAlign: '' }}>
+                Simple Steps, Success Processes</h2>
+                <h4 className="text-center py-1">Don't worry , we are here to help you</h4>
                 <div className="text-muted">
                   Our Trouble Ticket system was bulid to help you.
                 </div>
               </div>
+
             </div>
             <div className="col-md-5 offset-md-1">
               <div className={style["hero-img"]}>
-                <img
-                  className="w-100"
-                  style={{ height: "450px" }}
-                  src={simple}
-                  alt=""
-                />
+                <img className="w-100" style={{ height: '450px' }} src={simple} alt="" />
               </div>
             </div>
+
           </div>
         </div>
-        <div
-          className={
-            styleAnimate["shape"] +
-            " " +
-            styleAnimate["shapeAnimationOne"] +
-            " " +
-            styleAnimate["l-10"] +
-            " " +
-            styleAnimate["t-60"]
-          }
-        >
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-10"] + " " + styleAnimate["t-60"]}>
           <img src={shape1} alt="" />
         </div>
-        <div
-          className={
-            styleAnimate["shape"] +
-            " " +
-            styleAnimate["shapeAnimationOne"] +
-            " " +
-            styleAnimate["l-70"] +
-            " " +
-            styleAnimate["t-60"]
-          }
-        >
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-70"] + " " + styleAnimate["t-60"]}>
           <img src={shape2} alt="" />
         </div>
-        <div
-          className={
-            styleAnimate["shape"] +
-            " " +
-            styleAnimate["shapeAnimationOne"] +
-            " " +
-            styleAnimate["l-50"] +
-            " " +
-            styleAnimate["t-100"]
-          }
-        >
+        <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-50"] + " " + styleAnimate["t-100"]}>
           <img src={shape3} alt="" />
         </div>
-      </Mainbg>
+        </Mainbg>
       <div className={style["page-content"]}>
-        <div className={style["wizard-heading"] + " w-75 text-dark"}>
-          Ticket Form
-        </div>
+        <div className={style["wizard-heading"] + " w-75 text-dark"}>Ticket Form</div>
         <div className={style["wizard-v6-content"]}>
           <div className={style["wizard-form"]}>
             <form
@@ -219,10 +241,10 @@ export default function TicketForm() {
               action="#"
               method="post"
             >
-              {errorValidation.map((e) => {
+              {errorValidation.map((e)=>{
                 return (
                   <div className="alert alert-danger py-2">{e.message}</div>
-                );
+                )
               })}
               {/* {error && <div className="alert alert-danger py-2">{error}</div>} */}
               <div className="w-100">
@@ -265,7 +287,7 @@ export default function TicketForm() {
               </div>
               <div className="my-2">
                 <label
-                  className="text-dark"
+                className="text-dark"
                   style={{
                     fontSize: "20px",
                     padding: "0",
@@ -276,8 +298,7 @@ export default function TicketForm() {
                   Attach files to help us understand your problem:
                 </label>
                 <p className="text-muted p-0 m-0" style={{ fontSize: "16px" }}>
-                  you have been allowed to send up to 5 images (Max size of
-                  uploaded component = 5MB )
+                  you have been allowed to send up to 5 images (Max size of uploaded component = 5MB )
                 </p>
                 <FileUploadComponent func={getFiles} funcStatus={funcStatus} />
               </div>
@@ -288,24 +309,29 @@ export default function TicketForm() {
                   type="button"
                   className={style["record-button"]}
                 >
-                  <p className="h6 text-dark">
+                  <p className="h6 text-dark" >
                     do want to record audio to describe your problem?
                   </p>
                 </button>
                 <div id="recordBlock" style={{ display: "none" }}>
-                  <RecordAudio getRecorder={bindRecord} />
+                  <RecordAudio getRecorder={getRecorder} />
                 </div>
               </div>
 
               <div className="w-100 d-flex justify-content-center">
                 <Button loading={loading} type={"Submit"} />
               </div>
+              
             </form>
           </div>
+                        
+
         </div>
       </div>
-      {errorApiResponse ? <ServerError /> : ""}
-      <FooterAll />
+      {
+        errorApiResponce?   <ServerError/>  : ''
+      }
+      <FooterAll/>
     </React.Fragment>
   );
 }
