@@ -34,7 +34,7 @@ export default function TicketFormMine() {
   
   const authCtx = useContext(authContext);
   const navigate = useNavigate();
-  console.log(' I am in my not not')
+
   
   const subjectInputRef = useRef();
   const departmentInputRef = useRef();
@@ -73,19 +73,12 @@ export default function TicketFormMine() {
     tickets.push(ticket);
     setTicket(tickets);
     const validation = validateTicket(ticket);
-    // console.log(URL.createObjectURL(record))
-    
-    // const RecordDataBase = window.URL.createObjectURL(new Blob(binaryData, {type: 'audio/webm'}));
-    // console.log(RecordDataBase)
-    
-    
-    console.log({ record })
+
 
     const audioRecord = await base64ToFile(record, `audio-${Date.now()}.webm`, "audio/webm");
     setRecorder(audioRecord); 
     setRecordDatabase(audioRecord);
    
-    console.log( await audioRecord.arrayBuffer())
 
     // if(validation.error && !status){
     if(validation.error){
@@ -160,12 +153,9 @@ export default function TicketFormMine() {
 
       
       const response = await axios.post("https://trouble-ticketing-system.herokuapp.com/createTicket", 
-   loginFormData
-    ).catch(err=>{
+   loginFormData).catch(err=>{
       setErrorApiResponce(true);
-    })
-    console.log(response.statusText);
-    console.log(response);
+    });
     if(response.statusText === 'Created'){
       setLoading(false);
       setErrorValidation([]);
@@ -174,8 +164,6 @@ export default function TicketFormMine() {
     }else{
       setErrorApiResponce(true);  
     }
-    // console.log(response);
-    
 
     //   if (response.message === "success") {
     //     console.log(response)
@@ -197,7 +185,7 @@ export default function TicketFormMine() {
   
   return (
     <React.Fragment>
-      <Mainbg >
+      <Mainbg>
       <div className="container mb-3">
           <div className="row" id="mainPart">
             <div className="col-md-6 ">

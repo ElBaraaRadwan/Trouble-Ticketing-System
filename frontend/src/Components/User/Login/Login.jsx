@@ -16,10 +16,13 @@ import shape3 from '../../../images/Images/shape3.png'
 import { NavLink } from 'react-router-dom';
 import FooterAll from "../../NewHome/FooterAll";
 import Mainbg from "../../UI/Mainbg";
+import ServerError from "../../UI/ServerError";
+
 
 export default function Login() {
   let [errorList, setErrorList] = useState([]);
   let [error, setError] = useState("");
+  let [errorApiResponse, setErrorApiResponse] = useState(false); 
   let [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const inputEmailRef = useRef();
@@ -33,30 +36,29 @@ export default function Login() {
       email: inputEmailRef.current.value,
       password: inputPasswordRef.current.value,
     };
-    // let validatioForm = validateRegisterForm(user);
-    // if (validatioForm.error) {
-    //   setErrorList(validatioForm.error.details);
-    //   setLoading(false);
-    //   return ;
-    // }
      let {data } = await axios.post(
         `https://trouble-ticketing-system.herokuapp.com/signIn`,
         user
-      ).catch(err=>console.log(err))
-      console.log(data);
+      ).catch(err => setErrorApiResponse(true))
       if (data.message === "success") {
         authCtx.login(data.token);
         authCtx.assignRole(data.data.role);
         authCtx.assignId(data.data._id);
-        console.log(data.data._id)
-        console.log('navigate?')
         if(data.data.role === 'user'){
           navigate('/HomeUser');
         }
         if(data.data.role === 'agent'){
           navigate('/Customer');
         } 
-        console.log('yes')
+        if(data.data.role === 'admin'){
+          navigate('/Dashbord');
+        } 
+        if(data.data.role === 'H_O'){
+          navigate('/officeHeaderHome');
+        } 
+
+
+        
         setErrorList([]);
         setLoading(false);
         setErrorList([]);
@@ -147,6 +149,9 @@ export default function Login() {
           <Button loading={loading} type={"Login"} />
         </form>
       </div>
+      {
+        errorApiResponse?   <ServerError/>  : ''
+      }
       <FooterAll/>
    </>
   );

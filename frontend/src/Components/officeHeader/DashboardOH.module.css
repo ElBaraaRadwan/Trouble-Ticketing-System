@@ -1,0 +1,32 @@
+.bottom-radious {
+  border-radius: 0px 0px 40px 40px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.d-col {
+  /* height: 100vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active {
+  color : rgb(98, 198, 216);
+  padding: 0 8px;
+  text-decoration: none ;
+  font-size: 24px;
+  font-weight: 500;
+}
+.NormalLi{
+  color : rgb(65, 89, 93);
+  padding: 0 8px;
+  text-decoration: none ;
+  font-size: 24px;
+  font-weight: 500;
+}
+.NormalLi:hover{
+  color : rgb(98, 198, 216);
+}

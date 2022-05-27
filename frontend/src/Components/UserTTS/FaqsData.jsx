@@ -56,7 +56,7 @@ export default function FaqsData() {
   // le = Date.now();
 
   const getFaqs = async () => {
-    const { data } = await axios.get("https://trouble-ticketing-system.herokuapp.com/  console.log(data.userTickets);");
+    const { data } = await axios.get("https://trouble-ticketing-system.herokuapp.com/getAllFAQs");
     const dataArr = data.faq;
     console.log(data)
 

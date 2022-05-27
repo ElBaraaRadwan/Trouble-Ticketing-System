@@ -28,7 +28,7 @@ export default function TicketForm() {
   let [record, setRecorder] = useState({ url: "", blob: null });
   let [files, setFiles] = useState([]);
   let [errorValidation, setErrorValidation] = useState([]);
-  let [errorApiResponse, setErrorApiResponse] = useState(false);
+  let [errorApiResponse, setErrorApiResponse] = useState(false); 
   const loginFormData = new FormData();
   const authCtx = useContext(authContext);
   const navigate = useNavigate();
@@ -87,7 +87,6 @@ export default function TicketForm() {
         })
       );
     }
-    console.log(files)
 
     let index = 0;
     for (index = 0; index < files.length; index++) {
@@ -98,13 +97,11 @@ export default function TicketForm() {
     }
 
 
-    console.log(loginFormData.getAll("attachment"))
-
       
       const response = await axios.post("https://trouble-ticketing-system.herokuapp.com/createTicket", 
    loginFormData
     ).catch(err=>{
-      setErrorApiResponce(true);
+      setErrorApiResponse(true);
     })
     console.log(response.statusText);
     console.log(response);

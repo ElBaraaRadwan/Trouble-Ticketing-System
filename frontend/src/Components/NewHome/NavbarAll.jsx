@@ -11,6 +11,7 @@ import $ from "jquery";
 const NavbarAll = () => {
 const isAuthen = useContext(authContext);
 const LoggedUser = isAuthen.isLoggend && isAuthen.role === 'user';
+const officeLogen = isAuthen.isLoggend && isAuthen.role === 'H_O';
 const myref = useRef();
 
 
@@ -83,18 +84,23 @@ useEffect(()=>{
                     </NavLink>
                </Nav>
               ) : (
-                <Nav>
-                  <NavLink
-                className={(navData) =>
-                  navData.isActive ? style.active : style.NormalLi
-                }
-                to="/Home"
-              >
-                Home
-              </NavLink>
-                </Nav>
+               ' '
               )
             }  
+            {
+              !LoggedUser && !officeLogen ? (
+                <Nav>
+                <NavLink
+              className={(navData) =>
+                navData.isActive ? style.active : style.NormalLi
+              }
+              to="/Home"
+            >
+              Home
+            </NavLink>
+              </Nav>
+              ) : ' '
+            }
               {
                 LoggedUser ? (
                 <Nav>
@@ -109,7 +115,13 @@ useEffect(()=>{
                   </NavLink>
                 </Nav>
                 ) : (
-                  <Nav>
+                  ' '
+                )
+              }
+{
+  !LoggedUser && !officeLogen ? 
+  (
+    <Nav>
                   <NavLink
                     className={(navData) =>
                       navData.isActive ? style.active : style.NormalLi
@@ -127,7 +139,22 @@ useEffect(()=>{
                     Login
                   </NavLink>
             </Nav>
-                )
+  ) : ' '
+}
+              {
+                officeLogen ? (
+                  <Nav className='ms-auto'>
+                  <NavLink
+                    onClick={() => isAuthen.logout()}
+                    className={(navData) =>
+                      navData.isActive ? style.active : style.NormalLi
+                    }
+                    to="/Home"
+                  >
+                    Logout
+                  </NavLink>
+                </Nav>
+                ): ''
               }
              </Nav>
           </Navbar.Collapse>
