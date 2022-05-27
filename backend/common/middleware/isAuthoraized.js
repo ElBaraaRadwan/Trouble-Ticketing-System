@@ -9,7 +9,7 @@ module.exports = (endPoint) => {
             const token = req.headers.authorization.split(" ")[1];
             if (token) {
                 try {
-                    const decoded = jwt.verify(token, process.env.SECRET_TOKEN);
+                    const decoded = jwt.verify(token, process.env.SECRET_TOKEN || "bebon32");
                     req.user = decoded;
                     const isAllowed = await rbac.can(req.user.role, endPoint);
                     if (isAllowed) {
