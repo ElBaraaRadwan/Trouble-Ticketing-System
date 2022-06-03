@@ -5,6 +5,7 @@ export default function AssignTicket() {
     const [showTicket, setShowTicket] = useState(false);
     const [oneTicket, setOneTicket] = useState({});
     const [tickets, setTickets] = useState([]);
+    const [ticketsAsaign, setTicketsAsaign] = useState([]);
 var ticketId;
     const FaqFormData = new FormData();
     const [formdata, setNote] = useState({ priorty: "", status: ""})
@@ -32,18 +33,22 @@ ticketId=id;
         var test = formdata.priorty;
         var test2 = formdata.status;
 
-
-   
         FaqFormData.append("priorty", test);
         FaqFormData.append("status", test2);
   
         console.log(formdata);
 
-        let { data } = await axios.patch(`http://localhost:5000/assignTicket/${ticketId}`, FaqFormData
+        let { data } = await axios.patch(`https://trouble-ticketing-system.herokuapp.com/assignTicket/${ticketId}`,formdata
 
         )
-        console.log(formdata.status);
-        console.log(data);
+       
+console.log(data);
+
+
+        // setTicketsAsaign(data)
+
+
+        
     }
 
 
@@ -58,13 +63,13 @@ ticketId=id;
 
     useEffect(() => {
         getTickets();
-       
+
     }, []);
 
 
     return (
 
-     <div className='test5'>
+     <div className='test'>
         <div className="container ">
 
 
@@ -87,6 +92,34 @@ update
 
 </div>
 
+{/* <div className="row">
+    {
+
+
+ticketsAsaign.map((ticket1, index) =>
+
+  
+
+<div className="col-md-6 ">
+
+<div className="item">
+
+<p> <i class=" deleteIcons fa-solid fa-star"></i> priorty : {ticket1.priorty} </p>  
+</div>
+
+</div>
+
+
+
+
+        )
+
+    }
+
+
+
+
+</div> */}
 
 
 <div className="row">
@@ -103,19 +136,24 @@ update
 <form onSubmit={addNote}>
             <div className="modal-dialog">
                 <div className="modal-content">
-
-                    <h2 className='text-center py-4'>AssignTicket <span className='fs-3'>{index}</span> </h2>
-
+                <h3>  <i class="   deleteIcons shadow-lg my-3 fa-solid fa-id-card text-danger mx-4"></i> Ticket ID :   {(ticket._id).slice(4,9)}</h3> 
+                    {/* <h2 className='text-center py-4'><span className='fs-3'>{index}</span> </h2> */}
+                    <p><i class=" deleteIcons fa-solid fa-headset"></i>status : {ticket.status} </p>
+<p> <i class=" deleteIcons fa-solid fa-star"></i> priorty : {ticket.priorty} </p>
                   
                     <div className="modal-body">
 
                         <select   name="status"  onChange={getNote} className="py-2 my-3  form-select" aria-label="Default select example">
                             <option  selected>status</option>
                             <option value="Pending">Pending</option>
-                            <option value="Solved">Solved</option>
+                            <option value="In-Progress">In-Progress</option>
+                            <option value="User-Reply">User-Reply</option>
+                            <option value="Finished">Finished</option>
+                            <option value="In-hold">In-hold</option>
                             <option value="Unsolved">Unsolved</option>
-                            <option value="Closed">Closed</option>
-                     
+                            <option value="Canceled">Canceled</option>
+
+         
                         </select>
                         <select   name="priorty"  onChange={getNote} className="py-2 my-3  form-select" aria-label="Default select example">
                             <option  selected>priorty</option>
@@ -150,6 +188,12 @@ update
 
 
 </div>
+
+
+
+
+
+
 </div>
      </div>
 

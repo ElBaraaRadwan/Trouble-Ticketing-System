@@ -4,8 +4,10 @@ import image4 from "./../../images/process.gif";
 export default function ShowReport() {
     const [getReport , setReport] = useState([]);
 
+ 
+    
     const getAllReport = async () => {
-        const { data } = await axios.get(`http://localhost:5000/getAllReports`)
+        const { data } = await axios.get(`https://trouble-ticketing-system.herokuapp.com/getAllReports`)
         console.log(data.report);
 
     
@@ -36,6 +38,8 @@ export default function ShowReport() {
 
 
 <div className="test4">
+
+
 <div className="container">
 <div className="news  text-center">
 {/* 
@@ -73,6 +77,8 @@ export default function ShowReport() {
   <input className="form-check-input fs-3 p-0 m-0" type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
   <label className="form-check-label fs-3" for="flexSwitchCheckDefault">Check Report</label>
 </div>
+
+
 </div>
 
 
@@ -113,6 +119,28 @@ export default function ShowReport() {
 
 
 </div>
+
+
+
+
+
+
+
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+ 
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+
+
+
 </div>
 
 

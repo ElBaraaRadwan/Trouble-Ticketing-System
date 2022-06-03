@@ -22,6 +22,8 @@ import Article from "./Components/Agent/tickets";
 import Reports from "./Components/Agent/reports";
 import Navbar from './Components/Home/Navbar';
 import DashboardOH from "./Components/officeHeader/DashboardOH";
+import Chart from "./Components/Admin/Chart/Chart";
+import Chart2 from "./Components/Admin/Chart2/Chart2";
 
 
 
@@ -46,6 +48,8 @@ function App() {
               <Route path="/UpdataFaq" element={<UpdataFaq />} />
               <Route path="/ShowReport" element={<ShowReport />} />
               <Route path="/AssignTicket" element={<AssignTicket />} />
+              <Route path="/Chart" element={<Chart />} />
+              <Route path="/Chart2" element={<Chart2 />} />
             </Routes>
           </React.Fragment>
 
