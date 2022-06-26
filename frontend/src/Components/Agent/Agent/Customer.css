@@ -1,0 +1,145 @@
+:root{
+    --bg-color:#b07bac;
+    --bg-table:#eee5e9;
+}
+
+body{
+    font-family: 'Source Sans Pro', sans-serif;
+    overflow-x:hidden;
+}
+
+h4{
+    display: block;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+tr th{
+    font-weight: 700;
+    font-size: 20px;
+    color: black;
+    padding: 15px 0 !important; 
+}
+tr td{
+    font-weight: 600;
+    font-size: 18px;
+    padding: 10px !important;
+}
+.border-td {
+    /* background-color: red; */
+    border: 2px solid #888383;
+}
+.customer{
+    padding-left: 48px;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.content{
+    padding : 10px;
+}
+.btn-cew-customer{
+    float: right;
+    margin-right: 2px;
+    padding-right: -20px !important;
+    background-color: var(--bg-color) !important;
+    border: none !important;
+}
+.btn-cew-customer:hover{
+    opacity: 0.9;
+}
+.search{
+
+    /* padding-bottom: 30px; */
+    margin-bottom: 50px;
+
+}
+.dropdown{
+    width: 180px;
+    height: 35px;
+    margin: auto;
+    border: solid 1px grey;
+    background-color: white;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    display: contents;
+   
+    /* background-color: black; */
+}
+.dropdown:active{
+    border: solid 1px #7C70F4;
+}
+.sortby{
+    
+    text-transform: uppercase;
+    color: #9E9E9E;
+    font-weight: 700;
+    padding-bottom: 5px
+}
+option{
+    margin: 100px;
+    background-color: white;
+    border: none;
+    
+}
+
+
+
+input.input-search{
+    width: 200px;
+    height: 35px;
+    padding-left: 40px;
+    border: solid 1px #111111;
+    border-radius: 3px;
+    border-color: black !important;
+outline: none;
+}
+input.input-search:focus{
+    border: solid 1px #7C70F4;
+}
+
+.icon-search{
+    position: absolute;
+    left: 30px;
+    top: 11px;
+    opacity: 0.3;
+    border-color: black !important;
+
+}
+
+
+.row{
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.icon-plus{
+
+    margin-right: 5px;
+}
+
+.btn.btn-primary,.btn.btn-primary:hover{
+    background-color: #7C70F4;
+    outline: none;
+}
+
+.btn-primary a ,.btn-primary a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+.btn-primary span,.btn-primary span:hover{
+    color: white;
+}
+
+.slider{
+    height: 100%;
+    background-color: black;
+}
+
+.bg-table-head{
+    background: var(--bg-table);
+}
+
+/* .table-h{
+    padding: 0 !important;
+} */
