@@ -134,11 +134,10 @@ export default function SpecificTicket(props) {
                       autoPlay={false}
                       loop={false}
                       src={srcUrl}
-                    // other props here
+                      // other props here
                     />
                   </td>
                 </tr>
-
               ) : ( 
        <></>
              )
