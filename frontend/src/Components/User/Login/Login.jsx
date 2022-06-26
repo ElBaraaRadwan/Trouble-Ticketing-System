@@ -39,7 +39,7 @@ export default function Login() {
      let {data } = await axios.post(
         `https://trouble-ticketing-system.herokuapp.com/signIn`,
         user
-      ).catch(err => setErrorApiResponse(true))
+      ).catch(err => {console.log(err);setErrorApiResponse(true);   setLoading(false);})
       if (data.message === "success") {
         authCtx.login(data.token);
         authCtx.assignRole(data.data.role);
@@ -55,35 +55,20 @@ export default function Login() {
         } 
         if(data.data.role === 'H_O'){
           navigate('/officeHeaderHome');
-        } 
-
-
-        
+        }  
         setErrorList([]);
         setLoading(false);
         setErrorList([]);
         setError("");
         setLoading(false);
-      } else {
-        // setError(validatioForm.error.details);
+      } else { 
         setErrorList(data.message);
         setLoading(false);
     }
   }
-  function validateRegisterForm(user) {
-    let scheme = Joi.object({
-      email: Joi.string().email({
-        tlds: { allow: ["com", "net", "eg", "org"] },
-      }),
-      password: Joi.string().pattern(new RegExp("^[A-Z][a-z][1-9]{3,30}$")),
-    });
-    return scheme.validate(user, { abortEarly: false });
-  }
   return (
-   <>
-  <Mainbg>
-
- 
+  <>
+  <Mainbg> 
         <div className="container pb-5 mb-3">
           <div className="row justify-content-center" id="mainPart">
           
@@ -92,8 +77,7 @@ export default function Login() {
               letterSpacing : '8px' , fontSize : '55px'
             }}>Login Form</h6>
               <p className="text-muted">Please fill All data to Login successfully</p>
-            </div>
-
+            </div> 
           </div>
         </div>
         <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-10"] + " " + styleAnimate["t-60"]}>
@@ -105,8 +89,8 @@ export default function Login() {
         <div className={styleAnimate["shape"] + " " + styleAnimate["shapeAnimationOne"] + " " + styleAnimate["l-50"] + " " + styleAnimate["t-100"]}>
           <img src={shape3} alt="" />
         </div>
-        </Mainbg>
-      <div className="w-100 m-auto">
+  </Mainbg>
+    <div className="w-100 m-auto">
         <form id="signin" onSubmit={formSubmit}  className={" mb-3 mx-auto p-5 " + style['responsive']}
       style={{boxShadow : 'rgba(0, 0, 0, 0.1) 0px 4px 12px'}}>
           <h2 className="">Use your account to Login.</h2>
@@ -123,7 +107,7 @@ export default function Login() {
           <div className="my-2">
             {error && <div className="alert alert-danger py-2">{error}</div>}
           </div>
-          {/* {errorList.map((error, i) =>
+          {errorList.map((error, i) =>
             error.context.label === "password" ? (
               <div key={i} className="alert alert-danger py-2 m-2">
                 incorrect password
@@ -133,7 +117,7 @@ export default function Login() {
                 {error.message}
               </div>
             )
-          )} */}
+          )}
           <Input
           type={"email"}
           name={"email"}
@@ -148,11 +132,11 @@ export default function Login() {
           />
           <Button loading={loading} type={"Login"} />
         </form>
-      </div>
-      {
-        errorApiResponse?   <ServerError/>  : ''
-      }
+    </div>
+    {
+      errorApiResponse?   <ServerError/>  : ''
+    }
       <FooterAll/>
-   </>
+  </>
   );
 }

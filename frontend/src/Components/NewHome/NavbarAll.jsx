@@ -14,11 +14,9 @@ const LoggedUser = isAuthen.isLoggend && isAuthen.role === 'user';
 const officeLogen = isAuthen.isLoggend && isAuthen.role === 'H_O';
 const myref = useRef();
 
-
-useEffect(()=>{
-   $(window).scroll(function () {
+const navWhite = ()=>{ 
     let wScroll = $(window).scrollTop();
-    let offsetTop =  myref.current.offsetTop;
+    let offsetTop =  myref.current.offsetTop; 
     if (wScroll >= offsetTop + 10) {
       myref.current.classList.add('bg-light');
       myref.current.classList.add('top-0');
@@ -26,8 +24,11 @@ useEffect(()=>{
       myref.current.classList.remove('bg-light');
       myref.current.classList.remove('top-0');
     }
-  });
-},[])
+ 
+}
+useEffect(()=>{ 
+  window.addEventListener("scroll", ()=>navWhite()); 
+},[myref.current])
     return (
       <div >
              <header ref={myref} id="#Navb" className={style["header-positioned"]}>

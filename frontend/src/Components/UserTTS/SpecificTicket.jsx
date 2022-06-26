@@ -7,9 +7,9 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ServerError from './../UI/ServerError';
 
-
 const imgUrl ='https://trouble-ticketing-system.herokuapp.com/';
 const recordUrl ='https://trouble-ticketing-system.herokuapp.com/';
+
 
 export default function SpecificTicket(props) {
   const [allowReply, setAllowReply] = useState(false);
