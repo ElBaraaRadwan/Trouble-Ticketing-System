@@ -9,7 +9,7 @@ export default function DeleteAdmin() {
 
 
     const getTickets = async () => {
-        const { data } = await axios.get(`http://localhost:5000/getAllTicket`)
+        const { data } = await axios.get(`https://trouble-ticketing-system.herokuapp.com/getAllTicket`)
         console.log(data);
         setTickets(data.tickets);
         // const dataArr = data.faq;
@@ -24,7 +24,7 @@ export default function DeleteAdmin() {
     }
     async function deleteTicket(id) {
 
-        let { data } = await axios.delete(`http://localhost:5000/deleteticket/${id}`,
+        let { data } = await axios.delete(`https://trouble-ticketing-system.herokuapp.com/deleteticket/${id}`,
 
 
         )
@@ -88,24 +88,19 @@ update
 
             <div className="col-md-6    rounded  py-5"  >
 
-                <div className="item p-3 m-4  bg-white shadow-lg ">
+                <div className="item borderOfData2  p-3 p-3 m-4 text-white  shadow-lg  ">
+                <h3>  <i class="   deleteIcons shadow-lg  fa-solid fa-id-card text-danger mx-4"></i> Ticket ID :   {(ticket._id).slice(4,9)}</h3> 
+                   <p> <i class="  deleteIcons fa-solid fa-heading"></i> title : {ticket.title} </p>
+<p><i class=" deleteIcons fa-solid fa-headset"></i>status : {ticket.status} </p>
+<p> <i class=" deleteIcons fa-solid fa-star"></i> priorty : {ticket.priorty} </p>
+<p> <i class=" deleteIcons fa-solid fa-user-check"></i> User ID : {ticket.user}</p>
+<h5> <i class=" deleteIcons fa-solid fa-magnifying-glass"></i> department:{ticket.department}</h5>
+<p> <i class=" deleteIcons fa-solid fa-audio-description"></i> description : {ticket.description} </p>
+<h4> <i class="deleteIcons  fa-solid fa-calendar-check"></i> createdDate : {ticket.createdDate} </h4>
 
-            <h2  className='h1'> ticket Number    {      index + 1}</h2>
-
-
-                    <h5><span className=' fw-bolder'>  department  </span>:{ ticket.department}</h5>
-                    <h4 className=''><span className=' fw-bolder'>  priorty  </span>      : {ticket.priorty} </h4>
-                    <h4><span className=' fw-bolder'>  status  </span>     : {ticket.status} </h4>
-
-
-                    <div className="mb-3 form-check shadow d-flex justify-content-center align-items-center">
-                        <input type="checkbox" className="form-check-input  fs-4 px-3 " id="exampleCheck1" />
-                        <label className="form-check-label fs-4 mx-3" for="exampleCheck1">Delete from DataBase</label>
-                    </div>
-
-                    <div className="department d-flex justify-content-around align-items-center ">
+                    <div className="department m-auto d-flex justify-content-around align-items-center ">
                        
-                        <a onClick={() => { deleteTicket(ticket._id) }} >    <i className="deleteTicketIcon    fa-solid fa-trash-can fs-2 py-2"></i></a>
+                        <a onClick={() => { deleteTicket(ticket._id) }} >    <i className="button123   deleteTicketIcon    fa-solid fa-trash-can fs-2 py-2"></i></a>
                     </div>
                 </div>
 
