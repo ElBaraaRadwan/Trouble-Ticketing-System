@@ -131,9 +131,9 @@ class Reports extends React.Component {
                         <table className={style['style-table']}>
                             <tr>
 
-                                <th>header</th>
-                                <th>content</th>
-                                <th>Action</th>
+                                <th className='text-center table-h'>header</th>
+                                <th className='text-center table-h'>content</th>
+                                <th className='text-center table-h'>Action</th>
                             </tr>
 
                             {this.state.search_results.length === 0 && this.state.reports.map(report => (

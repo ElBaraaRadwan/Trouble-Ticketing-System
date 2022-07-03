@@ -1,3 +1,15 @@
+:root{
+    --bg-color:#f4f2ff;
+}
+body{
+    padding: 0;
+    margin: 0;
+}
+/* c2b0b0 */
+.nav-bar-color{
+    background-color: var(--bg-color); /* old Style #0e0c0c*/ 
+    height: 50px;
+}
 .nav-bar{
     height: 70px;
     background-color: #FAFAFA;
@@ -115,16 +127,33 @@ ul{
     align-items: center;
     justify-content: space-evenly;
 }
-li{
+li , .logout{
     /* display: inline;
     padding: 60px; */
     /* padding-top: 25px; */
     display: flex;
     align-items: center;
+    padding-top: 16px;
+    font-size: 17px;
+    font-weight: 700;
 
 }
-ul li a ,ul li a:hover{
+.logout{
     text-decoration: none;
-    color: white;
+    color: #fff ;
+    font-size: 17px;
+    font-weight: bold;
+}
+.logout:hover{
+    text-decoration: none;
+    color: #fff;
+    opacity: 0.5;
+}
+ul li a{
+    text-decoration: none;
+    color: #0c1713 
+}
+ul li a:hover{
+    opacity: 0.5;
 }
 

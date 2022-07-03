@@ -1,3 +1,8 @@
+:root{
+    --bg-color:#b07bac;
+    --bg-table:#eee5e9;
+}
+
 *{
     font-weight: 400;  
   }
@@ -6,7 +11,8 @@
     color: grey;
     
 }
-.section{display: flex;
+.section{
+    /* display: flex; */
 flex-wrap: wrap;
 flex-direction: row;
 }
@@ -35,9 +41,8 @@ padding: 9px 15px 10px 40px;
     border: solid 1px #7C70F4 !important;
 
 }
-#dropdown-basic:focus{
-    border: solid 1px #7C70F4 !important;
-}
+
+
 .btn-add{
     background-color: #7C70F4;
     box-shadow: none;
@@ -68,12 +73,17 @@ padding: 9px 15px 10px 40px;
     
 }
 .del-btn{
-background-color: #f94b4b !important;
+background-color: var(--bg-color) !important;
 box-shadow: none !important;
+color: #fff !important;
 }
 .no-results{
     display: none;
 }
 .add-blog{
     float: right;
+}
+
+.table-h{
+    background-color: var(--bg-table);
 }

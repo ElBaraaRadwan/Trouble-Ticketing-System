@@ -13,7 +13,7 @@ import { NavLink } from 'react-router-dom';
 export default function Header() {
     const isAuthen = useContext(authContext);
   return (
-    <nav style={{backgroundColor : 'gray'}}>
+    <nav className='nav-bar-color'>
     <ul >
       <li>
       <a href="/faqs">Faqs</a>
@@ -22,12 +22,13 @@ export default function Header() {
       <a href="/Customer">Customer</a>
       </li>
       <li>
-      <a href="/tickets">tickets</a>
+      <a href="/tickets">Tickets</a>
       </li>
       <li>
-      <a href="/report">report</a>
+      <a href="/report">Report</a>
       </li>
-      <NavLink
+      
+      <NavLink className="logout"
                     onClick={() => isAuthen.logout()}
                     to="/Home"
                   >

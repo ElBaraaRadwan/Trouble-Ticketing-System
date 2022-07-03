@@ -10,6 +10,7 @@ import style from './Agent.module.css'
 class Customer extends React.Component {
     state={
         Customers:[],
+        createAt:[]
     };
     componentWillMount() {
         this.Customer();
@@ -18,8 +19,8 @@ class Customer extends React.Component {
     Customer() {
         axios.get('https://trouble-ticketing-system.herokuapp.com/users')
             .then((res) => {
-                console.log("users");
-                console.log(res);
+                // createAt=res.data.data.createdAt;
+                // console.log("u",createAt);
                 console.log(res.data.data[2].createdAt);
                 if(res.data.data){
                     for(var i=0 ;i<res.data.data.length;i++){
@@ -27,7 +28,6 @@ class Customer extends React.Component {
                     }
                 }
                 this.setState({ Customers: res.data.data });
-              
             })
             .catch((error) => {
                 // error.response.status Check status code
@@ -35,18 +35,21 @@ class Customer extends React.Component {
     }
     componentDidMount() {
         document.title = "Customer";
+        
     }
 
     render() {
+    
+        // var createAt;
         return (
 
             <div>
 <Header />
             <section className='m-4 ps-5'>
-                <h4 className='pb-4' style={{ disply: "block" }}> Customer </h4>
+                <h4 className='pb-4 customer' style={{ disply: "block" }} > Customer </h4>
 
                 {/* grid system */}
-                <div className='row d-flex justify-content-center ms-4' style={{ boxsizing: "border-box" }}>
+                <div className='row d-flex content justify-content-between' style={{ boxsizing: "border-box" }}>
                     <div className='col-xl-3 col-lg-3 col-md-6 col-sm-12'>
                         <select className={style['dropdown']}>
                             <option className={style['sortby']} value="SortBy: CreatedAt" disabled>SortBy</option>
@@ -76,8 +79,8 @@ class Customer extends React.Component {
                     {/*button a href new */}
                     <div className='col-xl-3 col-lg-3 col-md-6 col-sm-12 '>
                         {/* a href new */}
-                        <button className="btn btn-primary">
-                            <a href="https://www.google.com/">
+                        <button className="btn btn-primary btn-cew-customer" >
+                            <a href="#">
                                 <span><AiOutlinePlus className='icone-plus' /> </span>
                                 New Customer
                             </a>
@@ -90,28 +93,29 @@ class Customer extends React.Component {
                 {/* <div className='pt-4'>
                     <JsonDataDisplay />
                 </div> */}
-                   <table className={style['style-table'] + ' m-5'}>
-                            <tr >
+                   <table className={style['style-table']}> {/* + ' m-5' */}
+                            <tr className='bg-table-head '>
 
-                                <th>Name</th>
-                                <th>Mail</th>
-                                <th>Age</th>
-                                <th>CreatedAt</th>
-                                <th>UpdatedAt</th>
+                                <th className='text-center table-h'>Name</th>
+                                <th className='text-center table-h'>Mail</th>
+                                <th className='text-center table-h'>CreatedAt</th>
+                                <th className='text-center table-h'>UpdatedAt</th>
                             </tr>
-                            
-                            
+                                                            
                             {this.state.Customers.map(customer => (
-                                <tbody key={customer.key}>
+                                
+                                <tbody key={customer.key} className='bt-5 border-td'>
                                 <tr className='bt-5'>
                                     <td key={customer.key}>{customer.name} {customer.last_name}</td>
                                     <td key={customer.key}>{customer.email}</td>
-                                    <td key={customer.key}>{customer.age}</td>                                 
-                                    <td key={customer.key}>{customer.createdAt}</td>
-                                    <td key={customer.key}>{customer.updatedAt}</td>
+                                    {/* <td key={customer.key}>{customer.age}</td> */}
+
+                                    <td key={customer.key}>{new Date(customer.createdAt).toDateString()}</td>
+                                    <td key={customer.key}>{new Date(customer.updatedAt).toDateString()}</td>
                                      </tr>
                                      </tbody>
                             ))}
+
                             
 
                             {/* {this.state.search_results.map(Customer => (

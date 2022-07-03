@@ -107,7 +107,7 @@ class Faqs extends React.Component {
                 <div className='row mt-3 container-fluid'>
                     <div className='m-auto col-xl-10 col-lg-10'>
                         <p className='h3'>FAQs</p>
-                        <button className='add-blog btn reply-btn'
+                        <button className='add-blog btn'
                          onClick={() => { this.showAdd()}}>Create a FAQ</button>
                         <div className='section'>
                             <Dropdown >
@@ -134,10 +134,10 @@ class Faqs extends React.Component {
 
                         <table className={style["style-table"]}>
                             <tr>
-                                <th>Header</th>
-                                <th>Department</th>
-                                <th>Date</th>
-                                <th>Action</th>
+                                <th className='text-center table-h'>Header</th>
+                                <th className='text-center table-h'>Department</th>
+                                <th className='text-center table-h'>Date</th>
+                                <th className='text-center table-h'>Action</th>
                             </tr>
 
                             {this.state.search_results.length === 0 && this.state.blogs.map(blog => (
