@@ -43,7 +43,6 @@ export default function MyTicket() {
     const data  = await axios.post(`https://trouble-ticketing-system.herokuapp.com/createFeedBack/${ticketId}`, DataFeedback).catch(error => {
       setErrorApiFeedback(true);
     });
-    console.log(data)
     if(data.statusText = "Created"){
       navigate('/HomeUser');
       setErrorApiFeedback(false);

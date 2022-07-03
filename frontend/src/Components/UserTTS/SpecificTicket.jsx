@@ -105,12 +105,6 @@ export default function SpecificTicket(props) {
             </tr>
             <tr>
               <th className={style["specific-row"]} scope="row">
-                Priority
-              </th>
-              <td>{priorty}</td>
-            </tr>
-            <tr>
-              <th className={style["specific-row"]} scope="row">
                 Status
               </th>
               <td>{status}</td>
