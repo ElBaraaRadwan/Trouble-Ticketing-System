@@ -23,12 +23,11 @@ export default function MyTicket() {
   const [errorApiFeedback, setErrorApiFeedback] = useState(false);
   const navigate = useNavigate();
   const authCtx = useContext(authContext);
-  const id = authCtx.id;
-  console.log(id)
+  const id = authCtx.id; 
 
   const getTickets = async () => {
     const { data } = await axios.get(`https://trouble-ticketing-system.herokuapp.com/getAllTicket/myTicket/${id}`);
-    console.log(data.userTickets);
+ 
     setTickets(data.userTickets);
   };
   const sendFeedback = async (feedbackValue) => {

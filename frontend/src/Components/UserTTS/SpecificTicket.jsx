@@ -18,15 +18,13 @@ export default function SpecificTicket(props) {
   const [srcUrl , setSrcUrl] = useState('none');
   const { ticketData } = props;
   const navigate = useNavigate();
-  // const [errorApiResponce , setErrorApiResponce] = useState([]);
 
 
-  const { _id, description, title, priorty, status, department, attachment, solve, audioRecord,
+  const { _id, description, title, status, department, attachment, solve, audioRecord,
     reply } = ticketData;
   const replyRef = useRef();
-  const feedbackRef = useRef();
     const showRecord = ()=>{
-      if(audioRecord.length == 0){
+      if(audioRecord.length === 0){
         setUserRecordUrl(false);
         setSrcUrl("none")
       }else{
@@ -83,14 +81,7 @@ export default function SpecificTicket(props) {
         <p className="h2 py-4" style={{letterSpacing : '8px'  ,fontWeight: 'bold', fontSize: '50px' }}
         > Ticket Information </p>
         <table className="table table-light table-hover">
-          <tbody>
-
-            <tr>
-              <th className={style["specific-row"]} scope="row">
-                id
-              </th>
-              <td>{_id}</td>
-            </tr>
+          <tbody> 
             <tr>
               <th className={style["specific-row"]} scope="row">
                 Title

@@ -1,18 +1,17 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import style from "./TicketForm.module.css";
 import Input from "../UI/Input";
 import InputDropDown from "../UI/InputDropDown";
 import Button from "./../UI/Button";
 import FileUploadComponent from "./Helper/Upload/FileUploadComponent";
 import RecordAudio from "./Helper/Audio/RecordAudio";
-import $, { get } from "jquery";
+import $ from "jquery";
 import Joi from "joi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../store/Context/AuthContext";
 import "react-h5-audio-player/lib/styles.css";
 import ServerError from "./../UI/ServerError";
-import { base64ToFile } from "./Helper/blob";
 import Mainbg from "../UI/Mainbg";
 import styleAnimate from "../NewHome/Animation.module.css";
 import shape1 from "../../images/Images/shape1.png";
@@ -54,8 +53,7 @@ export default function TicketForm() {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
+    setLoading(true); 
     const ticket = {
       title: subjectInputRef.current.value,
       description: descriptionInputRef.current.value,
@@ -73,7 +71,7 @@ export default function TicketForm() {
     }
 
     setErrorValidation([]);
-    setLoading(false);
+    
 
     loginFormData.append("title", subjectInputRef.current.value);
     loginFormData.append("department", departmentInputRef.current.value);
@@ -102,9 +100,7 @@ export default function TicketForm() {
    loginFormData
     ).catch(err=>{
       setErrorApiResponse(true);
-    })
-    console.log(response.statusText);
-    console.log(response);
+    }) 
     if (response.statusText === "Created") {
       setLoading(false);
       setErrorValidation([]);

@@ -79,8 +79,7 @@ export default function TicketFormMine() {
     setRecorder(audioRecord); 
     setRecordDatabase(audioRecord);
    
-
-    // if(validation.error && !status){
+ 
     if(validation.error){
       setErrorValidation(validation.error.details);
       setLoading(false);
@@ -89,69 +88,28 @@ export default function TicketFormMine() {
     
       setErrorValidation([]);
       setLoading(false);
-
-      let filess = [];
-      files.map((e)=>{
-      // let oneFile = new File (e, { type: 'media/img' });
-      // filess.push(oneFile);
-      })
-
-      // const attachmentFiles = [files ];
-      
-      // attachment
+  
+     
       loginFormData.append("title", subjectInputRef.current.value);
       loginFormData.append("department", departmentInputRef.current.value);
       loginFormData.append("description", descriptionInputRef.current.value);
-      // loginFormData.append("audioRecord", audRecord);
+  
       loginFormData.append("userID", authCtx.id);
-      // loginFormData.set("attachment", files);
-      
-      
-      // loginFormData.append("attachment", JSON.stringify(attachmentFiles));
-      
-      // console.log(loginFormData.get('title'));
-      // console.log(loginFormData.get('department'));
-      // console.log(loginFormData.get('description'));
-      // console.log(loginFormData.get('userID'));
-
-      // files.map((e , i)=>{
-      //   loginFormData.append("attachment", files[i]);
-      // })
-
-      console.log(new File([audioRecord], `audio-${Date.now()}.webm`,{type: audioRecord.type}))
+ 
+ 
       if(record){
         files.push(new File([audioRecord], `audio-${Date.now()}.webm`,{type: audioRecord.type}));
       }
 
-      console.log(audioRecord)
-      console.log(URL.createObjectURL(audioRecord))
+      
       let index = 0;
       for (index = 0; index < files.length; index++) {
         loginFormData.append("attachment", files[index]);
       }
       if(record){
         loginFormData.append("attachment", files[index])
-      }
-      console.log(loginFormData.get('attachment'));
-      // console.log(URL.createObjectURL(loginFormData.get('audioRecord')))
-  
-      
-      // title, description, department, userID, agentID 
-
-      // recordFormData.append('wavfile', audioRecord, "recording.wav");
-
-      //   const config = {
-      //       headers: {'content-type': 'multipart/form-data'}
-      //   }
-      // const path = await axios.post('http://localhost:8080/', recordFormData , config); 
-      // console.log(path)
-
-      // const responce = await axios.post(
-      //   'https://trouble-ticketing-system.herokuapp.com/createTicket' , loginFormData
-      // )
-      // console.log(responce);
-
-      
+      } 
+ 
       const response = await axios.post("https://trouble-ticketing-system.herokuapp.com/createTicket", 
    loginFormData).catch(err=>{
       setErrorApiResponce(true);
@@ -165,16 +123,7 @@ export default function TicketFormMine() {
       setErrorApiResponce(true);  
     }
 
-    //   if (response.message === "success") {
-    //     console.log(response)
-    //     navigate('/HomeUser');
-    //     setErrorValidation([]);
-    //     // setError("");
-    //     setLoading(false);
-    //   } else {
-    //     // setErrorList(data.message);
-    //     setLoading(false);
-    // }
+     
   };
 
   const toggleHandler = (e) => {
@@ -233,8 +182,7 @@ export default function TicketFormMine() {
                 return (
                   <div className="alert alert-danger py-2">{e.message}</div>
                 )
-              })}
-              {/* {error && <div className="alert alert-danger py-2">{error}</div>} */}
+              })} 
               <div className="w-100">
                 <Input
                   type="text"
@@ -307,7 +255,7 @@ export default function TicketFormMine() {
               </div>
 
               <div className="w-100 d-flex justify-content-center">
-                <Button loading={loading} type={"Submit"} />
+                {/* <Button loading={loading} type={"Submit"} /> */}
               </div>
               
             </form>

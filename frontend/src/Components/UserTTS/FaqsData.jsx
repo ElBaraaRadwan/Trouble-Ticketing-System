@@ -35,8 +35,7 @@ const toggleHandler = (e) => {
     let currentIndex = $(e.target).attr("num");
     let id = $(e.target).attr("db-target");
     let parentSection = $(e.target).closest(`#${id}`);
-    let chidlernparagraoh = $(`#${id}`).find('.singpar');
-    console.log(chidlernparagraoh)
+    let chidlernparagraoh = $(`#${id}`).find('.singpar'); 
     let getPargraph = $(e.target).parent().siblings(".singpar");
     // let x = $(".singpar").eq(currentIndex);
     let y = chidlernparagraoh.eq(currentIndex);
@@ -57,9 +56,7 @@ export default function FaqsData() {
 
   const getFaqs = async () => {
     const { data } = await axios.get("https://trouble-ticketing-system.herokuapp.com/getAllFAQs");
-    const dataArr = data.faq;
-    console.log(data)
-
+    const dataArr = data.faq; 
     let tvDep = [];
     let salesDep = [];
     let mobileDep = [];
@@ -72,7 +69,7 @@ export default function FaqsData() {
     dataArr.map((e) => (e.department === "Devices-Air" ? airDep.push(e) : "")); 
     dataArr.map((e) => (e.department === "Tech-Sup" ? techSupDep.push(e) : "")); 
     dataArr.map((e) => (e.department === "Devices-Com" ? comDep.push(e) : "")); 
-    console.log(mobileDep)
+   
     setSales(salesDep);
     setMobiles(mobileDep);
     setTv(tvDep);
