@@ -117,7 +117,14 @@ main {
     font-size: 24px;
     font-weight: 500;
 }
-.NormalLi:hover{
+.NormalLii{
+    color : white;
+    padding: 0 8px;
+    text-decoration: none ;
+    font-size: 24px;
+    font-weight: 500;
+}
+.NormalLi:hover , .NormalLii:hover{
     color : rgb(98, 198, 216);
 }
 

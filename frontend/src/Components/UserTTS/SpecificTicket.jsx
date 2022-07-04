@@ -32,7 +32,7 @@ export default function SpecificTicket(props) {
         setSrcUrl(recordUrl + audioRecord[0].filePath)
       }
     }
-    useEffect(()=>{
+    useEffect(()=>{ 
       showRecord()
     },[audioRecord])
   
@@ -41,15 +41,12 @@ export default function SpecificTicket(props) {
     e.preventDefault();
     const userReply = [];
     let userReplyFoArr = replyRef.current.value;
-    userReply.push(userReplyFoArr);
-
+    userReply.push(userReplyFoArr); 
     const {data} = await axios.patch(`https://trouble-ticketing-system.herokuapp.com/replyTicket/${_id}`, {  reply : userReply}).catch(err=>
     {
-      setErrorServer(true);
-      console.log(err)
+      setErrorServer(true); 
     }
-    )
-    console.log(data)
+    ) 
     if(data){
     setErrorServer(false);
     navigate('/HomeUser');
@@ -59,17 +56,17 @@ export default function SpecificTicket(props) {
     setErrorServer(false);
   }
 
-  const allowdToReply = (e)=>{
-     if(status === 'In-progress'){
+  let allowdToReply = (statusPassed , length)=>{
+  if (statusPassed === "User-Reply" && length> 0){
+      setAllowReply(true);
+     }else{
       setAllowReply(false);
-     } if (status === "User-Reply" && solve.length > 0){
-       setAllowReply(true);
      }
   }
   
-  useEffect(()=>{
-    allowdToReply();
-  },[])
+  useEffect(()=>{ 
+    allowdToReply(status , solve.length);
+  },[solve.length , status])
   return (
     <div
       
@@ -169,7 +166,8 @@ export default function SpecificTicket(props) {
             }
           </tbody>
         </table>
-        {allowReply ?
+        { 
+        allowReply ?
           (<div className="my-2 w-100">
             <form action="">
               <label htmlFor="responce" className="form-label">Write your Responce</label>

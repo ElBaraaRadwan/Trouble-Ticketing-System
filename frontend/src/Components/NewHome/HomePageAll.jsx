@@ -17,7 +17,7 @@ import success from '../../images/Images/success-bg.png'
 import service1 from '../../images/Images/service1.png'
 import service2 from '../../images/Images/service2.png'
 import service3 from '../../images/Images/service3.png'
-
+import { NavLink } from 'react-router-dom';
 import NavbarAll from './NavbarAll';
 import FooterAll from './FooterAll';
 
@@ -36,7 +36,14 @@ const HomePageAll = () => {
                 </div>
                 <div className="d-flex mt-3 justify-content-start">
                   <button className={style["btn-mine"]}>
-                    Sign up
+                  <NavLink 
+             className={(navData) =>
+              navData.isActive ? style.active : style.NormalLii
+            }
+                        to="/Signup"
+                      >
+Sign up
+                      </NavLink>
                   </button>
                 </div>
               </div>
@@ -129,7 +136,10 @@ const HomePageAll = () => {
               </p>
               <div className="d-flex mt-3 justify-content-start">
                 <button className={style["btn-mine"]}>
+                 
+                  <a href="mailto: TTS@system.sys.eg" > 
                   Contact Us
+            </a> 
                 </button>
               </div>
             </div>
@@ -214,8 +224,7 @@ const HomePageAll = () => {
                 FAQs enable you to deal with specific queries that your customers have about your business.
                 They also represent another way to reach out and connect with your
                 target audience. Therefore, it is one of the most important elements of your website strateg
-              </p>
-
+              </p> 
             </div>
           </div>
         </div>
@@ -224,8 +233,15 @@ const HomePageAll = () => {
         <div className={style["call-action-content"]}>
           <h4 className="h2">Have any question about us?</h4>
           <p className="">if you have aby question just sgn up and send a ticket</p>
-          <button className={style["btn-mine"]}>
-            Sign up
+          <button className={style["btn-mine"]}> 
+            <NavLink 
+             className={(navData) =>
+              navData.isActive ? style.active : style.NormalLii
+            }
+                        to="/Signup"
+                      >
+Sign up
+                      </NavLink>
           </button>
         </div>
       </section>

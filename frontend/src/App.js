@@ -24,6 +24,7 @@ import Navbar from './Components/Home/Navbar';
 import DashboardOH from "./Components/officeHeader/DashboardOH";
 import Chart from "./Components/Admin/Chart/Chart";
 import Chart2 from "./Components/Admin/Chart2/Chart2";
+import NotFound from "./Components/Redirect/NotFound";
 
 
 
@@ -50,6 +51,7 @@ function App() {
               <Route path="/AssignTicket" element={<AssignTicket />} />
               <Route path="/Chart" element={<Chart />} />
               <Route path="/Chart2" element={<Chart2 />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </React.Fragment>
 
@@ -65,6 +67,7 @@ function App() {
             <Route path="/" element={<Faqs />} />
             <Route path="/report" element={<Reports />} />
             <Route path="/tickets" element={<Article />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         ) : ''
       }
@@ -79,6 +82,7 @@ function App() {
             <Route path="/HomeUser" element={<TtsHome />} />
             <Route path="/myTickets" element={<MyTicket />} />
             <Route path="/submit_ticket" element={<TicketForm />} />
+            <Route path="*" element={<NotFound />} />
 
           </Routes>
 
@@ -92,6 +96,7 @@ function App() {
           <NavbarAll />
           <Routes>
             <Route path="/officeHeaderHome/*" element={<DashboardOH />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           </>
         ) : ''
@@ -106,6 +111,7 @@ function App() {
                 <Route path="/Home" element={<HomePageAll />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </React.Fragment>
           ) : ' '
